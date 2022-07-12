@@ -1,9 +1,22 @@
 package com.telecom.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ACTIVEPLAN")
 public class ActivePlan {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column
 	private int userId;
+	@Column
 	private int planId;
 	
 	public ActivePlan() { }

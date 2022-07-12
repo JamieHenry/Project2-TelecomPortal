@@ -1,9 +1,19 @@
 package com.telecom.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ACTIVENUMBER")
 public class ActiveNumber {
 
+	@Id
 	private String phoneNumber;
+	@Column
 	private int userId;
+	@Column
 	private int deviceId;
 	
 	public ActiveNumber() { }
