@@ -1,0 +1,27 @@
+form {
+    padding: 24px;
+    margin-bottom: 24px;
+    background-color: lightgray;
+}
+
+div {
+    margin-bottom: 12px;
+}
+
+div input {
+    height: 20px;
+}
+
+.submitButton {
+    padding: 10px;
+    background-color: darkgray;
+    border-radius: 6px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color .2s;
+}
+
+.submitButton:hover {
+    background-color: slategray;
+}

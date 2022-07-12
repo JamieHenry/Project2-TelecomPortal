@@ -1,0 +1,32 @@
+select {
+    display: inline;
+    height: 24px;
+    font-size: 14px;
+    margin-left: 42px;
+    vertical-align: middle;
+}
+
+table {
+    background-color: lightgray;
+    margin-top: 24px;
+    padding: 8px 20px;
+    text-align: left;
+    border-radius: 10px;
+}
+
+th, td {
+    padding: 12px 0px;
+}
+
+th:first-of-type {
+    width: 500px;
+}
+
+td {
+    border-top: 1px solid gray;
+}
+
+#total {
+    font-weight: bold;
+    font-style: italic;
+}

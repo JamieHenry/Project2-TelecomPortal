@@ -1,0 +1,23 @@
+section {
+    display: inline-block;
+    width: 400px;
+    background-color: lightgray;
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid darkgray;
+    margin: 18px 18px 48px 0px;
+}
+
+img {
+    float: right;
+    width: 90px;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+li {
+    margin-left: 20px;
+}
