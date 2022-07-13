@@ -8,4 +8,5 @@ import com.telecom.beans.Device;
 @Repository
 public interface DeviceRepository extends JpaRepository<Device, Integer> {
 
+	Device findByModel(String model);
 }
