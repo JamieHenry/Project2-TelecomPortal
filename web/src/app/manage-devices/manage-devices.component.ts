@@ -12,4 +12,28 @@ export class ManageDevicesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  add(): void {
+    
+  }
+
+  otherMake: boolean = false;
+
+  selectOtherMake(optionValue: string): void {
+    if (optionValue == "Other") {
+      this.otherMake = true;
+    } else {
+      this.otherMake = false;
+    }
+  }
+
+  otherModel: boolean = false;
+
+  selectOtherModel(optionValue: string): void {
+    if (optionValue == "Other") {
+      this.otherModel = true;
+    } else {
+      this.otherModel = false;
+    }
+  }
+
 }

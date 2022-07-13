@@ -5,3 +5,64 @@
 <h2>Available Devices</h2>
 <app-device></app-device>
 <app-device></app-device>
+<h2>Add Device</h2>
+
+<form id="addDevice" (ngSubmit)="add(); addDevice.reset();" #addDevice>
+    <div>
+        <label for="make">Make: </label>
+        <select name="make" id="make" (change)="selectOtherMake(make.value)" #make>
+            <option value="" selected>Select Make...</option>
+            <option value="Apple">Apple</option>
+            <option value="RIM">RIM</option>
+            <option value="Samsung">Samsung</option>
+            <option value="Other">Other...</option>
+        </select>
+        <label for="otherMake" *ngIf="this.otherMake">Other: </label>
+        <input name="otherMake"  *ngIf="this.otherMake" type="text" maxlength="50" />
+    </div>
+    <div>
+        <label for="model">Model: </label>
+        <select name="model" (change)="selectOtherModel(model.value)" #model>
+            <option value="">Select Model...</option>
+            <option value="Apple">iPhone 13 Pro Max</option>
+            <option value="RIM">Blackberry Z30</option>
+            <option value="Samsung">Galaxy 7</option>
+            <option value="Other">Other...</option>
+        </select>
+        <label for="otherModel" *ngIf="this.otherModel">Model: </label>
+        <input name="otherModel" *ngIf="this.otherModel" type="text" maxlength="50" />
+    </div>
+    <div>
+        <label for="phoneNumber">Phone Number: </label>
+        <input name="phoneNumber" type="text" maxlength="20" />
+    </div>
+    <input class="submitButton" type="submit" value="Add Device"/>
+</form>
+
+<!-- <form id="new-owner" (ngSubmit)="create(); ownerForm.reset()" #ownerForm>
+    <div class="form-group">
+        <label for="Name" class="control-label">Name</label>
+        <input [(ngModel)]="newOwner.name" class="form-control" name="Name" id="Name" type="text" required maxlength="50" #Name="ngModel" />
+        <div class="alert" *ngIf="Name.invalid && (Name.dirty || Name.touched)">
+            <div *ngIf="Name.errors?.['required']">Name is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="FavCol" class="control-label">Favorite Color</label>
+        <input [(ngModel)]="newOwner.favoriteColor" class="form-control" name="FavCol" id="FavCol" type="text" maxlength="45" #FavCol="ngModel" />
+    </div>
+    <div class="form-group">
+        <label for="FavFood" class="control-label">Favorite Food</label>
+        <input [(ngModel)]="newOwner.favoriteFood" class="form-control" name="FavFood" id="FavFood" type="text" maxlength="50" #FavFood="ngModel" />
+    </div>
+    <div class="form-group">
+        <label for="Age" class="control-label">Age</label>
+        <input [(ngModel)]="newOwner.age" class="form-control" name="Age" id="Age" type="number" step="1" min="0" #Age="ngModel" />
+        <div class="alert" *ngIf="Age.invalid && (Age.dirty || Age.touched)">
+            Age must be above 0
+        </div>
+    </div>
+    <div style="margin-top: 5px;">
+        <input class="btn btn-success submit-button" type="submit" value="Save"/>
+    </div>
+</form> -->
