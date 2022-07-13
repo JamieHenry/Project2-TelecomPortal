@@ -22,7 +22,15 @@ public class UserService {
 		return repository.findByEmailAndPassword(email, password);
 	}
 	
+	public User findById(int id) {
+		return repository.getReferenceById(id);
+	}
+	
 	public List<User> findAll() {
 		return repository.findAll();
+	}
+	
+	public void delete(User user) {
+		repository.delete(user);
 	}
 }
