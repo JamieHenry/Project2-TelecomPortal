@@ -8,7 +8,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http'
 })
 export class FeeService {
 
-  url: string = 'http://localhost:8080/backend/api/fee';
+  url: string = 'http://localhost:8080/api/fee';
 
   constructor(private http: HttpClient) { }
 

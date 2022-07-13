@@ -8,7 +8,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http'
 })
 export class DescriptorService {
 
-  url: string = 'http://localhost:8080/backend/api/descriptor';
+  url: string = 'http://localhost:8080/api/descriptor';
 
   constructor(private http: HttpClient) { }
 

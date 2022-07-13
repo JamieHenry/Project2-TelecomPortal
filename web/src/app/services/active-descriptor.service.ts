@@ -8,7 +8,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http'
 })
 export class ActiveDescriptorService {
 
-  url: string = 'http://localhost:8080/backend/api/activedescriptor';
+  url: string = 'http://localhost:8080/api/activedescriptor';
 
   constructor(private http: HttpClient) { }
 

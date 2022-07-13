@@ -8,7 +8,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http'
 })
 export class DeviceService {
 
-  url: string = 'http://localhost:8080/backend/api/device';
+  url: string = 'http://localhost:8080/api/device';
 
   constructor(private http: HttpClient) { }
 
