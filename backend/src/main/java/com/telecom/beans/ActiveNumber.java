@@ -6,7 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ACTIVENUMBER")
 public class ActiveNumber {
 
 	@Id
@@ -15,14 +14,17 @@ public class ActiveNumber {
 	private int userId;
 	@Column
 	private int deviceId;
+	@Column
+	private int planId;
 	
 	public ActiveNumber() { }
 
-	public ActiveNumber(String phoneNumber, int userId, int deviceId) {
+	public ActiveNumber(String phoneNumber, int userId, int deviceId, int planId) {
 		super();
 		this.phoneNumber = phoneNumber;
 		this.userId = userId;
 		this.deviceId = deviceId;
+		this.planId = planId;
 	}
 
 	public String getPhoneNumber() {
@@ -48,9 +50,18 @@ public class ActiveNumber {
 	public void setDeviceId(int deviceId) {
 		this.deviceId = deviceId;
 	}
+	
+	public int getPlanId() {
+		return planId;
+	}
+
+	public void setPlanId(int planId) {
+		this.planId = planId;
+	}
 
 	@Override
 	public String toString() {
-		return "ActiveNumber [phoneNumber=" + phoneNumber + ", userId=" + userId + ", deviceId=" + deviceId + "]";
+		return "ActiveNumber [phoneNumber=" + phoneNumber + ", userId=" + userId + ", deviceId=" + deviceId
+				+ ", planId=" + planId + "]";
 	}
 }
