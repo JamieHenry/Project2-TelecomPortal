@@ -4,15 +4,6 @@ form {
     background-color: lightgray;
 }
 
-select {
-    display: inline;
-    height: 24px;
-    width: 200px;
-    font-size: 14px;
-    margin-right: 24px;
-    vertical-align: middle;
-}
-
 div {
     margin-bottom: 12px;
 }

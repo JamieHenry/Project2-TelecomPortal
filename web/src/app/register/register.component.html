@@ -1,0 +1,53 @@
+<h1>Register</h1>
+<h2>Enter your registration info below:</h2>
+<form id="register" (ngSubmit)="register(); registerForm.reset();" #registerForm>
+    <div>
+        <label for="firstName">First Name: </label>
+        <input name="firstName" type="text" maxlength="30" />
+    </div>
+    <div>
+        <label for="lastName">Last Name: </label>
+        <input name="lastName" type="text" maxlength="30" />
+    </div>
+    <div>
+        <label for="email">E-Mail Address: </label>
+        <input name="email" type="email" maxlength="30" />
+    </div>
+    <div>
+        <label for="password">Password: </label>
+        <input name="password" type="password" maxlength="30" />
+    </div>
+    <div>
+        <label for="confirmPassword">Confirm Password: </label>
+        <input name="confirmPassword" type="password" maxlength="30" />
+    </div>
+    <input class="submitButton" type="submit" value="Register"/>
+</form>
+
+<!-- <form id="new-owner" (ngSubmit)="create(); ownerForm.reset()" #ownerForm>
+    <div class="form-group">
+        <label for="Name" class="control-label">Name</label>
+        <input [(ngModel)]="newOwner.name" class="form-control" name="Name" id="Name" type="text" required maxlength="50" #Name="ngModel" />
+        <div class="alert" *ngIf="Name.invalid && (Name.dirty || Name.touched)">
+            <div *ngIf="Name.errors?.['required']">Name is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="FavCol" class="control-label">Favorite Color</label>
+        <input [(ngModel)]="newOwner.favoriteColor" class="form-control" name="FavCol" id="FavCol" type="text" maxlength="45" #FavCol="ngModel" />
+    </div>
+    <div class="form-group">
+        <label for="FavFood" class="control-label">Favorite Food</label>
+        <input [(ngModel)]="newOwner.favoriteFood" class="form-control" name="FavFood" id="FavFood" type="text" maxlength="50" #FavFood="ngModel" />
+    </div>
+    <div class="form-group">
+        <label for="Age" class="control-label">Age</label>
+        <input [(ngModel)]="newOwner.age" class="form-control" name="Age" id="Age" type="number" step="1" min="0" #Age="ngModel" />
+        <div class="alert" *ngIf="Age.invalid && (Age.dirty || Age.touched)">
+            Age must be above 0
+        </div>
+    </div>
+    <div style="margin-top: 5px;">
+        <input class="btn btn-success submit-button" type="submit" value="Save"/>
+    </div>
+</form> -->
