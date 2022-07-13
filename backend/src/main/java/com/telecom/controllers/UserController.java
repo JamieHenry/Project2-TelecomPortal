@@ -1,6 +1,5 @@
 package com.telecom.controllers;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class UserController {
 	
 	@PostMapping("/api/user")
 	public ResponseEntity<User> save(@RequestBody User user) {
+		// hash password and set
 		byte[] hash;
 		pbeKeySpec = new PBEKeySpec(user.getPassword().toCharArray(), user.getEmail().getBytes(), 10, 512);
 		try {
@@ -42,10 +42,8 @@ public class UserController {
 		}
 		// if login, first/last name will be null
 		if (user.getFirstName() == null) {
-			System.out.println("Login");
 			return new ResponseEntity<>(service.login(user.getEmail(), user.getPassword()), HttpStatus.OK);
 		} else {
-			System.out.println("Register");
 			return new ResponseEntity<>(service.register(user), HttpStatus.CREATED);
 		}
 	}
