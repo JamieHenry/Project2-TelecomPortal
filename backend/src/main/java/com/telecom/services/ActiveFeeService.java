@@ -1,6 +1,7 @@
 package com.telecom.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,15 @@ public class ActiveFeeService {
 		return repository.findByPlanId(planId);
 	}
 	
-	public ActiveFee findById(int id) {
-		return repository.getReferenceById(id);
+	public Optional<ActiveFee> findById(int id) {
+		return repository.findById(id);
 	}
 	
 	public List<ActiveFee> findAll() {
 		return repository.findAll();
 	}
 	
-	public void delete(ActiveFee activeFee) {
-		repository.delete(activeFee);
+	public void deleteById(int id) {
+		repository.deleteById(id);
 	}
 }
