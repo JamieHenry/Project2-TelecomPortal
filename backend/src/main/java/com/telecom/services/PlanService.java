@@ -23,7 +23,7 @@ public class PlanService {
 		return repository.findById(id);
 	}
 	
-	public List<Plan> findAll(Plan plan) {
+	public List<Plan> findAll() {
 		return repository.findAll();
 	}
 	

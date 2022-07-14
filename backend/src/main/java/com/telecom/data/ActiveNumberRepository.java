@@ -1,6 +1,7 @@
 package com.telecom.data;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,6 @@ public interface ActiveNumberRepository extends JpaRepository<ActiveNumber, Inte
 	List<ActiveNumber> findByUserId(int userId);
 
 	List<ActiveNumber> findByPlanId(int planId);
+
+    Optional<ActiveNumber> findByPhoneNumber(String phoneNumber);
 }

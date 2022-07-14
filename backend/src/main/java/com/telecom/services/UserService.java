@@ -19,7 +19,7 @@ public class UserService {
 		return repository.save(user);
 	}
 	
-	public User login(String email, String password) {
+	public Optional<User> login(String email, String password) {
 		return repository.findByEmailAndPassword(email, password);
 	}
 	
