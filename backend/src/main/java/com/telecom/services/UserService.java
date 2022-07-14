@@ -1,6 +1,7 @@
 package com.telecom.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,15 @@ public class UserService {
 		return repository.findByEmailAndPassword(email, password);
 	}
 	
-	public User findById(int id) {
-		return repository.getReferenceById(id);
+	public Optional<User> findById(int id) {
+		return repository.findById(id);
 	}
 	
 	public List<User> findAll() {
 		return repository.findAll();
 	}
 	
-	public void delete(User user) {
-		repository.delete(user);
+	public void deleteById(int id) {
+		repository.deleteById(id);
 	}
 }

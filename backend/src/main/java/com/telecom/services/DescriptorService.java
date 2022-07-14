@@ -1,6 +1,7 @@
 package com.telecom.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +19,15 @@ public class DescriptorService {
 		return repository.save(descriptor);
 	}
 	
-	public Descriptor findById(int id) {
-		return repository.getReferenceById(id);
+	public Optional<Descriptor> findById(int id) {
+		return repository.findById(id);
 	}
 	
 	public List<Descriptor> findAll() {
 		return repository.findAll();
 	}
 	
-	public void delete(Descriptor descriptor) {
-		repository.delete(descriptor);
+	public void deleteById(int id) {
+		repository.deleteById(id);
 	}
 }
