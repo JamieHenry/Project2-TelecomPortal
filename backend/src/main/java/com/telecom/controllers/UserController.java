@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.telecom.beans.User;
@@ -23,6 +25,7 @@ import com.telecom.services.UserService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/user")
 public class UserController {
 
 	@Autowired
@@ -46,27 +49,33 @@ public class UserController {
 
 		return hashedPassword;
 	}
+
+	@GetMapping("/id/{id}")
+	public ResponseEntity<Optional<User>> findById(@PathVariable(value="id") int id) {
+		return new ResponseEntity<Optional<User>>(service.findById(id), HttpStatus.OK);
+	}
+
+	@GetMapping("/")
+	public ResponseEntity<List<User>> findAll() {
+		return new ResponseEntity<List<User>>(service.findAll(), HttpStatus.OK);
+	}
 	
-	@PostMapping("/api/user/login")
-	public ResponseEntity<User> login(@RequestBody Map<String, String> body) {
+	@PostMapping("/login")
+	public ResponseEntity<Optional<User>> login(@RequestBody Map<String, String> body) {
 		body.replace("password", hashPassword(body.get("email"), body.get("password")));
-		return new ResponseEntity<>(service.login(body.get("email"), body.get("password")), HttpStatus.OK);
+		return new ResponseEntity<Optional<User>>(service.login(body.get("email"), body.get("password")), HttpStatus.OK);
 		
 	}
 
-	@PostMapping("/api/user/register")
+	@PostMapping("/register")
 	public ResponseEntity<User> register(@RequestBody User user) {
 		user.setPassword(hashPassword(user.getEmail(), user.getPassword()));
 		return new ResponseEntity<>(service.register(user), HttpStatus.CREATED);
 	}
 
-	@GetMapping("/api/user/{id}")
-	public ResponseEntity<Optional<User>> findById(@PathVariable(value="id") int id) {
-		return new ResponseEntity<Optional<User>>(service.findById(id), HttpStatus.OK);
-	}
-
-	@GetMapping("/api/user")
-	public ResponseEntity<List<User>> findAll() {
-		return new ResponseEntity<List<User>>(service.findAll(), HttpStatus.OK);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteById(@PathVariable(value="id") int id) {
+		service.deleteById(id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

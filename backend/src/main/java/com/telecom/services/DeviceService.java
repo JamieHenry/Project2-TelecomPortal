@@ -19,7 +19,7 @@ public class DeviceService {
 		return repository.save(device);
 	}
 	
-	public Device findByModel(String model) {
+	public Optional<Device> findByModel(String model) {
 		return repository.findByModel(model);
 	}
 	
