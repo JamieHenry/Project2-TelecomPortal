@@ -1,5 +1,6 @@
 form {
     padding: 24px;
+    margin-right: 60px;
     margin-bottom: 24px;
     background-color: lightgray;
 }
@@ -24,4 +25,19 @@ div input {
 
 .submitButton:hover {
     background-color: slategray;
+}
+
+p {
+    font-style: italic;
+}
+
+p a {
+    font-weight: bold;
+    text-decoration: none;
+    color: slategray;
+    transition: color .2s;
+}
+
+p a:hover {
+    color: slateblue;
 }

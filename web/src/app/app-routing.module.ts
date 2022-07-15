@@ -6,7 +6,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ManageDevicesComponent } from './manage-devices/manage-devices.component';
 import { ManagePlansComponent } from './manage-plans/manage-plans.component';
-import { ViewBillComponent } from './view-bill/view-bill.component';
 
 const routes: Routes = [
   {
@@ -26,9 +25,6 @@ const routes: Routes = [
   },
   {
     path: 'manageDevices', component: ManageDevicesComponent
-  },
-  {
-    path: 'viewBill', component: ViewBillComponent
   },
 ];
 

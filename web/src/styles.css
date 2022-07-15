@@ -6,11 +6,12 @@
 }
 
 main {
-    padding: 30px 120px;
+    padding: 0px 0px 30px 60px;
 }
 
 h1 {
     color: rgb(68, 78, 87);
+    padding-top: 30px;
     margin-bottom: 1em;
 }
 

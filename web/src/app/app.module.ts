@@ -16,6 +16,9 @@ import { PlanComponent } from './plan/plan.component';
 import { DeviceComponent } from './device/device.component';
 import { CurrentPlanComponent } from './current-plan/current-plan.component';
 import { AvailablePlanComponent } from './available-plan/available-plan.component';
+import { AvailableDeviceComponent } from './available-device/available-device.component';
+import { CurrentDeviceComponent } from './current-device/current-device.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { AvailablePlanComponent } from './available-plan/available-plan.componen
     PlanComponent,
     DeviceComponent,
     CurrentPlanComponent,
-    AvailablePlanComponent
+    AvailablePlanComponent,
+    AvailableDeviceComponent,
+    CurrentDeviceComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
