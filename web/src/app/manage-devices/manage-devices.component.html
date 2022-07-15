@@ -1,42 +1,62 @@
+<app-sidebar></app-sidebar>
 <h1>Manage Devices</h1>
 <h2>Current Devices</h2>
-<app-device></app-device>
-<app-device></app-device>
+<app-current-device></app-current-device>
+<app-current-device></app-current-device>
 <h2>Available Devices</h2>
-<app-device></app-device>
-<app-device></app-device>
-<h2>Add Device</h2>
+<app-available-device></app-available-device>
+<app-available-device></app-available-device>
+<h2>Add New Device</h2>
 
-<form id="addDevice" (ngSubmit)="add(); addDevice.reset();" #addDevice>
+<form id="addNewDevice" (ngSubmit)="add(); addNewDevice.reset();" #addNewDevice>
     <div>
         <label for="make">Make: </label>
-        <select name="make" id="make" (change)="selectOtherMake(make.value)" #make>
+        <select name="make" id="make" (change)="selectMake(make.value)" #make>
             <option value="" selected>Select Make...</option>
             <option value="Apple">Apple</option>
             <option value="RIM">RIM</option>
             <option value="Samsung">Samsung</option>
             <option value="Other">Other...</option>
         </select>
-        <label for="otherMake" *ngIf="this.otherMake">Other: </label>
-        <input name="otherMake"  *ngIf="this.otherMake" type="text" maxlength="50" />
+        <label for="makeOther" *ngIf="this.makeOther">Other Make: </label>
+        <input name="makeOther"  *ngIf="this.makeOther" type="text" maxlength="50" />
     </div>
     <div>
         <label for="model">Model: </label>
-        <select name="model" (change)="selectOtherModel(model.value)" #model>
+        <select name="model" *ngIf="this.makeDefault" (change)="selectModel(model.value)" #model>
             <option value="">Select Model...</option>
-            <option value="Apple">iPhone 13 Pro Max</option>
-            <option value="RIM">Blackberry Z30</option>
-            <option value="Samsung">Galaxy 7</option>
+        </select>
+        <select name="model" *ngIf="this.makeApple" (change)="selectModel(model.value)" #model>
+            <option value="">Select Model...</option>
+            <option value="iPhone11">iPhone 11</option>
+            <option value="iPhone12">iPhone12</option>
+            <option value="iPhone13ProMax">iPhone 13 Pro Max</option>
+            <option value="iPhoneSE">iPhone SE</option>
             <option value="Other">Other...</option>
         </select>
-        <label for="otherModel" *ngIf="this.otherModel">Model: </label>
-        <input name="otherModel" *ngIf="this.otherModel" type="text" maxlength="50" />
+        <select name="model" *ngIf="this.makeRIM" (change)="selectModel(model.value)" #model>
+            <option value="">Select Model...</option>
+            <option value="BlackBerry5G">Blackberry 5G</option>
+            <option value="BlackBerryKey2">Blackberry Key2</option>
+            <option value="BlackBerryKeyOne">Blackberry KeyOne</option>
+            <option value="BlackBerryPriv">Blackberry Priv</option>
+            <option value="Other">Other...</option>
+        </select>
+        <select name="model" *ngIf="this.makeSamsung" (change)="selectModel(model.value)" #model>
+            <option value="">Select Model...</option>
+            <option value="GalaxyA">Galaxy A</option>
+            <option value="GalaxyNote">Galaxy Note</option>
+            <option value="GalaxyS">Galaxy S</option>
+            <option value="GalaxyZ">Galaxy Z</option>
+            <option value="Other">Other...</option>
+        </select>
+        <select name="model" *ngIf="this.makeOther" (change)="selectModel(model.value)" #model>
+            <option value="">Other...</option>
+        </select>
+        <label for="modelOther" *ngIf="this.modelOther||this.makeOther">Other Model: </label>
+        <input name="modelOther" *ngIf="this.modelOther||this.makeOther" type="text" maxlength="50" />
     </div>
-    <div>
-        <label for="phoneNumber">Phone Number: </label>
-        <input name="phoneNumber" type="text" maxlength="20" />
-    </div>
-    <input class="submitButton" type="submit" value="Add Device"/>
+    <input class="submitButton" type="submit" value="Add New Device"/>
 </form>
 
 <!-- <form id="new-owner" (ngSubmit)="create(); ownerForm.reset()" #ownerForm>

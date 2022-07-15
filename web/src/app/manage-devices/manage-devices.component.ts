@@ -16,23 +16,28 @@ export class ManageDevicesComponent implements OnInit {
     
   }
 
-  otherMake: boolean = false;
+  makeDefault: boolean = true;
+  makeApple: boolean = false;
+  makeRIM: boolean = false;
+  makeSamsung: boolean = false;
+  makeOther: boolean = false;
+  modelOther: boolean = false;
 
-  selectOtherMake(optionValue: string): void {
-    if (optionValue == "Other") {
-      this.otherMake = true;
-    } else {
-      this.otherMake = false;
-    }
+  selectMake(makeValue: string): void {
+
+    this.makeDefault = makeValue == "" ? true : false;
+    this.makeApple = makeValue == "Apple" ? true : false;
+    this.makeRIM = makeValue == "RIM" ? true : false;
+    this.makeSamsung = makeValue == "Samsung" ? true : false;
+    this.makeOther = makeValue == "Other" ? true : false;
+    this.modelOther = makeValue == "Other" ? true : false;
   }
 
-  otherModel: boolean = false;
-
-  selectOtherModel(optionValue: string): void {
+  selectModel(optionValue: string): void {
     if (optionValue == "Other") {
-      this.otherModel = true;
+      this.modelOther = true;
     } else {
-      this.otherModel = false;
+      this.modelOther = false;
     }
   }
 

@@ -1,0 +1,46 @@
+aside {
+    float: right;
+    width: 220px;
+    height: 100vh;
+    background-color: rgb(191, 189, 210);
+    padding: 12px;
+    border-left: 1px solid darkslategray;
+}
+
+h3 {
+    font-size: 20px;
+    color: darkslategray;
+    margin-bottom: 12px;
+}
+
+select {
+    height: 24px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+table {
+    background-color: lightgray;
+    margin-top: 24px;
+    padding: 0px 8px;
+    font-size: 13px;
+    text-align: left;
+    border-radius: 6px;
+}
+
+th, td {
+    padding: 12px 0px;
+}
+
+th:first-of-type {
+    width: 500px;
+}
+
+td {
+    border-top: 1px solid gray;
+}
+
+#total {
+    font-weight: bold;
+    font-style: italic;
+}

@@ -1,7 +1,7 @@
 section {
     display: inline-block;
     width: 400px;
-    background-color: lightgray;
+    background-color: lightsteelblue;
     border-radius: 10px;
     padding: 16px;
     border: 1px solid darkgray;
@@ -10,7 +10,7 @@ section {
 
 img {
     float: right;
-    width: 134px;
+    width: 100px;
 }
 
 h3 {
@@ -34,12 +34,14 @@ button {
     padding: 6px 10px;
     background-color: darkgray;
     border-radius: 6px;
-    color: white;
+    color: darkslategray;
     font-size: 12px;
     font-weight: bold;
     transition: background-color .2s;
+    transition: color .2s;
 }
 
 button:hover {
     background-color: slategray;
+    color: white;
 }
