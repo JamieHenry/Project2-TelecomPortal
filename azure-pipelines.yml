@@ -1,0 +1,10 @@
+trigger:
+- '*'
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: gitmirror@0
+  inputs:
+    GitRepoUrl: 'https://jzrch73vrvmsyyjwwxyouedixmzbyyo25g4efskktenpcpddzgfa@dev.azure.com/jhenry0421/Project2-TelecomPortal/_git/Project2-TelecomPortal.git'
