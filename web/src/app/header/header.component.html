@@ -1,1 +1,11 @@
-<header>Jamie's & Jon's Telecom Portal</header>
+<header>
+    <aside *ngIf="!this.signedIn">
+        <p>Welcome to JamVan!</p>
+        <span>• • • <a [routerLink]="['/login']">Sign In</a></span>
+    </aside>
+    <aside *ngIf="this.signedIn">
+        <p>Welcome back, {{this.username}}!</p>
+        <span>• • <a [routerLink]="['/dashboard']">My Account</a> • • <a [routerLink]="['/']">Log Out</a></span>
+    </aside>
+    <a [routerLink]="['/']"><img src="../../assets/images/jamvan-wireless.png" alt="JamVan Wireless Logo"></a>
+</header>
