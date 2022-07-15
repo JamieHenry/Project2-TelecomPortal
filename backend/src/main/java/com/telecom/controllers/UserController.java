@@ -50,6 +50,11 @@ public class UserController {
 		return hashedPassword;
 	}
 
+	@GetMapping("/email/{email}")
+	public ResponseEntity<Optional<User>> findByEmail(@PathVariable(value="email") String email) {
+		return new ResponseEntity<Optional<User>>(service.findByEmail(email), HttpStatus.OK);
+	}
+
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Optional<User>> findById(@PathVariable(value="id") int id) {
 		return new ResponseEntity<Optional<User>>(service.findById(id), HttpStatus.OK);

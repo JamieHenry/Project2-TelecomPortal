@@ -16,6 +16,10 @@ export class UserService {
     return this.http.get<User[]>(this.url, { observe: 'response' });
   }
 
+  findByEmail(email: string): Observable<HttpResponse<User>> {
+    return this.http.get<User>(this.url + `email/${email}`, { observe: 'response' });
+  }
+
   findById(id: number): Observable<HttpResponse<User>> {
     return this.http.get<User>(this.url + `id/${id}`, { observe: 'response' });
   }
