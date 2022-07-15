@@ -7,4 +7,4 @@ pool:
 steps:
 - task: gitmirror@0
   inputs:
-    GitRepoUrl: 'https://jzrch73vrvmsyyjwwxyouedixmzbyyo25g4efskktenpcpddzgfa@dev.azure.com/jhenry0421/Project2-TelecomPortal/_git/Project2-TelecomPortal.git'
+    GitRepoUrl: 'https://git@dev.azure.com/jhenry0421/Project2-TelecomPortal/_git/Project2-TelecomPortal.git'
