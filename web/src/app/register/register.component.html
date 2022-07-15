@@ -1,27 +1,59 @@
 <h1>Register</h1>
 <h2>Enter your registration info below:</h2>
-<form id="register" (ngSubmit)="register(); registerForm.reset();" #registerForm>
+<form id="register" [formGroup]="newUserForm" (ngSubmit)="register()">
     <div>
         <label for="firstName">First Name: </label>
-        <input name="firstName" type="text" maxlength="30" />
+        <input id="firstName" name="firstName" type="text" formControlName="firstName" maxlength="30" />
+        <div *ngIf="newUserForm.controls['firstName'] != null && !newUserForm.controls['firstName'].valid && (newUserForm.controls['firstName'].dirty || newUserForm.controls['firstName'].touched)">
+            <div style="color: red;" [hidden]="!newUserForm.controls['firstName'].errors?.['required']">
+                Required
+            </div>
+        </div>
     </div>
     <div>
         <label for="lastName">Last Name: </label>
-        <input name="lastName" type="text" maxlength="30" />
+        <input name="lastName" type="text" formControlName="lastName" maxlength="30" />
+        <div *ngIf="newUserForm.controls['lastName'] != null && !newUserForm.controls['lastName'].valid && (newUserForm.controls['lastName'].dirty || newUserForm.controls['lastName'].touched)">
+            <div style="color: red;" [hidden]="!newUserForm.controls['lastName'].errors?.['required']">
+                Required
+            </div>
+        </div>
     </div>
     <div>
         <label for="email">E-Mail Address: </label>
-        <input name="email" type="email" maxlength="30" />
+        <input name="email" type="email" formControlName="email" maxlength="30" />
+        <div *ngIf="newUserForm.controls['email'] != null && !newUserForm.controls['email'].valid && (newUserForm.controls['email'].dirty || newUserForm.controls['email'].touched)">
+            <div style="color: red;" [hidden]="!newUserForm.controls['email'].errors?.['required']">
+                Required
+            </div>
+            <div style="color: red;" [hidden]="!newUserForm.controls['email'].errors?.['invalidEmail']">
+                Invalid Email
+            </div>
+        </div>
     </div>
     <div>
         <label for="password">Password: </label>
-        <input name="password" type="password" maxlength="30" />
+        <input name="password" type="password" formControlName="password" maxlength="30" />
+        <div *ngIf="newUserForm.controls['password'] != null && !newUserForm.controls['password'].valid && (newUserForm.controls['password'].dirty || newUserForm.controls['password'].touched)">
+            <div style="color: red;" [hidden]="!newUserForm.controls['password'].errors?.['required']">
+                Required
+            </div>
+            <div style="color: red;" [hidden]="!newUserForm.controls['password'].errors?.['minlength']">
+                Password must contain atleast 6 characters
+            </div>
+        </div>
     </div>
     <div>
         <label for="confirmPassword">Confirm Password: </label>
-        <input name="confirmPassword" type="password" maxlength="30" />
+        <input name="confirmPassword" type="password" formControlName="confirmPassword" maxlength="30" />
+        <div style="color: red;" [hidden]="!newUserForm.errors?.['notSame']">
+            Passwords must match
+        </div>
     </div>
-    <input class="submitButton" type="submit" value="Register"/>
+    <input class="submitButton" [disabled]="!newUserForm.valid" type="submit"  value="Register"/>
+    <div [hidden]="error === ''" style="color: red;">
+        {{ error }}
+    </div>
 </form>
 <p>Already have an account? <a [routerLink]="['/login']">Click here to log in!</a></p>
 

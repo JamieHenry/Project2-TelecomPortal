@@ -22,6 +22,10 @@ public class UserService {
 	public Optional<User> login(String email, String password) {
 		return repository.findByEmailAndPassword(email, password);
 	}
+
+	public Optional<User> findByEmail(String email) {
+		return repository.findByEmail(email);
+	}
 	
 	public Optional<User> findById(int id) {
 		return repository.findById(id);

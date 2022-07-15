@@ -19,6 +19,8 @@ import { AvailablePlanComponent } from './available-plan/available-plan.componen
 import { AvailableDeviceComponent } from './available-device/available-device.component';
 import { CurrentDeviceComponent } from './current-device/current-device.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
