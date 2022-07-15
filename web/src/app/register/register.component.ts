@@ -52,9 +52,7 @@ export class RegisterComponent implements OnInit {
     console.log(userResponse.body);
 
     let route = this.router.config.find(r => r.path === 'login');
-    if (route) {
-      this.router.navigateByUrl('/login');
-    }
+    if (route) this.router.navigateByUrl('/login');
   }
 
   get firstName() {

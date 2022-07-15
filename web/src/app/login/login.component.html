@@ -1,15 +1,28 @@
 <h1>Log In</h1>
 <h2>Enter your login information below:</h2>
-<form id="login" (ngSubmit)="login(); loginForm.reset();" #loginForm>
+<form id="login" [formGroup]="loginForm" (ngSubmit)="login()">
     <div>
         <label for="email">E-Mail Address: </label>
-        <input name="email" type="email" maxlength="30" />
+        <input name="email" type="email" formControlName="email" maxlength="30" />
+        <div *ngIf="loginForm.controls['email'] != null && !loginForm.controls['email'].valid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+            <div style="color: red;" [hidden]="!loginForm.controls['email'].errors?.['required']">
+                Required
+            </div>
+        </div>
     </div>
     <div>
         <label for="password">Password: </label>
-        <input name="password" type="password" maxlength="30" />
+        <input name="password" type="password" formControlName="password" maxlength="30" />
+        <div *ngIf="loginForm.controls['password'] != null && !loginForm.controls['password'].valid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+            <div style="color: red;" [hidden]="!loginForm.controls['password'].errors?.['required']">
+                Required
+            </div>
+        </div>
     </div>
-    <input class="submitButton" type="submit" value="Log In"/>
+    <input class="submitButton" [disabled]="!loginForm.valid" type="submit" value="Log In"/>
+    <div [hidden]="error === ''" style="color: red;">
+        {{ error }}
+    </div>
 </form>
 <p>Don't have an account? <a [routerLink]="['/register']">Click here to register!</a></p>
 
