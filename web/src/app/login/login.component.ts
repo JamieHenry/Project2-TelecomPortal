@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { User } from '../models/user.model';
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   });
   error: string = '';
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
+  constructor(private fb: UntypedFormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }

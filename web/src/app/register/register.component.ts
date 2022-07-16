@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { User } from '../models/user.model';
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   }, { validators: this.checkPasswords });
   error: String = '';
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
+  constructor(private fb: UntypedFormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit {
     return this.newUserForm.value['password']!;
   } 
 
-  checkPasswords(group: FormGroup) {
+  checkPasswords(group: UntypedFormGroup) {
     let pass = group.controls?.['password'].value;
     let confirmPass = group.controls?.['confirmPassword'].value;
 
