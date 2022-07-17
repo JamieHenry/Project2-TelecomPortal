@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +10,13 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  currentUser!: User | null;
+
+  constructor(private authService: AuthenticationService, private router: Router) {
+    this.authService.currentUser.subscribe(currUser => {
+      this.currentUser = currUser;
+    })
+  }
 
   ngOnInit(): void {
   }
@@ -16,5 +24,4 @@ export class DashboardComponent implements OnInit {
   navigate(url: string): void {
     this.router.navigateByUrl(`${url}`);
   }
-
 }
