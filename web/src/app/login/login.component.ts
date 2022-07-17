@@ -3,6 +3,7 @@ import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { User } from '../models/user.model';
+import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   });
   error: string = '';
 
-  constructor(private fb: UntypedFormBuilder, private userService: UserService, private router: Router) { }
+  constructor(private authService: AuthenticationService, private fb: UntypedFormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
 
     user = userResponse.body;
 
-    console.log(user);
+    user.password = 'idk';
+    this.authService.setUser(user);
 
     let route = this.router.config.find(r => r.path === 'dashboard');
     if (route) this.router.navigateByUrl('/dashboard');
