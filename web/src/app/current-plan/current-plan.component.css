@@ -1,16 +1,16 @@
 section {
     display: inline-block;
     width: 400px;
-    background-color: lightgray;
+    background-color: white;
     border-radius: 10px;
     padding: 16px;
     border: 1px solid darkgray;
-    margin: 18px 18px 48px 0px;
+    margin: 0px 18px 18px 0px;
 }
 
 img {
     float: right;
-    width: 180px;
+    width: 140px;
 }
 
 div {
@@ -39,17 +39,18 @@ h3 {
 
 h4 {
     font-size: 15px;
-    color: darkslategray;
+    color: rgb(69, 117, 195);
     margin-bottom: 2px;
 }
 
 p {
-    font-size: 14px;
+    font-size: 13px;
     margin-bottom: 8px;
 }
 
 ul {
-    font-size: 14px;
+    font-size: 13px;
+    font-style: italic;
     margin-bottom: 12px;
 }
 
@@ -59,17 +60,22 @@ li {
 
 section > button {
     display: inline-block;
-    width: 100px;
-    margin-right: 12px;
+    width: 110px;
+    margin: 0px 11px;
     padding: 6px 10px;
-    background-color: darkgray;
+    background-color: rgba(69, 117, 195, 0.7);
+    border: solid 1px rgb(69, 117, 195, 0.7);
     border-radius: 6px;
     color: white;
     font-size: 12px;
     font-weight: bold;
-    transition: background-color .2s;
+    transition: background-color .1s;
+    transition: color .1s;
+    transition: border .1s;
 }
 
 section > button:hover {
-    background-color: slategray;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px black;
+    color: black;
 }

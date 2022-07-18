@@ -1,34 +1,36 @@
-<h1>Log In</h1>
+<main>
+    <h1>Log In</h1>
 
-<form id="login" [formGroup]="loginForm" (ngSubmit)="login()">
-    
-    <label for="email">E-Mail</label>
-    <input name="email" type="email" formControlName="email" maxlength="30" />
-    <aside>
-        <span *ngIf="loginForm.controls['email'] != null 
-                     && !loginForm.controls['email'].valid 
-                     && (loginForm.controls['email'].dirty 
-                     || loginForm.controls['email'].touched)">
-            Required
-        </span>
-    </aside>
+    <form id="login" [formGroup]="loginForm" (ngSubmit)="login()">
+        
+        <label for="email">E-Mail</label>
+        <input name="email" type="email" formControlName="email" maxlength="30" />
+        <aside>
+            <span *ngIf="loginForm.controls['email'] != null 
+                         && !loginForm.controls['email'].valid 
+                         && (loginForm.controls['email'].dirty 
+                         || loginForm.controls['email'].touched)">
+                Required
+            </span>
+        </aside>
 
-    <label for="password">Password</label>
-    <input name="password" type="password" formControlName="password" maxlength="30" />
-    <aside>
-        <span *ngIf="loginForm.controls['password'] != null 
-                     && !loginForm.controls['password'].valid 
-                     && (loginForm.controls['password'].dirty 
-                     || loginForm.controls['password'].touched)">
-            Required
-        </span>
-    </aside>
-    
-    <input [disabled]="!loginForm.valid" type="submit" value="Log In"/>
-    <aside>
-        <span [hidden]="error === ''">{{ error }}</span>
-    </aside>
+        <label for="password">Password</label>
+        <input name="password" type="password" formControlName="password" maxlength="30" />
+        <aside>
+            <span *ngIf="loginForm.controls['password'] != null 
+                         && !loginForm.controls['password'].valid 
+                         && (loginForm.controls['password'].dirty 
+                         || loginForm.controls['password'].touched)">
+                Required
+            </span>
+        </aside>
+        
+        <input [disabled]="!loginForm.valid" type="submit" value="Log In"/>
+        <aside>
+            <span [hidden]="error === ''">{{ error }}</span>
+        </aside>
 
-</form>
+    </form>
 
-<p>Don't have an account? <a [routerLink]="['/register']">Click here to register!</a></p>
+    <p>Don't have an account? <a [routerLink]="['/register']">Click here to register!</a></p>
+</main>

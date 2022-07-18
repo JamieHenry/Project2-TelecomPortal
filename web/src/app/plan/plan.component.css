@@ -1,34 +1,33 @@
 section {
     display: inline-block;
     width: 400px;
-    background-color: lightgray;
+    background-color: white;
     border-radius: 10px;
     padding: 16px;
     border: 1px solid darkgray;
-    margin: 18px 18px 48px 0px;
+    margin: 0px 18px 18px 0px;
 }
 
 img {
     float: right;
-    width: 134px;
+    width: 110px;
 }
 
 h3 {
     font-size: 18px;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 h4 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: normal;
     font-style: italic;
-    color: darkslategray;
+    color: rgb(69, 117, 195);
     margin-bottom: 12px;
 }
 
 ul {
-    font-size: 14px;
-    margin-bottom: 12px;
+    font-size: 13px;
 }
 
 li {

@@ -1,69 +1,47 @@
 <app-sidebar></app-sidebar>
+
 <h1>Manage Devices</h1>
-<h2>Current Devices</h2>
-<app-current-device></app-current-device>
-<app-current-device></app-current-device>
-<h2>Available Devices</h2>
-<app-available-device></app-available-device>
-<app-available-device></app-available-device>
-<h2>Add New Device</h2>
 
-<form id="addNewDevice" (ngSubmit)="add(); addNewDevice.reset();" #addNewDevice>
+<main>
+    <h2>Current Devices</h2>
+    <app-current-device></app-current-device>
+    <app-current-device></app-current-device>
 
-    <div>
-        <label for="make">Make: </label>
-        <select name="make" id="make" (change)="selectMake(make.value)" (change)="model.selectedIndex = 0" #make>
-            <option value="" selected>Select Make...</option>
-            <option value="Apple">Apple</option>
-            <option value="RIM">RIM</option>
-            <option value="Samsung">Samsung</option>
-            <option value="Other">Other...</option>
-        </select>
-        <label for="makeOther" *ngIf="this.makeOther">Other Make: </label>
-        <input name="makeOther"  *ngIf="this.makeOther" type="text" maxlength="50" />
-    </div>
+    <h2>Available Devices</h2>
+    <app-available-device></app-available-device>
+    <app-available-device></app-available-device>
     
-    <div>
-        <label for="model">Model: </label>
-        <select name="model" (change)="selectModel(model.value)" #model>
-            <option *ngIf="!this.makeOther" value="">Select Model...</option>
-            <option *ngIf="this.models.model1" value={{this.models.model1}}>{{this.models.model1}}</option>
-            <option *ngIf="this.models.model2" value={{this.models.model2}}>{{this.models.model2}}</option>
-            <option *ngIf="this.models.model3" value={{this.models.model3}}>{{this.models.model3}}</option>
-            <option *ngIf="this.models.model4" value={{this.models.model4}}>{{this.models.model4}}</option>
-            <option *ngIf="this.models.model1||make.value" value="Other">Other...</option>
-        </select>
-        <label for="modelOther" *ngIf="this.modelOther||this.makeOther">Other Model: </label>
-        <input name="modelOther" *ngIf="this.modelOther||this.makeOther" type="text" maxlength="50" />
-    </div>
-    
-    <input class="submitButton" type="submit" value="Add New Device"/>
-</form>
+    <h2>Add New Device</h2>
 
-<!-- <form id="new-owner" (ngSubmit)="create(); ownerForm.reset()" #ownerForm>
-    <div class="form-group">
-        <label for="Name" class="control-label">Name</label>
-        <input [(ngModel)]="newOwner.name" class="form-control" name="Name" id="Name" type="text" required maxlength="50" #Name="ngModel" />
-        <div class="alert" *ngIf="Name.invalid && (Name.dirty || Name.touched)">
-            <div *ngIf="Name.errors?.['required']">Name is required</div>
+    <form id="addNewDevice" (ngSubmit)="add(); addNewDevice.reset();" #addNewDevice>
+
+        <div>
+            <label for="make">Make: </label>
+            <select name="make" id="make" (change)="selectMake(make.value)" (change)="model.selectedIndex = 0" #make>
+                <option value="" selected>Select Make...</option>
+                <option value="Apple">Apple</option>
+                <option value="RIM">RIM</option>
+                <option value="Samsung">Samsung</option>
+                <option value="Other">Other...</option>
+            </select>
+            <label for="makeOther" *ngIf="this.makeOther">Other Make: </label>
+            <input name="makeOther"  *ngIf="this.makeOther" type="text" maxlength="50" />
         </div>
-    </div>
-    <div class="form-group">
-        <label for="FavCol" class="control-label">Favorite Color</label>
-        <input [(ngModel)]="newOwner.favoriteColor" class="form-control" name="FavCol" id="FavCol" type="text" maxlength="45" #FavCol="ngModel" />
-    </div>
-    <div class="form-group">
-        <label for="FavFood" class="control-label">Favorite Food</label>
-        <input [(ngModel)]="newOwner.favoriteFood" class="form-control" name="FavFood" id="FavFood" type="text" maxlength="50" #FavFood="ngModel" />
-    </div>
-    <div class="form-group">
-        <label for="Age" class="control-label">Age</label>
-        <input [(ngModel)]="newOwner.age" class="form-control" name="Age" id="Age" type="number" step="1" min="0" #Age="ngModel" />
-        <div class="alert" *ngIf="Age.invalid && (Age.dirty || Age.touched)">
-            Age must be above 0
+        
+        <div>
+            <label for="model">Model: </label>
+            <select name="model" (change)="selectModel(model.value)" #model>
+                <option *ngIf="!this.makeOther" value="">Select Model...</option>
+                <option *ngIf="this.models.model1" value={{this.models.model1}}>{{this.models.model1}}</option>
+                <option *ngIf="this.models.model2" value={{this.models.model2}}>{{this.models.model2}}</option>
+                <option *ngIf="this.models.model3" value={{this.models.model3}}>{{this.models.model3}}</option>
+                <option *ngIf="this.models.model4" value={{this.models.model4}}>{{this.models.model4}}</option>
+                <option *ngIf="this.models.model1||make.value" value="Other">Other...</option>
+            </select>
+            <label for="modelOther" *ngIf="this.modelOther||this.makeOther">Other Model: </label>
+            <input name="modelOther" *ngIf="this.modelOther||this.makeOther" type="text" maxlength="50" />
         </div>
-    </div>
-    <div style="margin-top: 5px;">
-        <input class="btn btn-success submit-button" type="submit" value="Save"/>
-    </div>
-</form> -->
+        
+        <input class="submitButton" type="submit" value="Add New Device"/>
+    </form>
+</main>
