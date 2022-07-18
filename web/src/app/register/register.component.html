@@ -1,86 +1,78 @@
 <h1>Register</h1>
-<h2>Enter your registration info below:</h2>
-<form id="register" [formGroup]="newUserForm" (ngSubmit)="register()">
-    <div>
-        <label for="firstName">First Name: </label>
-        <input name="firstName" type="text" formControlName="firstName" maxlength="30" />
-        <div *ngIf="newUserForm.controls['firstName'] != null && !newUserForm.controls['firstName'].valid && (newUserForm.controls['firstName'].dirty || newUserForm.controls['firstName'].touched)">
-            <div style="color: red;" [hidden]="!newUserForm.controls['firstName'].errors?.['required']">
-                Required
-            </div>
-        </div>
-    </div>
-    <div>
-        <label for="lastName">Last Name: </label>
-        <input name="lastName" type="text" formControlName="lastName" maxlength="30" />
-        <div *ngIf="newUserForm.controls['lastName'] != null && !newUserForm.controls['lastName'].valid && (newUserForm.controls['lastName'].dirty || newUserForm.controls['lastName'].touched)">
-            <div style="color: red;" [hidden]="!newUserForm.controls['lastName'].errors?.['required']">
-                Required
-            </div>
-        </div>
-    </div>
-    <div>
-        <label for="email">E-Mail Address: </label>
-        <input name="email" type="email" formControlName="email" maxlength="30" />
-        <div *ngIf="newUserForm.controls['email'] != null && !newUserForm.controls['email'].valid && (newUserForm.controls['email'].dirty || newUserForm.controls['email'].touched)">
-            <div style="color: red;" [hidden]="!newUserForm.controls['email'].errors?.['required']">
-                Required
-            </div>
-            <div style="color: red;" [hidden]="!newUserForm.controls['email'].errors?.['invalidEmail']">
-                Invalid Email
-            </div>
-        </div>
-    </div>
-    <div>
-        <label for="password">Password: </label>
-        <input name="password" type="password" formControlName="password" maxlength="30" />
-        <div *ngIf="newUserForm.controls['password'] != null && !newUserForm.controls['password'].valid && (newUserForm.controls['password'].dirty || newUserForm.controls['password'].touched)">
-            <div style="color: red;" [hidden]="!newUserForm.controls['password'].errors?.['required']">
-                Required
-            </div>
-            <div style="color: red;" [hidden]="!newUserForm.controls['password'].errors?.['minlength']">
-                Password must contain atleast 6 characters
-            </div>
-        </div>
-    </div>
-    <div>
-        <label for="confirmPassword">Confirm Password: </label>
-        <input name="confirmPassword" type="password" formControlName="confirmPassword" maxlength="30" />
-        <div style="color: red;" [hidden]="!newUserForm.errors?.['notSame']">
-            Passwords must match
-        </div>
-    </div>
-    <input class="submitButton" [disabled]="!newUserForm.valid" type="submit"  value="Register"/>
-    <div [hidden]="error === ''" style="color: red;">
-        {{ error }}
-    </div>
-</form>
-<p>Already have an account? <a [routerLink]="['/login']">Click here to log in!</a></p>
 
-<!-- <form id="new-owner" (ngSubmit)="create(); ownerForm.reset()" #ownerForm>
-    <div class="form-group">
-        <label for="Name" class="control-label">Name</label>
-        <input [(ngModel)]="newOwner.name" class="form-control" name="Name" id="Name" type="text" required maxlength="50" #Name="ngModel" />
-        <div class="alert" *ngIf="Name.invalid && (Name.dirty || Name.touched)">
-            <div *ngIf="Name.errors?.['required']">Name is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="FavCol" class="control-label">Favorite Color</label>
-        <input [(ngModel)]="newOwner.favoriteColor" class="form-control" name="FavCol" id="FavCol" type="text" maxlength="45" #FavCol="ngModel" />
-    </div>
-    <div class="form-group">
-        <label for="FavFood" class="control-label">Favorite Food</label>
-        <input [(ngModel)]="newOwner.favoriteFood" class="form-control" name="FavFood" id="FavFood" type="text" maxlength="50" #FavFood="ngModel" />
-    </div>
-    <div class="form-group">
-        <label for="Age" class="control-label">Age</label>
-        <input [(ngModel)]="newOwner.age" class="form-control" name="Age" id="Age" type="number" step="1" min="0" #Age="ngModel" />
-        <div class="alert" *ngIf="Age.invalid && (Age.dirty || Age.touched)">
-            Age must be above 0
-        </div>
-    </div>
-    <div style="margin-top: 5px;">
-        <input class="btn btn-success submit-button" type="submit" value="Save"/>
-    </div>
-</form> -->
+<form id="register" [formGroup]="newUserForm" (ngSubmit)="register()">
+    
+    <label for="firstName">First Name</label>
+    <input name="firstName" type="text" formControlName="firstName" maxlength="30" />
+    <aside>
+        <span *ngIf="newUserForm.controls['firstName'] != null 
+                     && !newUserForm.controls['firstName'].valid 
+                     && (newUserForm.controls['firstName'].dirty 
+                     || newUserForm.controls['firstName'].touched)">
+            Required
+        </span>
+    </aside>
+
+    <label for="lastName">Last Name</label>
+    <input name="lastName" type="text" formControlName="lastName" maxlength="30" />
+    <aside>
+        <span *ngIf="newUserForm.controls['lastName'] != null 
+                     && !newUserForm.controls['lastName'].valid 
+                     && (newUserForm.controls['lastName'].dirty 
+                     || newUserForm.controls['lastName'].touched)">
+            Required
+        </span>
+    </aside>
+
+    <label for="email">E-Mail</label>
+    <input name="email" type="email" formControlName="email" maxlength="30" />
+    <aside>
+        <span *ngIf="newUserForm.controls['email'] != null 
+                     && !newUserForm.controls['email'].valid 
+                     && (newUserForm.controls['email'].dirty 
+                     || newUserForm.controls['email'].touched)" 
+              [hidden]="!newUserForm.controls['email'].errors?.['required']">
+            Required
+        </span>
+        <span *ngIf="newUserForm.controls['email'] != null 
+                     && !newUserForm.controls['email'].valid 
+                     && (newUserForm.controls['email'].dirty 
+                     || newUserForm.controls['email'].touched)" 
+              [hidden]="!newUserForm.controls['email'].errors?.['invalidEmail']">
+            Invalid E-Mail
+        </span>
+    </aside>
+
+    <label for="password">Password</label>
+    <input name="password" type="password" formControlName="password" maxlength="30" />
+    <aside>
+        <span *ngIf="newUserForm.controls['password'] != null 
+                     && !newUserForm.controls['password'].valid 
+                     && (newUserForm.controls['password'].dirty 
+                     || newUserForm.controls['password'].touched)" 
+              [hidden]="!newUserForm.controls['password'].errors?.['required']">
+            Required
+        </span>
+        <span *ngIf="newUserForm.controls['password'] != null 
+                     && !newUserForm.controls['password'].valid 
+                     && (newUserForm.controls['password'].dirty 
+                     || newUserForm.controls['password'].touched)" 
+              [hidden]="!newUserForm.controls['password'].errors?.['minlength']">
+            Needs 6+ characters
+        </span>
+    </aside>
+
+    <label for="confirmPassword">Confirm Password</label>
+    <input name="confirmPassword" type="password" formControlName="confirmPassword" maxlength="30" />
+    <aside>
+        <span [hidden]="!newUserForm.errors?.['notSame']">Passwords must match</span>
+    </aside>
+    
+    <input [disabled]="!newUserForm.valid" type="submit"  value="Register"/>
+    <aside>
+        <span [hidden]="error === ''">{{ error }}</span>
+    </aside>
+
+</form>
+
+<p>Already have an account? <a [routerLink]="['/login']">Click here to log in!</a></p>
