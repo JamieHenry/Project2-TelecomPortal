@@ -1,31 +1,35 @@
 aside {
     float: right;
-    width: 220px;
+    width: 240px;
     height: 100vh;
-    background-color: rgb(191, 189, 210);
+    background-image: url("../../assets/images/sidebar.jpg");
+    background-size: 100% 100%;
     padding: 12px;
     border-left: 1px solid darkslategray;
 }
 
 h3 {
     font-size: 20px;
-    color: darkslategray;
+    color: rgb(255, 255, 255);
     margin-bottom: 12px;
 }
 
 select {
+    width: 240px;
     height: 24px;
     font-size: 14px;
     vertical-align: middle;
 }
 
 table {
-    background-color: lightgray;
+    background-color: rgb(0, 0, 0, .3);
     margin-top: 24px;
-    padding: 0px 8px;
+    padding: 0px 12px 4px 12px;
     font-size: 13px;
     text-align: left;
     border-radius: 6px;
+    border-spacing: 0px;
+    color: rgb(255, 255, 255, .9);
 }
 
 th, td {
@@ -40,7 +44,7 @@ td {
     border-top: 1px solid gray;
 }
 
-#total {
+tr:last-of-type {
     font-weight: bold;
     font-style: italic;
 }

@@ -1,55 +1,34 @@
 <h1>Log In</h1>
-<h2>Enter your login information below:</h2>
-<form id="login" [formGroup]="loginForm" (ngSubmit)="login()">
-    <div>
-        <label for="email">E-Mail Address: </label>
-        <input name="email" type="email" formControlName="email" maxlength="30" />
-        <div *ngIf="loginForm.controls['email'] != null && !loginForm.controls['email'].valid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
-            <div style="color: red;" [hidden]="!loginForm.controls['email'].errors?.['required']">
-                Required
-            </div>
-        </div>
-    </div>
-    <div>
-        <label for="password">Password: </label>
-        <input name="password" type="password" formControlName="password" maxlength="30" />
-        <div *ngIf="loginForm.controls['password'] != null && !loginForm.controls['password'].valid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
-            <div style="color: red;" [hidden]="!loginForm.controls['password'].errors?.['required']">
-                Required
-            </div>
-        </div>
-    </div>
-    <input class="submitButton" [disabled]="!loginForm.valid" type="submit" value="Log In"/>
-    <div [hidden]="error === ''" style="color: red;">
-        {{ error }}
-    </div>
-</form>
-<p>Don't have an account? <a [routerLink]="['/register']">Click here to register!</a></p>
 
-<!-- <form id="new-owner" (ngSubmit)="create(); ownerForm.reset()" #ownerForm>
-    <div class="form-group">
-        <label for="Name" class="control-label">Name</label>
-        <input [(ngModel)]="newOwner.name" class="form-control" name="Name" id="Name" type="text" required maxlength="50" #Name="ngModel" />
-        <div class="alert" *ngIf="Name.invalid && (Name.dirty || Name.touched)">
-            <div *ngIf="Name.errors?.['required']">Name is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="FavCol" class="control-label">Favorite Color</label>
-        <input [(ngModel)]="newOwner.favoriteColor" class="form-control" name="FavCol" id="FavCol" type="text" maxlength="45" #FavCol="ngModel" />
-    </div>
-    <div class="form-group">
-        <label for="FavFood" class="control-label">Favorite Food</label>
-        <input [(ngModel)]="newOwner.favoriteFood" class="form-control" name="FavFood" id="FavFood" type="text" maxlength="50" #FavFood="ngModel" />
-    </div>
-    <div class="form-group">
-        <label for="Age" class="control-label">Age</label>
-        <input [(ngModel)]="newOwner.age" class="form-control" name="Age" id="Age" type="number" step="1" min="0" #Age="ngModel" />
-        <div class="alert" *ngIf="Age.invalid && (Age.dirty || Age.touched)">
-            Age must be above 0
-        </div>
-    </div>
-    <div style="margin-top: 5px;">
-        <input class="btn btn-success submit-button" type="submit" value="Save"/>
-    </div>
-</form> -->
+<form id="login" [formGroup]="loginForm" (ngSubmit)="login()">
+    
+    <label for="email">E-Mail</label>
+    <input name="email" type="email" formControlName="email" maxlength="30" />
+    <aside>
+        <span *ngIf="loginForm.controls['email'] != null 
+                     && !loginForm.controls['email'].valid 
+                     && (loginForm.controls['email'].dirty 
+                     || loginForm.controls['email'].touched)">
+            Required
+        </span>
+    </aside>
+
+    <label for="password">Password</label>
+    <input name="password" type="password" formControlName="password" maxlength="30" />
+    <aside>
+        <span *ngIf="loginForm.controls['password'] != null 
+                     && !loginForm.controls['password'].valid 
+                     && (loginForm.controls['password'].dirty 
+                     || loginForm.controls['password'].touched)">
+            Required
+        </span>
+    </aside>
+    
+    <input [disabled]="!loginForm.valid" type="submit" value="Log In"/>
+    <aside>
+        <span [hidden]="error === ''">{{ error }}</span>
+    </aside>
+
+</form>
+
+<p>Don't have an account? <a [routerLink]="['/register']">Click here to register!</a></p>
