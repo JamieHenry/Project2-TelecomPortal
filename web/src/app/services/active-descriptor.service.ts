@@ -16,8 +16,8 @@ export class ActiveDescriptorService {
     return this.http.get<ActiveDescriptor[]>(this.url, { observe: 'response' });
   }
 
-  findByPlanId(planId: number): Observable<HttpResponse<ActiveDescriptor>> {
-    return this.http.get<ActiveDescriptor>(this.url + `planId/${planId}`, { observe: 'response' });
+  findByPlanId(planId: number): Observable<HttpResponse<ActiveDescriptor[]>> {
+    return this.http.get<ActiveDescriptor[]>(this.url + `planid/${planId}`, { observe: 'response' });
   }
 
   findById(id: number): Observable<HttpResponse<ActiveDescriptor>> {

@@ -16,16 +16,16 @@ export class ActiveNumberService {
     return this.http.get<ActiveNumber[]>(this.url, { observe: 'response' });
   }
 
-  findByUserId(userId: number): Observable<HttpResponse<ActiveNumber>> {
-    return this.http.get<ActiveNumber>(this.url + `userId/${userId}`, { observe: 'response' });
+  findByUserId(userId: number): Observable<HttpResponse<ActiveNumber[]>> {
+    return this.http.get<ActiveNumber[]>(this.url + `userid/${userId}`, { observe: 'response' });
   }
 
   findByPlanId(planId: number): Observable<HttpResponse<ActiveNumber>> {
-    return this.http.get<ActiveNumber>(this.url + `planId/${planId}`, { observe: 'response' });
+    return this.http.get<ActiveNumber>(this.url + `planid/${planId}`, { observe: 'response' });
   }
 
   findByPhoneNumber(phoneNumber: string): Observable<HttpResponse<ActiveNumber>> {
-    return this.http.get<ActiveNumber>(this.url + `phoneNumber/${phoneNumber}`, { observe: 'response' });
+    return this.http.get<ActiveNumber>(this.url + `phonenumber/${phoneNumber}`, { observe: 'response' });
   }
 
   save(activeNumber: ActiveNumber): Observable<HttpResponse<ActiveNumber>> {

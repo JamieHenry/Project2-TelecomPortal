@@ -16,8 +16,8 @@ export class ActivePlanService {
     return this.http.get<ActivePlan[]>(this.url, { observe: 'response' });
   }
 
-  findByUserId(userId: number): Observable<HttpResponse<ActivePlan>> {
-    return this.http.get<ActivePlan>(this.url + `userId/${userId}`, { observe: 'response' });
+  findByUserId(userId: number): Observable<HttpResponse<ActivePlan[]>> {
+    return this.http.get<ActivePlan[]>(this.url + `userid/${userId}`, { observe: 'response' });
   }
 
   findById(id: number): Observable<HttpResponse<ActivePlan>> {
