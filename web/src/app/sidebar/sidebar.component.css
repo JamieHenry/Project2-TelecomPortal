@@ -5,7 +5,6 @@ aside {
     background-image: url("../../assets/images/sidebar.jpg");
     background-size: 100% 100%;
     padding: 12px;
-    border-left: 1px solid darkslategray;
 }
 
 h3 {
@@ -17,7 +16,7 @@ h3 {
 select {
     width: 240px;
     height: 24px;
-    font-size: 14px;
+    font-size: 13px;
     vertical-align: middle;
 }
 
@@ -37,11 +36,15 @@ th, td {
 }
 
 th:first-of-type {
-    width: 500px;
+    width: 100%;
 }
 
 td {
     border-top: 1px solid gray;
+}
+
+th:last-of-type, td:last-of-type {
+    text-align: right;
 }
 
 tr:last-of-type {

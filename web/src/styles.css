@@ -10,7 +10,7 @@ body {
 }
 
 main {
-    padding: 0px 0px 30px 60px;
+    padding-bottom: 60px;
 }
 
 h1 {
@@ -20,7 +20,7 @@ h1 {
 }
 
 h2 {
-    color: slategray;
+    color: rgb(69, 117, 195);
     margin-top: 1em;
     margin-bottom: 0.25em;
 }
