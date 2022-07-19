@@ -17,7 +17,7 @@ export class ActiveDeviceDescriptorService {
   }
 
   findByPlanId(planId: number): Observable<HttpResponse<ActiveDeviceDescriptor>> {
-    return this.http.get<ActiveDeviceDescriptor>(this.url + `planId/${planId}`, { observe: 'response' });
+    return this.http.get<ActiveDeviceDescriptor>(this.url + `planid/${planId}`, { observe: 'response' });
   }
 
   findById(id: number): Observable<HttpResponse<ActiveDeviceDescriptor>> {
