@@ -1,7 +1,7 @@
 section {
     display: inline-block;
     width: 400px;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(57, 4, 4, 0.1);
     border-radius: 10px;
     padding: 16px;
     border: 1px solid darkgray;
@@ -30,7 +30,7 @@ button {
     display: inline-block;
     vertical-align: middle;
     margin-left: 14px;
-    padding: 3px 14px;
+    padding: 2px 18px;
     background-color: darkgray;
     border-radius: 6px;
     color: white;
@@ -40,5 +40,5 @@ button {
 }
 
 button:hover {
-    background-color: slategray;
+    background-color: rgba(69, 117, 195, 0.7);
 }

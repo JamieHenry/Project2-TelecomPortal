@@ -5,12 +5,12 @@ section {
     border-radius: 10px;
     padding: 16px;
     border: 1px solid darkgray;
-    margin: 18px 18px 48px 0px;
+    margin: 0px 18px 18px 0px;
 }
 
 img {
     float: right;
-    width: 100px;
+    width: 110px;
 }
 
 h3 {
@@ -20,24 +20,24 @@ h3 {
 
 h4 {
     font-size: 15px;
-    color: darkslategray;
+    color: rgb(69, 117, 195);
     margin-bottom: 8px;
 }
 
 p {
     font-size: 14px;
-    width: 200px;
+    width: 300px;
     margin-bottom: 12px;
 }
 
 button {
     display: inline-block;
-    width: 84px;
+    width: 110px;
     margin-right: 12px;
     padding: 6px 10px;
-    background-color: darkgray;
+    background-color: white;
     border-radius: 6px;
-    color: darkslategray;
+    color: rgb(69, 117, 195);
     font-size: 12px;
     font-weight: bold;
     transition: background-color .2s;
@@ -45,6 +45,6 @@ button {
 }
 
 button:hover {
-    background-color: slategray;
+    background-color: rgb(69, 117, 195, 0.7);
     color: white;
 }
