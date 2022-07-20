@@ -1,14 +1,24 @@
 main {
-    padding-left: 45px;
+    display: grid;
 }
 
 h1 {
+    grid-area: 1 / 1 / span 1 / span 1;
     background-image: url("../../assets/images/h1.jpg");
     background-size: 110% 100%;
     padding: 12px 0px 10px 45px;
     color: rgb(31, 102, 160);
+    margin-bottom: 0px;
+}
+
+article {
+    padding-left: 45px;
 }
 
 h2 {
     margin-bottom: 14px;
+}
+
+app-sidebar {
+    grid-area: 1 / 2 / span 2 / span 1;
 }

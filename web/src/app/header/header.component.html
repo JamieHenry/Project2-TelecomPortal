@@ -5,7 +5,7 @@
     </aside>
     <aside *ngIf="currentUser !== null">
         <p>Welcome back, {{currentUser.firstName}}!</p>
-        <span>• • <a [routerLink]="['/dashboard']">My Account</a> • • <a (click)="logout()" [routerLink]="['/']">Log Out</a></span>
+        <span>• • <a [routerLink]="['/dashboard']">Dashboard</a> • • <a (click)="logout()" [routerLink]="['/']">Sign Out</a></span>
     </aside>
-    <a [routerLink]="['/']"><img src="../../assets/images/jamvan-wireless.png" alt="JamVan Wireless Logo"></a>
+    <a [routerLink]="['/']"><img src="../../assets/images/jamvan-wireless2.png" alt="JamVan Wireless Logo"></a>
 </header>

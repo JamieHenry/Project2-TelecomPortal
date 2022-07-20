@@ -1,19 +1,21 @@
 nav {
-    background-image: url("../../assets/images/nav.gif");
-    padding-left: 16px;
+    background-color: #000938;
+    padding-left: 30px;
     font-size: 14px;
+    border: solid rgba(255, 255, 255, 0.5);
+    border-width: 1px 0px;
 }
 
 a {
     display: inline-block;
     padding: 6px 16px;
     text-decoration: none;
-    color: rgb(0, 0, 0, .6);
+    color: rgba(255, 255, 255, 0.9);
     transition: background-color .1s;
     transition: color .1s;
 }
 
 a:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, .3);
     color: white;
 }

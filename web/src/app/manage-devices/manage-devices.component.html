@@ -1,69 +1,71 @@
-<app-sidebar></app-sidebar>
-
-<h1>Manage Devices</h1>
-
 <main>
-    <h2>Current Devices</h2>
-    <app-current-device></app-current-device>
-    <app-current-device></app-current-device>
-    <app-current-device></app-current-device>
-    <app-current-device></app-current-device>
+    <h1>Manage Devices</h1>
 
-    <h2>Available Devices
-        <form id="selectAvailableMake">
-            <select name="availableMake">
-                <option value="">Select Make...</option>
-                <option value="Apple">Apple</option>
-                <option value="BlackBerry">BlackBerry</option>
-                <option value="Samsung">Samsung</option>
-            </select>
-        </form>
-        <form id="searchAvailableMake">
-            <input type="text" placeholder="Search Available Devices...">
-            <input type="submit" value="">
-        </form>
-        <a [routerLink]="['/manageDevices']">More Options ▼</a>
-    </h2>
-    <app-available-device></app-available-device>
-    <app-available-device></app-available-device>
-    <app-available-device></app-available-device>
-    <app-available-device></app-available-device>
-    
-    <h2>Add New Device</h2>
+    <article>
+        <h2>My Devices</h2>
+        <app-current-device></app-current-device>
+        <app-current-device></app-current-device>
+        <app-current-device></app-current-device>
+        <app-current-device></app-current-device>
 
-    <form id="addNewDevice" (ngSubmit)="add(); addNewDevice.reset();" #addNewDevice>
-
-        <section>
-            <label for="make">Make</label>
-            <select name="make" id="make" (change)="selectMake(make.value)" (change)="model.selectedIndex = 0" #make>
-                <option value="" selected>Select Make...</option>
-                <option value="Apple">Apple</option>
-                <option value="RIM">RIM</option>
-                <option value="Samsung">Samsung</option>
-                <option value="Other">Other...</option>
-            </select>
-            <div>
-                <label for="makeOther" *ngIf="this.makeOther">Other Make</label>
-                <input name="makeOther"  *ngIf="this.makeOther" type="text" maxlength="50" />
-            </div>
-        </section>
+        <h2>Available Devices
+            <form id="selectAvailableMake">
+                <select name="availableMake">
+                    <option value="">Select Make...</option>
+                    <option value="Apple">Apple</option>
+                    <option value="BlackBerry">BlackBerry</option>
+                    <option value="Samsung">Samsung</option>
+                </select>
+            </form>
+            <form id="searchAvailableMake">
+                <input type="text" placeholder="Search Available Devices...">
+                <input type="submit" value="">
+            </form>
+            <a [routerLink]="['/manageDevices']">More Options ▼</a>
+        </h2>
+        <app-available-device></app-available-device>
+        <app-available-device></app-available-device>
+        <app-available-device></app-available-device>
+        <app-available-device></app-available-device>
         
-        <section>
-            <label for="model">Model</label>
-            <select name="model" (change)="selectModel(model.value)" #model>
-                <option *ngIf="!this.makeOther" value="">Select Model...</option>
-                <option *ngIf="this.models.model1" value={{this.models.model1}}>{{this.models.model1}}</option>
-                <option *ngIf="this.models.model2" value={{this.models.model2}}>{{this.models.model2}}</option>
-                <option *ngIf="this.models.model3" value={{this.models.model3}}>{{this.models.model3}}</option>
-                <option *ngIf="this.models.model4" value={{this.models.model4}}>{{this.models.model4}}</option>
-                <option *ngIf="this.models.model1||make.value" value="Other">Other...</option>
-            </select>
-            <div>
-                <label for="modelOther" *ngIf="this.modelOther||this.makeOther">Other Model</label>
-                <input name="modelOther" *ngIf="this.modelOther||this.makeOther" type="text" maxlength="50" />
-            </div>
-        </section>
-        
-        <input type="submit" value="Add New Device"/>
-    </form>
+        <h2>Add New Device</h2>
+
+        <form id="addNewDevice" (ngSubmit)="add(); addNewDevice.reset();" #addNewDevice>
+
+            <section>
+                <label for="make">Make</label>
+                <select name="make" id="make" (change)="selectMake(make.value)" (change)="model.selectedIndex = 0" #make>
+                    <option value="" selected>Select Make...</option>
+                    <option value="Apple">Apple</option>
+                    <option value="RIM">RIM</option>
+                    <option value="Samsung">Samsung</option>
+                    <option value="Other">Other...</option>
+                </select>
+                <div>
+                    <label for="makeOther" *ngIf="this.makeOther">Other Make</label>
+                    <input name="makeOther"  *ngIf="this.makeOther" type="text" maxlength="50" />
+                </div>
+            </section>
+            
+            <section>
+                <label for="model">Model</label>
+                <select name="model" (change)="selectModel(model.value)" #model>
+                    <option *ngIf="!this.makeOther" value="">Select Model...</option>
+                    <option *ngIf="this.models.model1" value={{this.models.model1}}>{{this.models.model1}}</option>
+                    <option *ngIf="this.models.model2" value={{this.models.model2}}>{{this.models.model2}}</option>
+                    <option *ngIf="this.models.model3" value={{this.models.model3}}>{{this.models.model3}}</option>
+                    <option *ngIf="this.models.model4" value={{this.models.model4}}>{{this.models.model4}}</option>
+                    <option *ngIf="this.models.model1||make.value" value="Other">Other...</option>
+                </select>
+                <div>
+                    <label for="modelOther" *ngIf="this.modelOther||this.makeOther">Other Model</label>
+                    <input name="modelOther" *ngIf="this.modelOther||this.makeOther" type="text" maxlength="50" />
+                </div>
+            </section>
+            
+            <input type="submit" value="Add New Device"/>
+        </form>
+    </article>
+
+    <app-sidebar></app-sidebar>
 </main>
