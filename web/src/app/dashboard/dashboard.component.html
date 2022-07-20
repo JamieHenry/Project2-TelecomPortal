@@ -1,16 +1,18 @@
-<app-sidebar></app-sidebar>
-
-<h1>Dashboard</h1>
-
 <main>
-    <h2>My Plans<button (click)="navigate('managePlans')">Manage Plans</button></h2>
-    <app-plan></app-plan>
-    <app-plan></app-plan>
-    <app-plan></app-plan>
-    <app-plan></app-plan>
-    <h2>My Devices<button (click)="navigate('manageDevices')">Manage Devices</button></h2>
-    <app-device></app-device>
-    <app-device></app-device>
-    <app-device></app-device>
-    <app-device></app-device>
+    <h1>Dashboard</h1>
+
+    <article>
+        <h2>My Plans<button (click)="navigate('managePlans')">Manage Plans</button></h2>
+        <app-plan></app-plan>
+        <app-plan></app-plan>
+        <app-plan></app-plan>
+        <app-plan></app-plan>
+        <h2>My Devices<button (click)="navigate('manageDevices')">Manage Devices</button></h2>
+        <app-device></app-device>
+        <app-device></app-device>
+        <app-device></app-device>
+        <app-device></app-device>
+    </article>
+    
+    <app-sidebar></app-sidebar>
 </main>
