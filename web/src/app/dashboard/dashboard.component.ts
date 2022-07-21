@@ -46,12 +46,13 @@ export class DashboardComponent implements OnInit {
     for (let activePlan of activePlansResponse.body!) {
       const activePlanDescriptors = [];
       const planResponse = await lastValueFrom(this.planService.findById(activePlan.planId));
-      const activeDescriptorResponse = await lastValueFrom(this.activeDescriptorService.findByPlanId(activePlan.id));
+      const activeDescriptorResponse = await lastValueFrom(this.activeDescriptorService.findByPlanId(activePlan.planId));
       const activeNumberResponse = await lastValueFrom(this.activeNumberService.findByActivePlanId(activePlan.id));
       for (let activeDescriptor of activeDescriptorResponse.body!) {
         const descriptorResponse = await lastValueFrom(this.descriptorService.findById(activeDescriptor.descriptorId));
         activePlanDescriptors.push(descriptorResponse.body!.description);
       }
+
       this.currentPlans.push({
         'plan': planResponse.body!,
         'descriptors': activePlanDescriptors,
@@ -65,6 +66,7 @@ export class DashboardComponent implements OnInit {
       const deviceResponse = await lastValueFrom(this.deviceService.findById(activeNumber.deviceId));
       const activePlanResponse = await lastValueFrom(this.activePlanService.findById(activeNumber.activePlanId));
       const planResponse = await lastValueFrom(this.planService.findById(activePlanResponse.body!.planId));
+      
       this.currentNumbers.push({
         'model': deviceResponse.body!.model,
         'phoneNumber': activeNumber.phoneNumber,

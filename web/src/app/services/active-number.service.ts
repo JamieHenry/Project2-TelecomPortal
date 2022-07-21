@@ -24,6 +24,10 @@ export class ActiveNumberService {
     return this.http.get<ActiveNumber[]>(this.url + `activeplanid/${activePlanId}`, { observe: 'response' });
   }
 
+  findById(id: number): Observable<HttpResponse<ActiveNumber>> {
+    return this.http.get<ActiveNumber>(this.url + `id/${id}`, { observe: 'response' });
+  }
+
   findByPhoneNumber(phoneNumber: string): Observable<HttpResponse<ActiveNumber>> {
     return this.http.get<ActiveNumber>(this.url + `phonenumber/${phoneNumber}`, { observe: 'response' });
   }
@@ -32,7 +36,7 @@ export class ActiveNumberService {
     return this.http.post<ActiveNumber>(this.url, activeNumber, { observe: 'response' });
   }
 
-  delete(id: string): Observable<HttpResponse<ActiveNumber>> {
+  delete(id: number): Observable<HttpResponse<ActiveNumber>> {
     return this.http.delete<ActiveNumber>(this.url + `${id}`, { observe: 'response' });
   }
 }

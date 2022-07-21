@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { ActiveNumberService } from '../services/active-number.service';
 
 @Component({
   selector: 'app-current-plan',
@@ -7,29 +9,19 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CurrentPlanComponent implements OnInit {
   @Input() plan: any;
-  @Input() addLine!: ((args: any) => void);
-  @Input() changePlan!: ((args: any) => void);
-  @Input() cancelPlan!: ((args: any) => void);
-  @Input() deleteLine!: ((args: any) => void);
+  @Output() changeEvent = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private activeNumberService: ActiveNumberService) { }
 
   ngOnInit(): void {
   }
 
-  add() {
-    this.addLine('hello');
+  async deleteLine(activeNumberId: number) {
+    await lastValueFrom(this.activeNumberService.delete(activeNumberId));
+    this.changeEvent.emit('');
   }
 
-  change() {
-    this.changePlan('hello');
-  }
+  cancelPlan() {
 
-  cancel() {
-    this.cancelPlan('hello');
-  }
-
-  delete(args: any) {
-    this.deleteLine(args);
   }
 }

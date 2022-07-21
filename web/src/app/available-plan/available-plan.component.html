@@ -1,6 +1,6 @@
 <section>
     <img src="../../assets/images/plan.png" />
-    <h3>{{ plan.plan.name }}<button (click)="add()">Add</button></h3>
+    <h3>{{ plan.plan.name }}<button (click)="addActivePlan()">Add</button></h3>
     <ul>
         <ng-container *ngFor="let descriptor of plan.descriptors">
             <li>{{ descriptor }}</li>

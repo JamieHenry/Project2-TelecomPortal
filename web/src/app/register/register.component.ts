@@ -48,8 +48,6 @@ export class RegisterComponent implements OnInit {
     }
 
     userResponse = await lastValueFrom(this.userService.register(user));
-    
-    console.log(userResponse.body);
 
     let route = this.router.config.find(r => r.path === 'login');
     if (route) this.router.navigateByUrl('/login');
