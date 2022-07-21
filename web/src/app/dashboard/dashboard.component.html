@@ -6,10 +6,13 @@
         <ng-container *ngFor="let plan of currentPlans">
           <app-plan [plan]="plan"></app-plan>
         </ng-container>
+        <p *ngIf="this.currentPlans.length===0">You don't have any plans — click <a [routerLink]="['/managePlans']">Manage Plans</a> to add one!</p>
         <h2>My Devices<button (click)="navigate('manageDevices')">Manage Devices</button></h2>
         <ng-container *ngFor="let device of currentNumbers">
           <app-device [device]="device"></app-device>
         </ng-container>
+        <p *ngIf="this.currentPlans.length===0">You can't add a device until you have a plan — click <a [routerLink]="['/managePlans']">Manage Plans</a> to add one!</p>
+        <p *ngIf="this.currentPlans.length!==0 && this.currentDevices.length===0">You don't have any devices — click <a [routerLink]="['/manageDevices']">Manage Devices</a> to add one!</p>
     </article>
     
     <app-sidebar></app-sidebar>

@@ -1,5 +1,7 @@
 main {
     display: grid;
+    grid-template-columns: auto 264px;
+    grid-template-rows: 60px auto;
 }
 
 h1 {

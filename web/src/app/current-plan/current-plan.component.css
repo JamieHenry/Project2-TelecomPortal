@@ -10,7 +10,7 @@ section {
 
 img {
     float: right;
-    width: 160px;
+    width: 140px;
 }
 
 h3 {
@@ -75,7 +75,7 @@ footer button {
 }
 
 footer button:hover {
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     border: solid 1px black;
     color: black;
 }

@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
   currentNumbers: {model: string, phoneNumber: string, plan: string}[] = [];
   currentPlans: {plan: Plan, descriptors: string[], currLines: number}[] = [];
 
+  currentDevices: number[] = [];
+
   constructor(private descriptorService: DescriptorService,
               private planService: PlanService,
               private deviceService: DeviceService,

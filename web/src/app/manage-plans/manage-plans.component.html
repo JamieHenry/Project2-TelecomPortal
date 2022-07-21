@@ -2,7 +2,7 @@
     <h1>Manage Plans</h1>
 
     <article>
-        <h2>My Plans</h2>
+        <h2 *ngIf="this.currentPlans.length!==0">My Plans</h2>
         <ng-container *ngFor="let plan of currentPlans">
             <app-current-plan 
                 [plan]="plan"
