@@ -1,10 +1,9 @@
 <section>
     <img src="../../assets/images/plan.png" />
-    <h3>Unlimited Premium<button>Add</button></h3>
+    <h3>{{ plan.plan.name }}<button (click)="add()">Add</button></h3>
     <ul>
-        <li>3 lines</li>
-        <li>Unlimited Talk, Text & Data</li>
-        <li>Unlimited Premium Data</li>
-        <li>50GB Hotspot Data per line/month</li>
+        <ng-container *ngFor="let descriptor of plan.descriptors">
+            <li>{{ descriptor }}</li>
+        </ng-container>
     </ul>
 </section>

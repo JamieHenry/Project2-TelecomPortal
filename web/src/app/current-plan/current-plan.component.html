@@ -1,18 +1,18 @@
 <section>
     <img src="../../assets/images/plan.png" />
-    <h3>Unlimited Premium</h3>
-    <h4>(123) 456-7890<button></button></h4>
-    <p>iPhone 13 Pro Max</p>
-    <h4>(567) 890-1234<button></button></h4>
-    <p>Samsung Galaxy Note 7</p>
+    <h3>{{ plan.plan.name }}</h3>
+    <ng-container *ngFor="let line of plan.lines">
+        <h4>{{ line.phoneNumber }}<button (click)="delete(line.phoneNumber)"></button></h4>
+        <p>{{ line.model }}</p>
+    </ng-container>
     <ul>
-        <li>Unlimited Talk, Text & Data</li>
-        <li>Unlimited Premium Data</li>
-        <li>50GB Hotspot Data per line/month</li>
+        <ng-container *ngFor="let descriptor of plan.descriptors">
+            <li>{{ descriptor }}</li>
+        </ng-container>
     </ul>
     <footer>
-        <button>Add Line</button>
-        <button>Change Plan</button>
-        <button>Cancel Plan</button>
+        <button (click)="add()">Add Line</button>
+        <button (click)="change()">Change Plan</button>
+        <button (click)="cancel()">Cancel Plan</button>
     </footer>
 </section>
