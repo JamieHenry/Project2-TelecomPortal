@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-available-device',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./available-device.component.css']
 })
 export class AvailableDeviceComponent implements OnInit {
+  @Input() device: any;
+  @Output() changeEvent = new EventEmitter<string>();
 
   constructor() { }
 

@@ -3,10 +3,11 @@
 
     <article>
         <h2>My Devices</h2>
-        <app-current-device></app-current-device>
-        <app-current-device></app-current-device>
-        <app-current-device></app-current-device>
-        <app-current-device></app-current-device>
+        <ng-container *ngFor="let number of currentNumbers">
+            <app-current-device
+                [number]="number"
+                (changeEvent)="resetValues()"></app-current-device>
+        </ng-container>
 
         <h2>Available Devices
             <form id="selectAvailableMake">
@@ -23,10 +24,13 @@
             </form>
             <a [routerLink]="['/manageDevices']">More Options ▼</a>
         </h2>
-        <app-available-device></app-available-device>
-        <app-available-device></app-available-device>
-        <app-available-device></app-available-device>
-        <app-available-device></app-available-device>
+        <ng-container *ngFor="let device of allDevices, let i=index">
+            <ng-container *ngIf="i < 4">
+                <app-available-device
+                    [device]="device"
+                    (changeEvent)="resetValues()"></app-available-device>
+            </ng-container>
+        </ng-container>
         
         <h2>Add New Device</h2>
 

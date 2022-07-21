@@ -1,7 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
+import { ActiveNumber } from '../models/active-number.model';
+import { Device } from '../models/device.model';
 import { User } from '../models/user.model';
+import { ActiveDeviceDescriptorService } from '../services/active-device-descriptor.service';
+import { ActiveNumberService } from '../services/active-number.service';
+import { ActivePlanService } from '../services/active-plan.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { DescriptorService } from '../services/descriptor.service';
+import { DeviceService } from '../services/device.service';
+import { PlanService } from '../services/plan.service';
 
 @Component({
   selector: 'app-manage-devices',
@@ -11,11 +20,27 @@ import { AuthenticationService } from '../services/authentication.service';
 export class ManageDevicesComponent implements OnInit {
 
   currentUser!: User | null;
+  currentNumbers: {
+    activeNumber: ActiveNumber,
+    device: Device,
+    planName: string
+  }[] = [];
+  allDevices: {
+    device: Device,
+    userId: number,
+    descriptors: string[]
+  }[] = [];
 
-  constructor(private router: Router,
+  constructor(private descriptorService: DescriptorService,
+              private activeDeviceDescriptorService: ActiveDeviceDescriptorService,
+              private planService: PlanService,
+              private activePlanService: ActivePlanService,
+              private deviceService: DeviceService,
+              private activeNumberService: ActiveNumberService,
+              private router: Router,
               private authService: AuthenticationService) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.authService.currentUser.subscribe(currUser => {
       this.currentUser = currUser;
     });
@@ -24,6 +49,41 @@ export class ManageDevicesComponent implements OnInit {
       this.navigate('/');
       return;
     }
+
+    // active numbers
+    const activeNumbersResponse = await lastValueFrom(this.activeNumberService.findByUserId(this.currentUser!.id));
+    for (let activeNumber of activeNumbersResponse.body!) {
+      const deviceResponse = await lastValueFrom(this.deviceService.findById(activeNumber.deviceId));
+      const activePlanResponse = await lastValueFrom(this.activePlanService.findById(activeNumber.activePlanId));
+      const planResponse = await lastValueFrom(this.planService.findById(activePlanResponse.body!.planId));
+      this.currentNumbers.push({
+        'activeNumber': activeNumber,
+        'device': deviceResponse.body!,
+        'planName': planResponse.body!.name
+      });
+    }
+
+    // all devices
+    const deviceResponse = await lastValueFrom(this.deviceService.findAll());
+    for (let device of deviceResponse.body!) {
+      const activeNumberDescriptors = [];
+      const deviceDescriptorResponse = await lastValueFrom(this.activeDeviceDescriptorService.findByDeviceId(device.id));
+      for (let deviceDescriptor of deviceDescriptorResponse.body!) {
+        const descriptorResponse = await lastValueFrom(this.descriptorService.findById(deviceDescriptor.descriptorId));
+        activeNumberDescriptors.push(descriptorResponse.body!.description);
+      }
+      this.allDevices.push({
+        'device': device,
+        'userId': this.currentUser.id,
+        'descriptors': activeNumberDescriptors
+      });
+    }
+  }
+
+  resetValues() {
+    this.currentNumbers = [];
+    this.allDevices = [];
+    this.ngOnInit();
   }
 
   navigate(url: string): void {
