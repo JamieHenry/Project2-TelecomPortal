@@ -19,7 +19,7 @@ import { PlanService } from '../services/plan.service';
 export class DashboardComponent implements OnInit {
 
   currentUser!: User | null;
-  currentNumbers: {
+  currentDevices: {
     make: string,
     model: string,
     phoneNumber: string,
@@ -30,8 +30,6 @@ export class DashboardComponent implements OnInit {
     descriptors: string[],
     currLines: number
   }[] = [];
-
-  currentDevices: number[] = [];
 
   constructor(private descriptorService: DescriptorService,
               private planService: PlanService,
@@ -78,12 +76,14 @@ export class DashboardComponent implements OnInit {
       const activePlanResponse = await lastValueFrom(this.activePlanService.findById(activeNumber.activePlanId));
       const planResponse = await lastValueFrom(this.planService.findById(activePlanResponse.body!.planId));
       
-      this.currentNumbers.push({
-        'make': deviceResponse.body!.make,
-        'model': deviceResponse.body!.model,
-        'phoneNumber': activeNumber.phoneNumber,
-        'plan': planResponse.body!.name
-      });
+      if (deviceResponse.body !== null) {
+        this.currentDevices.push({
+          'make': deviceResponse.body!.make,
+          'model': deviceResponse.body!.model,
+          'phoneNumber': activeNumber.phoneNumber,
+          'plan': planResponse.body!.name
+        });
+      }
     }
   }
 
