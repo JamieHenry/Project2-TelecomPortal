@@ -13,7 +13,7 @@ public interface ActiveNumberRepository extends JpaRepository<ActiveNumber, Inte
 
 	List<ActiveNumber> findByUserId(int userId);
 
-	List<ActiveNumber> findByPlanId(int planId);
+	List<ActiveNumber> findByActivePlanId(int activePlanId);
 
     Optional<ActiveNumber> findByPhoneNumber(String phoneNumber);
 }
