@@ -31,9 +31,9 @@ public class ActiveNumberController {
         return new ResponseEntity<List<ActiveNumber>>(service.findByUserId(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/planid/{planId}")
-    public ResponseEntity<List<ActiveNumber>> findByPlanId(@PathVariable(value="planId") int planId) {
-        return new ResponseEntity<List<ActiveNumber>>(service.findByPlanId(planId), HttpStatus.OK);
+    @GetMapping("/activeplanid/{activePlanId}")
+    public ResponseEntity<List<ActiveNumber>> findByActivePlanId(@PathVariable(value="activePlanId") int activePlanId) {
+        return new ResponseEntity<List<ActiveNumber>>(service.findByActivePlanId(activePlanId), HttpStatus.OK);
     }
 
     @GetMapping("/phonenumber/{phoneNumber}")

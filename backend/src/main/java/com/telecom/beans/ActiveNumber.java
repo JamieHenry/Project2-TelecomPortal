@@ -14,16 +14,16 @@ public class ActiveNumber {
 	@Column
 	private int deviceId;
 	@Column
-	private int planId;
+	private int activePlanId;
 	
 	public ActiveNumber() { }
 
-	public ActiveNumber(String phoneNumber, int userId, int deviceId, int planId) {
+	public ActiveNumber(String phoneNumber, int userId, int deviceId, int activePlanId) {
 		super();
 		this.phoneNumber = phoneNumber;
 		this.userId = userId;
 		this.deviceId = deviceId;
-		this.planId = planId;
+		this.activePlanId = activePlanId;
 	}
 
 	public String getPhoneNumber() {
@@ -49,18 +49,18 @@ public class ActiveNumber {
 	public void setDeviceId(int deviceId) {
 		this.deviceId = deviceId;
 	}
-	
-	public int getPlanId() {
-		return planId;
+
+	public int getActivePlanId() {
+		return activePlanId;
 	}
 
-	public void setPlanId(int planId) {
-		this.planId = planId;
+	public void setActivePlanId(int activePlanId) {
+		this.activePlanId = activePlanId;
 	}
 
 	@Override
 	public String toString() {
-		return "ActiveNumber [phoneNumber=" + phoneNumber + ", userId=" + userId + ", deviceId=" + deviceId
-				+ ", planId=" + planId + "]";
+		return "ActiveNumber [activePlanId=" + activePlanId + ", deviceId=" + deviceId + ", phoneNumber=" + phoneNumber
+				+ ", userId=" + userId + "]";
 	}
 }
