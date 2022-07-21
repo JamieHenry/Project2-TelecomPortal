@@ -1,4 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { ActivePlan } from '../models/active-plan.model';
+import { ActivePlanService } from '../services/active-plan.service';
 
 @Component({
   selector: 'app-available-plan',
@@ -7,14 +10,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AvailablePlanComponent implements OnInit {
   @Input() plan: any;
-  @Input() addActivePlan!: ((args: any) => void);
+  @Output() changeEvent = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private activePlanService: ActivePlanService) { }
 
   ngOnInit(): void {
   }
 
-  add() {
-    this.addActivePlan!('hello');
+  async addActivePlan() {
+    const activePlanResponse = await lastValueFrom(this.activePlanService.save(new ActivePlan(0, this.plan.userId, this.plan.plan.id)));
+    this.changeEvent.emit('');
   }
 }

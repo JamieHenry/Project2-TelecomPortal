@@ -37,8 +37,13 @@ public class ActiveNumberController {
     }
 
     @GetMapping("/phonenumber/{phoneNumber}")
-    public ResponseEntity<Optional<ActiveNumber>> findById(@PathVariable(value="phoneNumber") String phoneNumber) {
+    public ResponseEntity<Optional<ActiveNumber>> findByPhoneNumber(@PathVariable(value="phoneNumber") String phoneNumber) {
         return new ResponseEntity<Optional<ActiveNumber>>(service.findByPhoneNumber(phoneNumber), HttpStatus.OK);
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Optional<ActiveNumber>> findById(@PathVariable(value="id") int id) {
+        return new ResponseEntity<Optional<ActiveNumber>>(service.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/")

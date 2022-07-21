@@ -26,9 +26,13 @@ public class ActiveNumberService {
 	public List<ActiveNumber> findByActivePlanId(int activePlanId) {
 		return repository.findByActivePlanId(activePlanId);
 	}
-	
+
 	public Optional<ActiveNumber> findByPhoneNumber(String phoneNumber) {
 		return repository.findByPhoneNumber(phoneNumber);
+	}
+	
+	public Optional<ActiveNumber> findById(int id) {
+		return repository.findById(id);
 	}
 	
 	public List<ActiveNumber> findAll() {

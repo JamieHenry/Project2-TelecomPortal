@@ -2,8 +2,12 @@
     <img src="../../assets/images/plan.png" />
     <h3>{{ plan.plan.name }}</h3>
     <ng-container *ngFor="let line of plan.lines">
-        <h4>{{ line.phoneNumber }}<button (click)="delete(line.phoneNumber)"></button></h4>
+        <h4>{{ line.phoneNumber }}<button (click)="deleteLine(line.activeNumberId)"></button></h4>
         <p>{{ line.model }}</p>
+    </ng-container>
+    <ng-container *ngIf="plan.lines.length === 0">
+        <h4>No Lines Assigned</h4>
+        <p>{{ plan.plan.numDevices }} Available Lines</p>
     </ng-container>
     <ul>
         <ng-container *ngFor="let descriptor of plan.descriptors">
@@ -11,8 +15,8 @@
         </ng-container>
     </ul>
     <footer>
-        <button (click)="add()">Add Line</button>
-        <button (click)="change()">Change Plan</button>
-        <button (click)="cancel()">Cancel Plan</button>
+        <button>Add Line</button>
+        <button>Change Plan</button>
+        <button (click)="cancelPlan()">Cancel Plan</button>
     </footer>
 </section>

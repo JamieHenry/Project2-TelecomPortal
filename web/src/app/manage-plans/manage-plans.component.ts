@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
+import { ActivePlan } from '../models/active-plan.model';
 import { Plan } from '../models/plan.model';
 import { User } from '../models/user.model';
 import { ActiveDescriptorService } from '../services/active-descriptor.service';
@@ -19,8 +20,8 @@ import { PlanService } from '../services/plan.service';
 export class ManagePlansComponent implements OnInit {
 
   currentUser!: User | null;
-  currentPlans: {plan: Plan, activePlanId: number, descriptors: string[], lines: {phoneNumber: string, model: string}[]}[] = [];
-  allPlans: {plan: Plan, descriptors: string[]}[] = [];
+  currentPlans: {plan: Plan, activePlanId: number, descriptors: string[], lines: {activeNumberId: number, phoneNumber: string, model: string}[]}[] = [];
+  allPlans: {plan: Plan, userId: number, descriptors: string[]}[] = [];
 
   constructor(private deviceService: DeviceService,
               private descriptorService: DescriptorService,
@@ -47,7 +48,7 @@ export class ManagePlansComponent implements OnInit {
       const activePlanDescriptors = [];
       const activePlanLines = [];
       const planResponse = await lastValueFrom(this.planService.findById(activePlan.planId));
-      const activeDescriptorResponse = await lastValueFrom(this.activeDescriptorService.findByPlanId(activePlan.id));
+      const activeDescriptorResponse = await lastValueFrom(this.activeDescriptorService.findByPlanId(activePlan.planId));
       const activeNumberResponse = await lastValueFrom(this.activeNumberService.findByActivePlanId(activePlan.id));
       for (let activeDescriptor of activeDescriptorResponse.body!) {
         const descriptorResponse = await lastValueFrom(this.descriptorService.findById(activeDescriptor.descriptorId));
@@ -55,7 +56,7 @@ export class ManagePlansComponent implements OnInit {
       }
       for (let activeNumber of activeNumberResponse.body!) {
         const deviceResponse = await lastValueFrom(this.deviceService.findById(activeNumber.deviceId));
-        activePlanLines.push({'phoneNumber': activeNumber.phoneNumber, 'model': deviceResponse.body!.model});
+        activePlanLines.push({'activeNumberId': activeNumber.id, 'phoneNumber': activeNumber.phoneNumber, 'model': deviceResponse.body!.model});
       }
       this.currentPlans.push({
         'plan': planResponse.body!,
@@ -76,29 +77,16 @@ export class ManagePlansComponent implements OnInit {
       }
       this.allPlans.push({
         'plan': plan,
+        'userId': this.currentUser!.id,
         'descriptors': activePlanDescriptors
       });
     }
   }
 
-  addActivePlan(args: any): void {
-    console.log('addActivePlan')
-  }
-
-  addLine(args: any): void {
-    console.log('addLine')
-  }
-
-  changePlan(args: any): void {
-    console.log('changePlan')
-  }
-
-  cancelPlan(args: any): void {
-    console.log('cancelPlan')
-  }
-
-  deleteLine(args: any): void {
-    console.log(args)
+  resetValues() {
+    this.currentPlans = [];
+    this.allPlans = [];
+    this.ngOnInit();
   }
 
   navigate(url: string): void {

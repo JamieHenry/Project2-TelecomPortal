@@ -5,18 +5,15 @@
         <h2>My Plans</h2>
         <ng-container *ngFor="let plan of currentPlans">
             <app-current-plan 
-                [plan]="plan" 
-                [addLine]="addLine" 
-                [changePlan]="changePlan" 
-                [cancelPlan]="cancelPlan"
-                [deleteLine]="deleteLine"></app-current-plan>
+                [plan]="plan"
+                (changeEvent)="resetValues()"></app-current-plan>
         </ng-container>
         
         <h2>Available Plans</h2>
         <ng-container *ngFor="let plan of allPlans">
             <app-available-plan 
-                [plan]="plan" 
-                [addActivePlan]="addActivePlan"></app-available-plan>
+                [plan]="plan"
+                (changeEvent)="resetValues()"></app-available-plan>
         </ng-container>
     </article>
 
