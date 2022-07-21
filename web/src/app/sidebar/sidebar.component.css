@@ -1,7 +1,6 @@
 aside {
-    float: right;
     width: 240px;
-    height: 100vh;
+    height: 100%;
     background-image: url("../../assets/images/sidebar.jpg");
     background-size: 100% 100%;
     padding: 12px;

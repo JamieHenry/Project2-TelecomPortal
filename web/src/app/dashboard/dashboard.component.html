@@ -1,14 +1,16 @@
-<app-sidebar></app-sidebar>
-
+<main>
 <h1>Dashboard</h1>
 
-<main>
-    <h2>My Plans<button (click)="navigate('managePlans')">Manage Plans</button></h2>
-    <aside *ngFor="let plan of currentPlans">
-        <app-plan [plan]="plan"></app-plan>
-    </aside>
-    <h2>My Devices<button (click)="navigate('manageDevices')">Manage Devices</button></h2>
-    <aside *ngFor="let device of currentNumbers">
-        <app-device [device]="device"></app-device>
-    </aside>
+    <article>
+        <h2>My Plans<button (click)="navigate('managePlans')">Manage Plans</button></h2>
+        <aside *ngFor="let plan of currentPlans">
+          <app-plan [plan]="plan"></app-plan>
+        </aside>
+        <h2>My Devices<button (click)="navigate('manageDevices')">Manage Devices</button></h2>
+        <aside *ngFor="let device of currentNumbers">
+          <app-device [device]="device"></app-device>
+        </aside>
+    </article>
+    
+    <app-sidebar></app-sidebar>
 </main>

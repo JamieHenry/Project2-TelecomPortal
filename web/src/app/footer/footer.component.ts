@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../models/user.model';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  currentUser!: User | null;
+
+  constructor(private authService: AuthenticationService) {
+    this.authService.currentUser.subscribe(currUser => {
+      this.currentUser = currUser;
+    })
+  }
 
   ngOnInit(): void {
   }
 
+  logout() {
+    this.authService.logout();
+    this.currentUser = null;
+  }
 }

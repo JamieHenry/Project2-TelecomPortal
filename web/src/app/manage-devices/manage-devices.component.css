@@ -1,12 +1,19 @@
 main {
-    padding-left: 45px;
+    display: grid;
 }
 
 h1 {
+    grid-area: 1 / 1 / span 1 / span 1;
     background-image: url("../../assets/images/h1.jpg");
     background-size: 110% 100%;
     padding: 12px 0px 10px 45px;
     color: rgb(31, 102, 160);
+    margin-bottom: 0px;
+}
+
+article {
+    grid-area: 2 / 1 / span 1 / span 1;
+    padding-left: 45px;
 }
 
 h2 {
@@ -61,7 +68,7 @@ h2 a:hover {
     text-decoration: underline;
 }
 
-main > form {
+article > form {
     width: 812px;
     margin-bottom: 24px;
     padding: 24px 36px 12px 36px;
@@ -70,21 +77,21 @@ main > form {
     border: solid 1px rgba(0, 0, 0, .2);
 }
 
-main > form section {
+article > form section {
     display: inline-block;
     vertical-align: top;
     width: 42%;
     margin-bottom: 12px;
 }
 
-main > form label {
+article > form label {
     display: block;
     font-size: 13px;
     font-weight: bold;
     margin-bottom: 2px;
 }
 
-main > form select {
+article > form select {
     display: inline;
     height: 24px;
     width: 280px;
@@ -94,11 +101,11 @@ main > form select {
     border: solid 1px rgba(0, 0, 0, 0.4);
 }
 
-main > form section div {
+article > form section div {
     height: 40px;
 }
 
-main > form section input {
+article > form section input {
     display: block;
     width: 270px;
     font-size: 18px;
@@ -108,7 +115,7 @@ main > form section input {
     color: darkslategray;
 }
 
-main > form > input {
+article > form > input {
     display: inline-block;
     margin-top: 12px;
     padding: 10px;
@@ -120,6 +127,10 @@ main > form > input {
     transition: background-color .2s;
 }
 
-main > form > input:hover {
+article > form > input:hover {
     background-color: rgb(0, 0, 0);
+}
+
+app-sidebar {
+    grid-area: 1 / 2 / span 2 / span 1;
 }
