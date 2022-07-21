@@ -1,5 +1,7 @@
 <section>
-    <img src="../../assets/images/apple-logo.png">
+    <img src="../../assets/images/apple-logo.png" *ngIf="device.make === 'Apple'">
+    <img src="../../assets/images/samsung-logo.png" *ngIf="device.make === 'Samsung'">
+    <img src="../../assets/images/blackberry-logo.png" *ngIf="device.make === 'BlackBerry'">
     <h3>{{ device.model }}</h3>
     <h4>{{ device.phoneNumber }}</h4>
     <p>Assigned to your {{ device.plan }} plan</p>

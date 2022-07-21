@@ -1,9 +1,11 @@
 <section>
-    <img src="../../assets/images/apple-logo.png">
-    <h3>iPhone 13 Pro Max<button>Add</button></h3>
+    <img src="../../assets/images/apple-logo.png" *ngIf="device.device.make === 'Apple'">
+    <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
+    <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">
+    <h3>{{ device.device.model }}<button>Add</button></h3>
     <ul>
-        <li>256GB Internal Storage</li>
-        <li>HD FaceTime Camera</li>
-        <li>Super Retina XDR Display</li>
+        <ng-container *ngFor="let descriptor of device.descriptors">
+            <li>{{ descriptor }}</li>
+        </ng-container>
     </ul>
 </section>

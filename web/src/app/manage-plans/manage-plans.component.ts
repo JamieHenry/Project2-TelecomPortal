@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
-import { ActivePlan } from '../models/active-plan.model';
 import { Plan } from '../models/plan.model';
 import { User } from '../models/user.model';
 import { ActiveDescriptorService } from '../services/active-descriptor.service';
@@ -20,8 +19,21 @@ import { PlanService } from '../services/plan.service';
 export class ManagePlansComponent implements OnInit {
 
   currentUser!: User | null;
-  currentPlans: {plan: Plan, activePlanId: number, descriptors: string[], lines: {activeNumberId: number, phoneNumber: string, model: string}[]}[] = [];
-  allPlans: {plan: Plan, userId: number, descriptors: string[]}[] = [];
+  currentPlans: {
+    plan: Plan,
+    activePlanId: number,
+    descriptors: string[],
+    lines: {
+      activeNumberId: number,
+      phoneNumber: string,
+      model: string
+    }[]
+  }[] = [];
+  allPlans: {
+    plan: Plan,
+    userId: number,
+    descriptors: string[]
+  }[] = [];
 
   constructor(private deviceService: DeviceService,
               private descriptorService: DescriptorService,
