@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../models/user.model';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-manage-devices',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageDevicesComponent implements OnInit {
 
-  constructor() { }
+  currentUser!: User | null;
+
+  constructor(private router: Router,
+              private authService: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.authService.currentUser.subscribe(currUser => {
+      this.currentUser = currUser;
+    });
+
+    if (this.currentUser === null) {
+      this.navigate('/');
+      return;
+    }
+  }
+
+  navigate(url: string): void {
+    this.router.navigateByUrl(`${url}`);
   }
 
   add(): void {
