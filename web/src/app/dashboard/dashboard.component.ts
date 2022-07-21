@@ -19,8 +19,17 @@ import { PlanService } from '../services/plan.service';
 export class DashboardComponent implements OnInit {
 
   currentUser!: User | null;
-  currentNumbers: {model: string, phoneNumber: string, plan: string}[] = [];
-  currentPlans: {plan: Plan, descriptors: string[], currLines: number}[] = [];
+  currentNumbers: {
+    make: string,
+    model: string,
+    phoneNumber: string,
+    plan: string
+  }[] = [];
+  currentPlans: {
+    plan: Plan,
+    descriptors: string[],
+    currLines: number
+  }[] = [];
 
   currentDevices: number[] = [];
 
@@ -70,6 +79,7 @@ export class DashboardComponent implements OnInit {
       const planResponse = await lastValueFrom(this.planService.findById(activePlanResponse.body!.planId));
       
       this.currentNumbers.push({
+        'make': deviceResponse.body!.make,
         'model': deviceResponse.body!.model,
         'phoneNumber': activeNumber.phoneNumber,
         'plan': planResponse.body!.name
