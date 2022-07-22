@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { User } from '../models/user.model';
 import { ActiveFeeService } from '../services/active-fee.service';
@@ -14,6 +14,7 @@ import { PlanService } from '../services/plan.service';
 })
 export class SidebarComponent implements OnInit, OnChanges {
   @Input() isStale: boolean = false;
+  @Output() changeEvent = new EventEmitter<string>();
 
   currentUser!: User | null;
   plans: {
@@ -76,5 +77,6 @@ export class SidebarComponent implements OnInit, OnChanges {
       this.total = 0;
       this.ngOnInit();
     }
+    this.changeEvent.emit('');
   }
 }
