@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit, OnChanges {
     this.authService.currentUser.subscribe(currUser => {
       this.currentUser = currUser;
     });
-    
+
     const activePlanResponse = await lastValueFrom(this.activePlanService.findByUserId(this.currentUser!.id));
     for (let activePlan of activePlanResponse.body!) {
       const planResponse = await lastValueFrom(this.planService.findById(activePlan.planId));

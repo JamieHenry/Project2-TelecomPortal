@@ -1,3 +1,35 @@
+<aside *ngIf="showChangePlanModal">
+    <article>
+        <img src="../../assets/images/plan.png">
+        <h5>{{ plan.plan.name }}</h5>
+        <h6>${{ plan.plan.price }}/month</h6>
+        <select name="changeTo">
+            <option value="">Select a plan...</option>
+            <option value="Unlimited Premium">Unlimited Premium (3 lines) - $99.99/month</option>
+            <option value="Unlimited Extra">Unlimited Extra (2 lines) - $79.99/month</option>
+            <option value="Unlimited Starter">Unlimited Starter (1 line) - $59.99/month</option>
+        </select>
+        <p>Are you sure you want to change this plan?<br>
+            <span>Extra phone lines will be deleted!</span>
+        </p>
+        <button (click)="changePlan()">Change Plan</button>
+        <button (click)="cancelChangePlan()">Cancel</button>
+    </article>
+    <div></div>
+</aside>
+
+<aside *ngIf="showCancelPlanModal">
+    <article>
+        <img src="../../assets/images/plan.png">
+        <h5>{{ plan.plan.name }}</h5>
+        <h6>${{ plan.plan.price }}/month</h6>
+        <p>Are you sure you want to cancel this plan?</p>
+        <button (click)="cancelPlan()">Yes</button>
+        <button (click)="cancelCancelPlan()">No</button>
+    </article>
+    <div></div>
+</aside>
+
 <section>
     <img src="../../assets/images/plan.png" />
     <h3>{{ plan.plan.name }}</h3>
@@ -16,7 +48,7 @@
     </ul>
     <footer>
         <button>Add Line</button>
-        <button>Change Plan</button>
-        <button (click)="cancelPlan()">Cancel Plan</button>
+        <button (click)="changePlanModal()">Change Plan</button>
+        <button (click)="cancelPlanModal()">Cancel Plan</button>
     </footer>
 </section>

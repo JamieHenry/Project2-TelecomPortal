@@ -1,10 +1,23 @@
+<aside *ngIf="showActivePlanModal">
+    <article>
+        <img src="../../assets/images/plan.png">
+        <h5>{{ plan.plan.name }}</h5>
+        <h6>${{ plan.plan.price }}/month</h6>
+        <p>Are you sure you want to add this plan?</p>
+        <button (click)="addActivePlan()">Add Plan</button>
+        <button (click)="cancelAddActivePlan()">Cancel</button>
+    </article>
+    <div></div>
+</aside>
+
 <section>
     <img src="../../assets/images/plan.png" />
     <h3>{{ plan.plan.name }}</h3>
+    <h4>${{ plan.plan.price }}/month</h4>
     <ul>
         <ng-container *ngFor="let descriptor of plan.descriptors">
             <li>{{ descriptor }}</li>
         </ng-container>
     </ul>
-    <button (click)="addActivePlan()">Add Plan</button>
+    <button (click)="addActivePlanModal()">Add Plan</button>
 </section>
