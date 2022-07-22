@@ -17,7 +17,7 @@ import { PlanService } from '../services/plan.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  
   currentUser!: User | null;
   currentDevices: {
     make: string,

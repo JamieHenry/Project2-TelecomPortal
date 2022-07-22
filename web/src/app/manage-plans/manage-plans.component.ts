@@ -18,6 +18,8 @@ import { PlanService } from '../services/plan.service';
 })
 export class ManagePlansComponent implements OnInit {
 
+  isStale: boolean = false;
+
   currentUser!: User | null;
   currentPlans: {
     plan: Plan,
@@ -99,6 +101,7 @@ export class ManagePlansComponent implements OnInit {
     this.currentPlans = [];
     this.allPlans = [];
     this.ngOnInit();
+    this.isStale = true;
   }
 
   navigate(url: string): void {

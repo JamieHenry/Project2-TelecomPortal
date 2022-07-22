@@ -19,6 +19,8 @@ import { PlanService } from '../services/plan.service';
 })
 export class ManageDevicesComponent implements OnInit {
 
+  isStale: boolean = false;
+
   currentUser!: User | null;
   currentNumbers: {
     activeNumber: ActiveNumber,
@@ -84,6 +86,7 @@ export class ManageDevicesComponent implements OnInit {
     this.currentNumbers = [];
     this.allDevices = [];
     this.ngOnInit();
+    this.isStale = true;
   }
 
   navigate(url: string): void {
