@@ -17,5 +17,7 @@
         </ng-container>
     </article>
 
-    <app-sidebar [isStale]="isStale"></app-sidebar>
+    <app-sidebar
+        [isStale]="isStale"
+        (changeEvent)="resetIsStale()"></app-sidebar>
 </main>

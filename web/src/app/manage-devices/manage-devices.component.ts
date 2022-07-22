@@ -89,6 +89,10 @@ export class ManageDevicesComponent implements OnInit {
     this.isStale = true;
   }
 
+  resetIsStale() {
+    this.isStale = false;
+  }
+
   navigate(url: string): void {
     this.router.navigateByUrl(`${url}`);
   }
