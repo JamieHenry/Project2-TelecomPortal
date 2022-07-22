@@ -1,3 +1,7 @@
+aside {
+    float: left;
+}
+
 section {
     display: inline-block;
     width: 400px;

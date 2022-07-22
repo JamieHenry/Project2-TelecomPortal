@@ -6,7 +6,7 @@ import { ActivePlanService } from '../services/active-plan.service';
 @Component({
   selector: 'app-available-plan',
   templateUrl: './available-plan.component.html',
-  styleUrls: ['./available-plan.component.css']
+  styleUrls: ['./available-plan.component.css', '../../assets/stylesheets/modal.css']
 })
 export class AvailablePlanComponent implements OnInit {
   @Input() plan: any;
@@ -15,6 +15,16 @@ export class AvailablePlanComponent implements OnInit {
   constructor(private activePlanService: ActivePlanService) { }
 
   ngOnInit(): void {
+  }
+
+  showActivePlanModal: boolean = false;
+
+  addActivePlanModal() {
+    this.showActivePlanModal = true;
+  }
+
+  cancelAddActivePlan() {
+    this.showActivePlanModal = false;
   }
 
   async addActivePlan() {

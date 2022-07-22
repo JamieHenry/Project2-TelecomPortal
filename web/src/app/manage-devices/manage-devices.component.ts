@@ -33,6 +33,8 @@ export class ManageDevicesComponent implements OnInit {
     descriptors: string[]
   }[] = [];
 
+  currentDevices: any = [];
+
   constructor(private descriptorService: DescriptorService,
               private activeDeviceDescriptorService: ActiveDeviceDescriptorService,
               private planService: PlanService,
