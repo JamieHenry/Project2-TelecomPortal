@@ -26,19 +26,18 @@ export class LoginComponent implements OnInit {
 
   async login() {
     this.error = '';
-    let user: User = new User(0, this.email!.toLowerCase(), '', '', this.password!);
     
-    let userResponse = await lastValueFrom(this.userService.login(user.email, user.password));
+    let userResponse = await lastValueFrom(this.userService.login(this.email.toLowerCase(), this.password));
 
     if (userResponse.body === null) {
       this.error = 'Invalid email/password';
       return;
     }
 
-    user = userResponse.body;
+    const user = new User(userResponse.body!.user.id, userResponse.body!.user.email, userResponse.body!.user.firstName, userResponse.body!.user.lastName, '');;
 
-    user.password = 'idk';
     this.authService.setUser(user);
+    this.authService.authToken = userResponse.body!.accessToken;
 
     let route = this.router.config.find(r => r.path === 'dashboard');
     if (route) this.router.navigateByUrl('/dashboard');
