@@ -22,49 +22,44 @@
                 <input type="text" placeholder="Search Available Devices...">
                 <input type="submit" value="">
             </form>
-            <a [routerLink]="['/manageDevices']">More Options ▼</a>
+            <a [routerLink]="['/manageDevices']">Scroll for more options ▼</a>
         </h2>
+        <div>
         <ng-container *ngFor="let device of allDevices, let i=index">
-            <ng-container *ngIf="i < 4">
-                <app-available-device
-                    [device]="device"
-                    (changeEvent)="resetValues()"></app-available-device>
-            </ng-container>
+            <app-available-device
+                [device]="device"
+                (changeEvent)="resetValues()"></app-available-device>
         </ng-container>
+        </div>
         
-        <h2>Add New Device</h2>
+        <h2>Add Device</h2>
 
-        <form id="addNewDevice" (ngSubmit)="add(); addNewDevice.reset();" #addNewDevice>
+        <form id="addDevice" [formGroup]="addDevice" (ngSubmit)="add(); addDevice.reset();">
 
             <section>
                 <label for="make">Make</label>
-                <select name="make" id="make" (change)="selectMake(make.value)" (change)="model.selectedIndex = 0" #make>
-                    <option value="" selected>Select Make...</option>
-                    <option value="Apple">Apple</option>
-                    <option value="RIM">RIM</option>
-                    <option value="Samsung">Samsung</option>
-                    <option value="Other">Other...</option>
-                </select>
-                <div>
-                    <label for="makeOther" *ngIf="this.makeOther">Other Make</label>
-                    <input name="makeOther"  *ngIf="this.makeOther" type="text" maxlength="50" />
-                </div>
+                <input name="make" type="text" formControlName="make"  />
+                <aside>
+                    <span *ngIf="addDevice.controls['make'] != null 
+                                 && !addDevice.controls['make'].valid 
+                                 && (addDevice.controls['make'].dirty 
+                                 || addDevice.controls['make'].touched)">
+                        Required
+                    </span>
+                </aside>
             </section>
             
             <section>
                 <label for="model">Model</label>
-                <select name="model" (change)="selectModel(model.value)" #model>
-                    <option *ngIf="!this.makeOther" value="">Select Model...</option>
-                    <option *ngIf="this.models.model1" value={{this.models.model1}}>{{this.models.model1}}</option>
-                    <option *ngIf="this.models.model2" value={{this.models.model2}}>{{this.models.model2}}</option>
-                    <option *ngIf="this.models.model3" value={{this.models.model3}}>{{this.models.model3}}</option>
-                    <option *ngIf="this.models.model4" value={{this.models.model4}}>{{this.models.model4}}</option>
-                    <option *ngIf="this.models.model1||make.value" value="Other">Other...</option>
-                </select>
-                <div>
-                    <label for="modelOther" *ngIf="this.modelOther||this.makeOther">Other Model</label>
-                    <input name="modelOther" *ngIf="this.modelOther||this.makeOther" type="text" maxlength="50" />
-                </div>
+                <input name="model" type="text" formControlName="model" />
+                <aside>
+                    <span *ngIf="addDevice.controls['model'] != null 
+                                 && !addDevice.controls['model'].valid 
+                                 && (addDevice.controls['model'].dirty 
+                                 || addDevice.controls['model'].touched)">
+                        Required
+                    </span>
+                </aside>
             </section>
             
             <input type="submit" value="Add New Device"/>

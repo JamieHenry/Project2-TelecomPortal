@@ -1,21 +1,26 @@
 <aside *ngIf="showAddAvailableDeviceModal">
     <article>
-        <img src="../../assets/images/apple-logo.png" *ngIf="device.device.make === 'Apple'">
-        <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
-        <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">
-        <img src="../../assets/images/home-device.png" *ngIf="device.device.make === 'Other'">
+    <img src="../../assets/images/apple-logo.png" *ngIf="device.device.make === 'Apple'">
+    <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">
+    <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
+    <img src="../../assets/images/other-logo.png" *ngIf="device.device.make !== 'Apple' 
+                                                      && device.device.make !== 'BlackBerry' 
+                                                      && device.device.make !== 'Samsung'">
         <h5>{{ device.device.model }}</h5>
         <p>Are you sure you want to add this device?</p>
         <button (click)="addAvailableDevice()">Add Device</button>
         <button (click)="cancelAddAvailableDevice()">Cancel</button>
     </article>
-    <div></div>
+    <div (click)="cancelAddAvailableDevice()"></div>
 </aside>
 
 <section>
     <img src="../../assets/images/apple-logo.png" *ngIf="device.device.make === 'Apple'">
-    <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
     <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">
+    <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
+    <img src="../../assets/images/other-logo.png" *ngIf="device.device.make !== 'Apple' 
+                                                      && device.device.make !== 'BlackBerry' 
+                                                      && device.device.make !== 'Samsung'">
     <h3>{{ device.device.model }}<button (click)="addAvailableDeviceModal()">Add</button></h3>
     <ul>
         <ng-container *ngFor="let descriptor of device.descriptors">

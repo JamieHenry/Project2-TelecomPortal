@@ -70,11 +70,11 @@ article > button {
 }
 
 article > button:first-of-type {
-    background-color: green;
+    background-color: rgba(69, 117, 195, 0.7);
 }
 
 article > button:first-of-type:hover {
-    background-color: rgb(0, 202, 0);
+    background-color: rgba(69, 117, 195, 0.5);
 }
 
 article > button:last-of-type {
