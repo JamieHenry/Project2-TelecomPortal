@@ -57,10 +57,11 @@ public class ApplicationSecurity {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/api/user/login", "/api/user/register").permitAll()
+                .antMatchers("/api/user/login", "/api/user/register", "/api/user/email/**").permitAll()
                 .anyRequest().authenticated();
         
         http.exceptionHandling()

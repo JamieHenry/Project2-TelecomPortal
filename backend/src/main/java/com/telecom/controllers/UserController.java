@@ -56,8 +56,7 @@ public class UserController {
     JwtTokenUtil jwtUtil;
 
 	@GetMapping("/email/{email}")
-	@Operation(summary = "Find User by email", description = "Return User with matching email", security = 
-		@SecurityRequirement(name = "JWT Authentication"))
+	@Operation(summary = "Find User by email", description = "Return User with matching email")
 	public ResponseEntity<Optional<User>> findByEmail(@PathVariable(value="email") String email) {
 		return new ResponseEntity<Optional<User>>(service.findByEmail(email), HttpStatus.OK);
 	}

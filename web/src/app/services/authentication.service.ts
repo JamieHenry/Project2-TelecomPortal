@@ -10,6 +10,8 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
 
+  public authToken = '';
+
   constructor() {
     this.currentUserSubject = new BehaviorSubject<User | null>(
       JSON.parse(sessionStorage.getItem('currentUser')!)
@@ -22,6 +24,12 @@ export class AuthenticationService {
     this.resetCredentials();
     sessionStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
+  }
+
+  isUserLoggedIn() {
+    const user = sessionStorage.getItem('currentUser');
+    if (user === null) return false;
+    return true;
   }
 
   resetCredentials() {
