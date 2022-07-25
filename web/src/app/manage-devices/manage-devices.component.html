@@ -1,3 +1,25 @@
+<aside *ngIf="showAddNewDeviceModal">
+    <header>
+    <img src="../../assets/images/apple-logo.png" *ngIf="'Apple' === 'Apple'">
+    <!-- <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">
+    <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
+    <img src="../../assets/images/other-logo.png" *ngIf="device.device.make !== 'Apple' 
+                                                      && device.device.make !== 'BlackBerry' 
+                                                      && device.device.make !== 'Samsung'"> -->
+        <h5><!--{{ device.device.model }}-->Device Model</h5>
+        <select>
+            <option value="">Select an active line...</option>
+            <ng-container *ngFor="let line of currentLines">
+                <option value="{{ line }}">{{ line }}</option>
+            </ng-container>
+        </select>
+        <p>Are you sure you want to add this device?</p>
+        <button (click)="addNewDevice()">Add Device</button>
+        <button (click)="cancelAddNewDevice()">Cancel</button>
+    </header>
+    <div (click)="cancelAddNewDevice()"></div>
+</aside>
+
 <main>
     <h1>Manage Devices</h1>
 
@@ -25,7 +47,7 @@
             <a [routerLink]="['/manageDevices']">Scroll for more options ▼</a>
         </h2>
         <div>
-        <ng-container *ngFor="let device of allDevices, let i=index">
+        <ng-container *ngFor="let device of allDevices">
             <app-available-device
                 [device]="device"
                 (changeEvent)="resetValues()"></app-available-device>
@@ -62,7 +84,7 @@
                 </aside>
             </section>
             
-            <input type="submit" value="Add New Device"/>
+            <button (click)="addNewDeviceModal()">Add New Device</button>
         </form>
     </article>
 

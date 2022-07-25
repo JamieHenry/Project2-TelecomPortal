@@ -1,5 +1,5 @@
 <aside *ngIf="showChangePlanModal">
-    <article>
+    <header>
         <img src="../../assets/images/plan-premium.png" *ngIf="plan.plan.name === 'Unlimited Premium'" />
         <img src="../../assets/images/plan-extra.png" *ngIf="plan.plan.name === 'Unlimited Extra'" />
         <img src="../../assets/images/plan-starter.png" *ngIf="plan.plan.name === 'Unlimited Starter'" />
@@ -16,12 +16,12 @@
         </p>
         <button (click)="changePlan()">Change Plan</button>
         <button (click)="cancelChangePlan()">Cancel</button>
-    </article>
+    </header>
     <div (click)="cancelChangePlan()"></div>
 </aside>
 
 <aside *ngIf="showCancelPlanModal">
-    <article>
+    <header>
         <img src="../../assets/images/plan-premium.png" *ngIf="plan.plan.name === 'Unlimited Premium'" />
         <img src="../../assets/images/plan-extra.png" *ngIf="plan.plan.name === 'Unlimited Extra'" />
         <img src="../../assets/images/plan-starter.png" *ngIf="plan.plan.name === 'Unlimited Starter'" />
@@ -30,7 +30,7 @@
         <p>Are you sure you want to cancel this plan?</p>
         <button (click)="cancelPlan()">Yes</button>
         <button (click)="cancelCancelPlan()">No</button>
-    </article>
+    </header>
     <div (click)="cancelCancelPlan()"></div>
 </aside>
 
@@ -41,15 +41,16 @@
     <h3>{{ plan.plan.name }}</h3>
     <ng-container *ngFor="let line of plan.lines">
         <h4>{{ line.phoneNumber }}<button (click)="deleteLine(line.activeNumberId)"></button></h4>
-        <p>{{ line.model }}</p>
     </ng-container>
     <ng-container *ngIf="plan.lines.length === 0">
-        <h4>No Lines Assigned</h4>
-        <p>{{ plan.plan.numDevices }} Available Lines</p>
+        <h4>No Lines Active</h4>
+        <p>{{ plan.plan.numDevices }} Available Line<span *ngIf="plan.plan.numDevices !== 1">s</span></p>
     </ng-container>
-    <ul>
-        <ng-container *ngFor="let descriptor of plan.descriptors">
-            <li>{{ descriptor }}</li>
+    <ul *ngIf="currentLines < 2" >
+        <ng-container *ngFor="let descriptor of plan.descriptors, let i = index">
+            <ng-container *ngIf="i < 3">
+                <li>{{ descriptor }}</li>
+            </ng-container>
         </ng-container>
     </ul>
     <footer>

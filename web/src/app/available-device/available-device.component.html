@@ -1,5 +1,5 @@
 <aside *ngIf="showAddAvailableDeviceModal">
-    <article>
+    <header>
     <img src="../../assets/images/apple-logo.png" *ngIf="device.device.make === 'Apple'">
     <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">
     <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
@@ -7,10 +7,16 @@
                                                       && device.device.make !== 'BlackBerry' 
                                                       && device.device.make !== 'Samsung'">
         <h5>{{ device.device.model }}</h5>
+        <select>
+            <option value="">Select an active line...</option>
+            <ng-container *ngFor="let line of currentLines">
+                <option value="{{ line }}">{{ line }}</option>
+            </ng-container>
+        </select>
         <p>Are you sure you want to add this device?</p>
         <button (click)="addAvailableDevice()">Add Device</button>
         <button (click)="cancelAddAvailableDevice()">Cancel</button>
-    </article>
+    </header>
     <div (click)="cancelAddAvailableDevice()"></div>
 </aside>
 

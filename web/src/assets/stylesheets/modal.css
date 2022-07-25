@@ -1,5 +1,5 @@
 /* background */
-div {
+header~div {
     z-index: 900;
     position: fixed;
     top: 0;
@@ -11,7 +11,7 @@ div {
 }
 
 /* modal content */
-article {
+header {
     z-index: 1000;
     position: fixed;
     top: 60px;
@@ -23,42 +23,42 @@ article {
     background-color: rgba(255, 255, 255, 0.9);
 }
 
-article > img {
+header > img {
     float: none;
     width: 200px;
     margin-bottom: 20px;
 }
 
-article > h5 {
+header > h5 {
     font-size: 18px;
     color: rgb(69, 117, 195);
     margin-bottom: 4px;
 }
 
-article > h6 {
+header > h6 {
     font-style: italic;
     font-size: 15px;
     margin-bottom: 6px;
 }
 
-article > select {
+header > select {
     width: 340px;
     font-size: 14px;
     border: solid 1px rgba(0, 0, 0, 0.6);
     margin: 12px 0px;
 }
 
-article > p {
+header > p {
     font-size: 14px;
     margin-bottom: 18px;
 }
 
-article > p > span {
+header > p > span {
     font-style: italic;
     color: red;
 }
 
-article > button {
+header > button {
     font-size: 12px;
     font-weight: bold;
     color: white;
@@ -69,18 +69,18 @@ article > button {
     transition: background-color .2s;
 }
 
-article > button:first-of-type {
+header > button:first-of-type {
     background-color: rgba(69, 117, 195, 0.7);
 }
 
-article > button:first-of-type:hover {
+header > button:first-of-type:hover {
     background-color: rgba(69, 117, 195, 0.5);
 }
 
-article > button:last-of-type {
+header > button:last-of-type {
     background-color: rgb(128, 0, 0);
 }
 
-article > button:last-of-type:hover {
+header > button:last-of-type:hover {
     background-color: rgb(209, 0, 0);
 }

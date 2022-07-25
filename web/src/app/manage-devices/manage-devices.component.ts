@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { ActiveNumber } from '../models/active-number.model';
@@ -16,9 +16,10 @@ import { UntypedFormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-manage-devices',
   templateUrl: './manage-devices.component.html',
-  styleUrls: ['./manage-devices.component.css']
+  styleUrls: ['./manage-devices.component.css', '../../assets/stylesheets/modal.css']
 })
 export class ManageDevicesComponent implements OnInit {
+  @Input() device: any;
 
   addDevice = this.fb.group({
     make: ['', Validators.required],
@@ -40,6 +41,7 @@ export class ManageDevicesComponent implements OnInit {
   }[] = [];
 
   currentDevices: any = [];
+  currentLines: string[] = ["(123) 456-7890", "(456) 789-0123", "(890) 123-4567"]
 
   constructor(private fb: UntypedFormBuilder, 
               private descriptorService: DescriptorService,
@@ -108,6 +110,20 @@ export class ManageDevicesComponent implements OnInit {
 
   add(): void {
     
+  }
+
+  showAddNewDeviceModal: boolean = false;
+
+  addNewDeviceModal(): void {
+    this.showAddNewDeviceModal = true;
+  }
+
+  addNewDevice(): void {
+
+  }
+
+  cancelAddNewDevice(): void {
+    this.showAddNewDeviceModal = false;
   }
 
 }
