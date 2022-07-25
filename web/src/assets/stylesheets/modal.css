@@ -49,6 +49,7 @@ header > select {
 }
 
 header > p {
+    width: auto;
     font-size: 14px;
     margin-bottom: 18px;
 }
