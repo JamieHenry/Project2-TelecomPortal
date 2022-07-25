@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
 
     const user = new User(userResponse.body!.user.id, userResponse.body!.user.email, userResponse.body!.user.firstName, userResponse.body!.user.lastName, '');;
 
-    this.authService.setUser(user);
-    this.authService.authToken = userResponse.body!.accessToken;
+    this.authService.setValues(user, userResponse.body!.accessToken);
 
     let route = this.router.config.find(r => r.path === 'dashboard');
     if (route) this.router.navigateByUrl('/dashboard');
