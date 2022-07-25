@@ -1,10 +1,13 @@
 <section>
     <img src="../../assets/images/apple-logo.png" *ngIf="number.device.make === 'Apple'">
-    <img src="../../assets/images/samsung-logo.png" *ngIf="number.device.make === 'Samsung'">
     <img src="../../assets/images/blackberry-logo.png" *ngIf="number.device.make === 'BlackBerry'">
+    <img src="../../assets/images/samsung-logo.png" *ngIf="number.device.make === 'Samsung'">
+    <img src="../../assets/images/other-logo.png" *ngIf="number.device.make !== 'Apple' 
+                                                      && number.device.make !== 'BlackBerry' 
+                                                      && number.device.make !== 'Samsung'">
     <h3>{{ number.device.model }}</h3>
     <h4>{{ number.activeNumber.phoneNumber }}</h4>
     <p>Assigned to your {{ number.planName }} plan</p>
-    <button>Reassign</button>
-    <button (click)="removeDevice()">Remove</button>
+    <button>Change Line</button>
+    <button (click)="removeDevice()">Remove Device</button>
 </section>
