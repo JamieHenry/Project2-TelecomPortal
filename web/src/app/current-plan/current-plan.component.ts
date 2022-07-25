@@ -11,6 +11,8 @@ export class CurrentPlanComponent implements OnInit {
   @Input() plan: any;
   @Output() changeEvent = new EventEmitter<string>();
 
+  currentLines: number = 0;
+
   constructor(private activeNumberService: ActiveNumberService) { }
 
   ngOnInit(): void {
