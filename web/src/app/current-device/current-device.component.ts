@@ -9,7 +9,7 @@ export class CurrentDeviceComponent implements OnInit {
   @Input() number: any;
   @Output() changeEvent = new EventEmitter<string>();
 
-  currentLines: string[] = [];
+  currentLines: string[] = ["(123) 456-7890", "(456) 789-0123", "(890) 123-4567"];
 
   constructor() { }
 
@@ -21,13 +21,27 @@ export class CurrentDeviceComponent implements OnInit {
     this.changeEvent.emit('');
   }
 
+  changeLine(): void {
+
+  }
+
+  showChangeLineModal: boolean = false;
+
+  changeLineModal(): void {
+    this.showChangeLineModal = true;
+  }
+
+  cancelChangeLine(): void {
+    this.showChangeLineModal = false;
+  }
+
   showRemoveDeviceModal: boolean = false;
 
-  removeDeviceModal() {
+  removeDeviceModal(): void {
     this.showRemoveDeviceModal = true;
   }
 
-  cancelRemoveDevice() {
+  cancelRemoveDevice(): void {
     this.showRemoveDeviceModal = false;
   }
 
