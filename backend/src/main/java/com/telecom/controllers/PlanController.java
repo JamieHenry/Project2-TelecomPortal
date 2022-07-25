@@ -18,30 +18,46 @@ import org.springframework.web.bind.annotation.RestController;
 import com.telecom.beans.Plan;
 import com.telecom.services.PlanService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/plan")
+@Tag(name = "Plan")
+@ApiResponses(value = {
+	@ApiResponse(responseCode = "200", description = "Successful"),
+	@ApiResponse(responseCode = "401", description = "Unauthorized")
+})
+@SecurityRequirement(name = "JWT Authentication")
 public class PlanController {
     
     @Autowired
     private PlanService service;
 
     @GetMapping("/id/{id}")
+    @Operation(summary = "Find Plan by id", description = "Return Plan with matching id")
     public ResponseEntity<Optional<Plan>> findById(@PathVariable(value="id") int id) {
         return new ResponseEntity<Optional<Plan>>(service.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/")
+    @Operation(summary = "Find all Plans", description = "Return all Plans")
     public ResponseEntity<List<Plan>> findAll() {
         return new ResponseEntity<List<Plan>>(service.findAll(), HttpStatus.OK);
     }
 
     @PostMapping("/")
+    @Operation(summary = "Save a new Plan", description = "Save and return a new Plan")
     public ResponseEntity<Plan> save(@RequestBody Plan plan) {
         return new ResponseEntity<Plan>(service.save(plan), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete Plan by id", description = "Delete Plan with matching id")
     public ResponseEntity<Void> deleteById(@PathVariable(value="id") int id) {
         service.deleteById(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
