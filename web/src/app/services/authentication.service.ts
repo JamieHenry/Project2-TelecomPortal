@@ -10,20 +10,28 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
 
-  public authToken = '';
+  private authTokenSubject: BehaviorSubject<string | null>;
+  public authToken: Observable<string | null>;
 
   constructor() {
     this.currentUserSubject = new BehaviorSubject<User | null>(
       JSON.parse(sessionStorage.getItem('currentUser')!)
     );
 
+    this.authTokenSubject = new BehaviorSubject<string | null>(
+      JSON.parse(sessionStorage.getItem('authToken')!)
+    );
+
     this.currentUser = this.currentUserSubject.asObservable();
+    this.authToken = this.authTokenSubject.asObservable();
   }
 
-  setUser(user: User) {
+  setValues(user: User, authToken: string) {
     this.resetCredentials();
     sessionStorage.setItem('currentUser', JSON.stringify(user));
+    sessionStorage.setItem('authToken', JSON.stringify(authToken));
     this.currentUserSubject.next(user);
+    this.authTokenSubject.next(authToken);
   }
 
   isUserLoggedIn() {
@@ -34,7 +42,9 @@ export class AuthenticationService {
 
   resetCredentials() {
     sessionStorage.removeItem('currentUser');
+    sessionStorage.removeItem('authToken');
     this.currentUserSubject.next(null);
+    this.authTokenSubject.next(null);
   }
 
   logout() {

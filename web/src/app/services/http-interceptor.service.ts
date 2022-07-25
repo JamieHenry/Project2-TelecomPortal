@@ -8,13 +8,20 @@ import { AuthenticationService } from './authentication.service';
 })
 export class HttpInterceptorService implements HttpInterceptor {
 
+  authToken: string | null = '';
+
   constructor(private authService: AuthenticationService) { }
   
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    
+    this.authService.authToken.subscribe(currToken => {
+      this.authToken = currToken;
+    })
+
     if (this.authService.isUserLoggedIn()) {
       const authReq = req.clone({
         headers: new HttpHeaders({
-          'Authorization': `Bearer ${this.authService.authToken}`
+          'Authorization': `Bearer ${this.authToken}`
         })
       });
 
