@@ -10,14 +10,13 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   authToken: string | null = '';
 
-  constructor(private authService: AuthenticationService) { }
-  
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
+  constructor(private authService: AuthenticationService) {
     this.authService.authToken.subscribe(currToken => {
       this.authToken = currToken;
-    })
-
+    });
+  }
+  
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authService.isUserLoggedIn()) {
       const authReq = req.clone({
         headers: new HttpHeaders({
