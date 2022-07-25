@@ -19,9 +19,9 @@ public class DeviceService {
 		return repository.save(device);
 	}
 	
-	public Optional<Device> findByModel(String model) {
-		return repository.findByModel(model);
-	}
+	public Optional<Device> findByMakeAndModel(String make, String model) {
+        return repository.findByMakeAndModel(make, model);
+    }
 	
 	public Optional<Device> findById(int id) {
 		return repository.findById(id);
