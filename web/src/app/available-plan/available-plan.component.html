@@ -1,17 +1,21 @@
 <aside *ngIf="showActivePlanModal">
     <article>
-        <img src="../../assets/images/plan.png">
+        <img src="../../assets/images/plan-premium.png" *ngIf="plan.plan.name === 'Unlimited Premium'" />
+        <img src="../../assets/images/plan-extra.png" *ngIf="plan.plan.name === 'Unlimited Extra'" />
+        <img src="../../assets/images/plan-starter.png" *ngIf="plan.plan.name === 'Unlimited Starter'" />
         <h5>{{ plan.plan.name }}</h5>
         <h6>${{ plan.plan.price }}/month</h6>
         <p>Are you sure you want to add this plan?</p>
         <button (click)="addActivePlan()">Add Plan</button>
         <button (click)="cancelAddActivePlan()">Cancel</button>
     </article>
-    <div></div>
+    <div (click)="cancelAddActivePlan()"></div>
 </aside>
 
 <section>
-    <img src="../../assets/images/plan.png" />
+    <img src="../../assets/images/plan-premium.png" *ngIf="plan.plan.name === 'Unlimited Premium'" />
+    <img src="../../assets/images/plan-extra.png" *ngIf="plan.plan.name === 'Unlimited Extra'" />
+    <img src="../../assets/images/plan-starter.png" *ngIf="plan.plan.name === 'Unlimited Starter'" />
     <h3>{{ plan.plan.name }}</h3>
     <h4>${{ plan.plan.price }}/month</h4>
     <ul>

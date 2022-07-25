@@ -1,5 +1,7 @@
 <section>
-    <img src="../../assets/images/plan.png" />
+    <img src="../../assets/images/plan-premium.png" *ngIf="plan.plan.name === 'Unlimited Premium'" />
+    <img src="../../assets/images/plan-extra.png" *ngIf="plan.plan.name === 'Unlimited Extra'" />
+    <img src="../../assets/images/plan-starter.png" *ngIf="plan.plan.name === 'Unlimited Starter'" />
     <h3>{{ plan.plan.name }}</h3>
     <h4 *ngIf="plan.currLines > 1 || plan.currLines === 0">{{ plan.currLines }} lines active, {{ plan.plan.numDevices - plan.currLines }} available</h4>
     <h4 *ngIf="plan.currLines === 1">{{ plan.currLines }} line active, {{ plan.plan.numDevices - plan.currLines }} available</h4>
