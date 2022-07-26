@@ -21,7 +21,6 @@ export class AvailableDeviceComponent implements OnInit {
   constructor(private activeNumberService: ActiveNumberService) { }
 
   ngOnInit(): void {
-    console.log(this.device)
   }
 
   onSelected(value: string) {

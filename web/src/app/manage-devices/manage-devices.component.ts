@@ -50,6 +50,7 @@ export class ManageDevicesComponent implements OnInit {
   currMakes: string[] = [];
   availableLines: ActiveNumber[] = [];
   selectedAvailableLine: ActiveNumber | null = null;
+  searchCriteria: string = '';
   
   constructor(private fb: UntypedFormBuilder, 
               private descriptorService: DescriptorService,
@@ -105,6 +106,15 @@ export class ManageDevicesComponent implements OnInit {
       });
     }
     this.filteredDevices = this.allDevices;
+  }
+
+  searchDevices() {
+    this.filteredDevices = this.allDevices;
+    if (this.searchCriteria === '') return;
+    this.filteredDevices = this.allDevices.filter(device => {
+      return device.device.make.toLowerCase().includes(this.searchCriteria.toLowerCase())
+              || device.device.model.toLowerCase().includes(this.searchCriteria.toLowerCase());
+    });
   }
 
   resetValues() {
