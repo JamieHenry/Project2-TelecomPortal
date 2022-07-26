@@ -40,7 +40,7 @@ export class ManageDevicesComponent implements OnInit {
     descriptors: string[]
   }[] = [];
 
-  currentDevices: any = [];
+  availableLines: ActiveNumber[] = [];
   currentLines: string[] = ["(123) 456-7890", "(456) 789-0123", "(890) 123-4567"];
 
   constructor(private fb: UntypedFormBuilder, 
@@ -66,6 +66,10 @@ export class ManageDevicesComponent implements OnInit {
     // active numbers
     const activeNumbersResponse = await lastValueFrom(this.activeNumberService.findByUserId(this.currentUser!.id));
     for (let activeNumber of activeNumbersResponse.body!) {
+      if (!activeNumber.hasDeviceAssigned) {
+        this.availableLines.push(activeNumber);
+        continue;
+      }
       const deviceResponse = await lastValueFrom(this.deviceService.findById(activeNumber.deviceId));
       const activePlanResponse = await lastValueFrom(this.activePlanService.findById(activeNumber.activePlanId));
       const planResponse = await lastValueFrom(this.planService.findById(activePlanResponse.body!.planId));

@@ -5,12 +5,13 @@
         <img src="../../assets/images/plan-starter.png" *ngIf="plan.plan.name === 'Unlimited Starter'" />
         <h5>{{ plan.plan.name }}</h5>
         <h6>${{ plan.plan.price }}/month</h6>
-        <select name="changeTo">
+        <select name="changeTo" #plans (change)="onSelected(plans.value)">
             <option value="">Select a plan...</option>
-            <option value="Unlimited Premium">Unlimited Premium (3 lines) - $99.99/month</option>
-            <option value="Unlimited Extra">Unlimited Extra (2 lines) - $79.99/month</option>
-            <option value="Unlimited Starter">Unlimited Starter (1 line) - $59.99/month</option>
+            <option value="1">Unlimited Premium (3 lines) - $99.99/month</option>
+            <option value="2">Unlimited Extra (2 lines) - $79.99/month</option>
+            <option value="3">Unlimited Starter (1 line) - $59.99/month</option>
         </select>
+        <div style="color: red;">{{ this.changePlanError }}</div>
         <p>Are you sure you want to change this plan?<br>
             <span>Extra phone lines will be deleted!</span>
         </p>
@@ -46,15 +47,18 @@
         <h4>No Lines Active</h4>
         <p>{{ plan.plan.numDevices }} Available Line<span *ngIf="plan.plan.numDevices !== 1">s</span></p>
     </ng-container>
-    <ul *ngIf="currentLines < 2" >
+    <ul *ngIf="plan.lines.length < 2" >
         <ng-container *ngFor="let descriptor of plan.descriptors, let i = index">
             <ng-container *ngIf="i < 3">
                 <li>{{ descriptor }}</li>
             </ng-container>
         </ng-container>
     </ul>
+    <aside>
+        <span style="color: red;">{{ addLineError }}</span>
+    </aside>
     <footer>
-        <button>Add Line</button>
+        <button (click)="addLine()">Add Line</button>
         <button (click)="changePlanModal()">Change Plan</button>
         <button (click)="cancelPlanModal()">Cancel Plan</button>
     </footer>

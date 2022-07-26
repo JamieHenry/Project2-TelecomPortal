@@ -12,12 +12,12 @@ export class AvailablePlanComponent implements OnInit {
   @Input() plan: any;
   @Output() changeEvent = new EventEmitter<string>();
 
+  showActivePlanModal: boolean = false;
+
   constructor(private activePlanService: ActivePlanService) { }
 
   ngOnInit(): void {
   }
-
-  showActivePlanModal: boolean = false;
 
   addActivePlanModal() {
     this.showActivePlanModal = true;
@@ -28,7 +28,7 @@ export class AvailablePlanComponent implements OnInit {
   }
 
   async addActivePlan() {
-    const activePlanResponse = await lastValueFrom(this.activePlanService.save(new ActivePlan(0, this.plan.userId, this.plan.plan.id)));
+    await lastValueFrom(this.activePlanService.save(new ActivePlan(0, this.plan.userId, this.plan.plan.id)));
     this.changeEvent.emit('');
   }
 }

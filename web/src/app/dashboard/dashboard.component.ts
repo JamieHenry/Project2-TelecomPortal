@@ -72,6 +72,7 @@ export class DashboardComponent implements OnInit {
     // numbers
     const activeNumbersResponse = await lastValueFrom(this.activeNumberService.findByUserId(this.currentUser!.id));
     for (let activeNumber of activeNumbersResponse.body!) {
+      if (!activeNumber.hasDeviceAssigned) continue;
       const deviceResponse = await lastValueFrom(this.deviceService.findById(activeNumber.deviceId));
       const activePlanResponse = await lastValueFrom(this.activePlanService.findById(activeNumber.activePlanId));
       const planResponse = await lastValueFrom(this.planService.findById(activePlanResponse.body!.planId));
