@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
+import { filter, lastValueFrom } from 'rxjs';
 import { ActiveNumber } from '../models/active-number.model';
 import { Device } from '../models/device.model';
 import { User } from '../models/user.model';
@@ -21,12 +21,15 @@ import { UntypedFormBuilder, Validators } from '@angular/forms';
 export class ManageDevicesComponent implements OnInit {
   @Input() device: any;
 
-  addDevice = this.fb.group({
+  addDeviceForm = this.fb.group({
     make: ['', Validators.required],
     model: ['', Validators.required]
   });
 
   isStale: boolean = false;
+  showAddNewDeviceModal: boolean = false;
+  addLineError = '';
+  addDeviceError = '';
 
   currentUser!: User | null;
   currentNumbers: {
@@ -39,10 +42,15 @@ export class ManageDevicesComponent implements OnInit {
     userId: number,
     descriptors: string[]
   }[] = [];
-
+  filteredDevices: {
+    device: Device,
+    userId: number,
+    descriptors: string[]
+  }[] = [];
+  currMakes: string[] = [];
   availableLines: ActiveNumber[] = [];
-  currentLines: string[] = ["(123) 456-7890", "(456) 789-0123", "(890) 123-4567"];
-
+  selectedAvailableLine: ActiveNumber | null = null;
+  
   constructor(private fb: UntypedFormBuilder, 
               private descriptorService: DescriptorService,
               private activeDeviceDescriptorService: ActiveDeviceDescriptorService,
@@ -83,6 +91,7 @@ export class ManageDevicesComponent implements OnInit {
     // all devices
     const deviceResponse = await lastValueFrom(this.deviceService.findAll());
     for (let device of deviceResponse.body!) {
+      if (!this.currMakes.includes(device.make)) this.currMakes.push(device.make);
       const activeNumberDescriptors = [];
       const deviceDescriptorResponse = await lastValueFrom(this.activeDeviceDescriptorService.findByDeviceId(device.id));
       for (let deviceDescriptor of deviceDescriptorResponse.body!) {
@@ -95,16 +104,18 @@ export class ManageDevicesComponent implements OnInit {
         'descriptors': activeNumberDescriptors
       });
     }
+    this.filteredDevices = this.allDevices;
   }
 
   resetValues() {
     this.currentNumbers = [];
     this.allDevices = [];
+    this.availableLines = [];
     this.ngOnInit();
     this.isStale = true;
   }
 
-  resetIsStale() {
+  ngAfterViewInit() {
     this.isStale = false;
   }
 
@@ -112,22 +123,56 @@ export class ManageDevicesComponent implements OnInit {
     this.router.navigateByUrl(`${url}`);
   }
 
-  add(): void {
-    
+  onAvailableLineSelected(value: string) {
+    if (value === '') this.selectedAvailableLine = null;
+    this.selectedAvailableLine = this.availableLines[parseInt(value)];
   }
 
-  showAddNewDeviceModal: boolean = false;
+  onDeviceFilterSelected(value: string) {
+    this.filteredDevices = this.allDevices;
+    if (value === '') return;
+    this.filteredDevices = this.allDevices.filter(device => device.device.make === value);
+  }
 
-  addNewDeviceModal(): void {
+  async addNewDeviceModal() {
+    this.addDeviceError = '';
+    const deviceResponse = await lastValueFrom(this.deviceService.findByMakeAndModel(this.make, this.model));
+    if (deviceResponse.body !== null) {
+      this.addDeviceError = 'Device already exists';
+      return;
+    }
+    if (this.availableLines.length === 0) {
+      this.addDeviceError = 'No available lines';
+      this.addDeviceForm.reset();
+      return;
+    }
     this.showAddNewDeviceModal = true;
   }
 
-  addNewDevice(): void {
-
+  async addNewDevice() {
+    this.addLineError = '';
+    if (this.selectedAvailableLine === null || this.selectedAvailableLine === undefined) {
+      this.addLineError = 'Invalid line selected';
+      return;
+    }
+    const deviceResponse = await lastValueFrom(this.deviceService.save(new Device(0, this.make, this.model)));
+    this.selectedAvailableLine!.hasDeviceAssigned = true;
+    this.selectedAvailableLine!.deviceId = deviceResponse.body!.id;
+    await lastValueFrom(this.activeNumberService.save(this.selectedAvailableLine!));
+    this.cancelAddNewDevice();
+    this.resetValues();
   }
 
   cancelAddNewDevice(): void {
+    this.addDeviceForm.reset();
     this.showAddNewDeviceModal = false;
   }
 
+  get make() {
+    return this.addDeviceForm.value['make']!;
+  }
+
+  get model() {
+    return this.addDeviceForm.value['model']!;
+  }
 }

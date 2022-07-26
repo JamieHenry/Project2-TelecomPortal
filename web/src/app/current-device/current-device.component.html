@@ -7,15 +7,16 @@
                                                         && number.device.make !== 'BlackBerry' 
                                                         && number.device.make !== 'Samsung'">
         <h5>{{ number.device.model }}Device Model</h5>
-        <select>
+        <select #lines (change)="onSelected(lines.value)">
             <option value="">Select an active line...</option>
-            <ng-container *ngFor="let line of currentLines">
-                <option value="{{ line }}">{{ line }}</option>
+            <ng-container *ngFor="let line of availableLines, let i = index">
+                <option value="{{ i }}">{{ line.phoneNumber }}</option>
             </ng-container>
         </select>
         <p>Change this device to the selected line?</p>
         <button (click)="changeLine()">Change Line</button>
         <button (click)="cancelChangeLine()">Cancel</button>
+        <div style="color: red;">{{ changeLineError }}</div>
     </header>
     <div (click)="cancelChangeLine()"></div>
 </aside>
@@ -49,4 +50,5 @@
     <p>Assigned to your {{ number.planName }} plan</p>
     <button (click)="changeLineModal()">Change Line</button>
     <button (click)="removeDeviceModal()">Remove Device</button>
+    <div style="color: red;">{{ changeLineError }}</div>
 </section>

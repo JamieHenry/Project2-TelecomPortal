@@ -7,15 +7,16 @@
                                                         && device.device.make !== 'BlackBerry' 
                                                         && device.device.make !== 'Samsung'"> -->
         <h5><!--{{ device.device.model }}-->Device Model</h5>
-        <select>
+        <select #lines (change)="onAvailableLineSelected(lines.value)">
             <option value="">Select an active line...</option>
-            <ng-container *ngFor="let line of currentLines">
-                <option value="{{ line }}">{{ line }}</option>
+            <ng-container *ngFor="let line of availableLines, let i = index">
+                <option value="{{ i }}">{{ line.phoneNumber }}</option>
             </ng-container>
         </select>
         <p>Are you sure you want to add this device?</p>
         <button (click)="addNewDevice()">Add Device</button>
         <button (click)="cancelAddNewDevice()">Cancel</button>
+        <div style="color: red;">{{ addLineError }}</div>
     </header>
     <div (click)="cancelAddNewDevice()"></div>
 </aside>
@@ -27,16 +28,17 @@
         <ng-container *ngFor="let number of currentNumbers">
             <app-current-device
                 [number]="number"
+                [availableLines]="availableLines"
                 (changeEvent)="resetValues()"></app-current-device>
         </ng-container>
 
         <h2>Available Devices
             <form id="selectAvailableMake">
-                <select name="availableMake">
+                <select name="availableMake" #makes (change)="onDeviceFilterSelected(makes.value)">
                     <option value="">Select Make...</option>
-                    <option value="Apple">Apple</option>
-                    <option value="BlackBerry">BlackBerry</option>
-                    <option value="Samsung">Samsung</option>
+                    <ng-container *ngFor="let make of currMakes">
+                        <option value="{{ make }}">{{ make }}</option>
+                    </ng-container>
                 </select>
             </form>
             <form id="searchAvailableMake">
@@ -46,25 +48,26 @@
             <a [routerLink]="['/manageDevices']">Scroll for more options ▼</a>
         </h2>
         <div>
-        <ng-container *ngFor="let device of allDevices">
+        <ng-container *ngFor="let device of filteredDevices">
             <app-available-device
                 [device]="device"
+                [availableLines]="availableLines"
                 (changeEvent)="resetValues()"></app-available-device>
         </ng-container>
         </div>
         
         <h2>Add Device</h2>
 
-        <form id="addDevice" [formGroup]="addDevice" (ngSubmit)="add(); addDevice.reset();">
+        <form id="addDevice" [formGroup]="addDeviceForm">
 
             <section>
                 <label for="make">Make</label>
                 <input name="make" type="text" formControlName="make"  />
                 <aside>
-                    <span *ngIf="addDevice.controls['make'] != null 
-                                 && !addDevice.controls['make'].valid 
-                                 && (addDevice.controls['make'].dirty 
-                                 || addDevice.controls['make'].touched)">
+                    <span *ngIf="addDeviceForm.controls['make'] != null 
+                                 && !addDeviceForm.controls['make'].valid 
+                                 && (addDeviceForm.controls['make'].dirty 
+                                 || addDeviceForm.controls['make'].touched)">
                         Required
                     </span>
                 </aside>
@@ -74,20 +77,21 @@
                 <label for="model">Model</label>
                 <input name="model" type="text" formControlName="model" />
                 <aside>
-                    <span *ngIf="addDevice.controls['model'] != null 
-                                 && !addDevice.controls['model'].valid 
-                                 && (addDevice.controls['model'].dirty 
-                                 || addDevice.controls['model'].touched)">
+                    <span *ngIf="addDeviceForm.controls['model'] != null 
+                                 && !addDeviceForm.controls['model'].valid 
+                                 && (addDeviceForm.controls['model'].dirty 
+                                 || addDeviceForm.controls['model'].touched)">
                         Required
                     </span>
                 </aside>
             </section>
-            
-            <button (click)="addNewDeviceModal()">Add New Device</button>
+            <button [disabled]="!addDeviceForm.valid" (click)="addNewDeviceModal()">Add New Device</button>
+            <aside>
+                <span style="color: red;">{{ addDeviceError }}</span>
+            </aside>
         </form>
     </article>
 
     <app-sidebar
-        [isStale]="isStale"
-        (changeEvent)="resetIsStale()"></app-sidebar>
+        [isStale]="isStale"></app-sidebar>
 </main>

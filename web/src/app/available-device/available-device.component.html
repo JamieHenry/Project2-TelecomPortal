@@ -7,15 +7,16 @@
                                                       && device.device.make !== 'BlackBerry' 
                                                       && device.device.make !== 'Samsung'">
         <h5>{{ device.device.model }}</h5>
-        <select>
+        <select #lines (change)="onSelected(lines.value)">
             <option value="">Select an active line...</option>
-            <ng-container *ngFor="let line of currentLines">
-                <option value="{{ line }}">{{ line }}</option>
+            <ng-container *ngFor="let line of availableLines, let i = index">
+                <option value="{{ i }}">{{ line.phoneNumber }}</option>
             </ng-container>
         </select>
         <p>Are you sure you want to add this device?</p>
         <button (click)="addAvailableDevice()">Add Device</button>
         <button (click)="cancelAddAvailableDevice()">Cancel</button>
+        <div style="color: red;">{{ addDeviceError }}</div>
     </header>
     <div (click)="cancelAddAvailableDevice()"></div>
 </aside>
@@ -27,7 +28,8 @@
     <img src="../../assets/images/other-logo.png" *ngIf="device.device.make !== 'Apple' 
                                                       && device.device.make !== 'BlackBerry' 
                                                       && device.device.make !== 'Samsung'">
-    <h3>{{ device.device.model }}<button (click)="addAvailableDeviceModal()">Add</button></h3>
+    <h3>{{ device.device.model }}<button (click)="addAvailableDeviceModal()">Add</button></h3> 
+    <span style="color: red;">{{ addDeviceError }}</span>
     <ul>
         <ng-container *ngFor="let descriptor of device.descriptors">
             <li>{{ descriptor }}</li>

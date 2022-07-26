@@ -39,7 +39,7 @@ public class DeviceController {
     @Autowired
     private DeviceService service;
 
-    @GetMapping("/makemodel")
+    @PostMapping("/makemodel")
     @Operation(summary = "Find Device by make and model", description = "Return Device with matching make and model")
     public ResponseEntity<Optional<Device>> findByModel(@RequestBody MakeAndModelRequest makeAndModelRequest) {
         return new ResponseEntity<Optional<Device>>(service.findByMakeAndModel(makeAndModelRequest.getMake(), makeAndModelRequest.getModel()), HttpStatus.OK);
