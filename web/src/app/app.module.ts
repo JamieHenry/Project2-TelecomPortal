@@ -11,7 +11,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ManagePlansComponent } from './manage-plans/manage-plans.component';
 import { ManageDevicesComponent } from './manage-devices/manage-devices.component';
-import { ViewBillComponent } from './view-bill/view-bill.component';
 import { PlanComponent } from './plan/plan.component';
 import { DeviceComponent } from './device/device.component';
 import { CurrentPlanComponent } from './current-plan/current-plan.component';
@@ -35,7 +34,6 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
     RegisterComponent,
     ManagePlansComponent,
     ManageDevicesComponent,
-    ViewBillComponent,
     PlanComponent,
     DeviceComponent,
     CurrentPlanComponent,
