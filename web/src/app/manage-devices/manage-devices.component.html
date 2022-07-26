@@ -41,8 +41,8 @@
                     </ng-container>
                 </select>
             </form>
-            <form id="searchAvailableMake">
-                <input type="text" placeholder="Search Available Devices...">
+            <form id="searchAvailableMake" (ngSubmit)="searchDevices(); searchForm.reset();" #searchForm>
+                <input [(ngModel)]="searchCriteria" type="text" placeholder="Search Available Devices..." name="Search" #Search="ngModel">
                 <input type="submit" value="">
             </form>
             <a [routerLink]="['/manageDevices']">Scroll for more options ▼</a>

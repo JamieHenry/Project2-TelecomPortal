@@ -19,7 +19,7 @@ import { AvailableDeviceComponent } from './available-device/available-device.co
 import { CurrentDeviceComponent } from './current-device/current-device.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 
@@ -47,7 +47,8 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
