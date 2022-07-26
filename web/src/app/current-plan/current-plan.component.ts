@@ -15,6 +15,8 @@ export class CurrentPlanComponent implements OnInit {
   @Input() plan: any;
   @Output() changeEvent = new EventEmitter<string>();
 
+  showDeleteLineModal: boolean = false;
+  modalLine: any = null;
   showChangePlanModal: boolean = false;
   showCancelPlanModal: boolean = false;
   changeLineSelection = 0;
@@ -31,6 +33,20 @@ export class CurrentPlanComponent implements OnInit {
 
   onSelected(value: string) {
     this.changeLineSelection = parseInt(value);
+    if (this.changeLineSelection === 0) {
+      this.changePlanError = 'Required';
+    } else if (this.changeLineSelection !==0) {
+      this.changePlanError = '';
+    }
+  }
+
+  deleteLineModal(line: any) {
+    this.showDeleteLineModal = true;
+    this.modalLine = line;
+  }
+
+  cancelDeleteLine() {
+    this.showDeleteLineModal = false;
   }
 
   async deleteLine(activeNumberId: number) {
@@ -41,7 +57,7 @@ export class CurrentPlanComponent implements OnInit {
   async addLine() {
     this.addLineError = '';
     if (this.plan.lines.length === this.plan.plan.numDevices) {
-      this.addLineError = 'Line limit reached'
+      this.addLineError = '(Line limit reached!)'
       return;
     }
 

@@ -15,7 +15,7 @@ section {
 img {
     float: right;
     width: 120px;
-    margin-bottom: 12px;
+    margin-bottom: 17px;
 }
 
 h3 {
@@ -47,6 +47,13 @@ h4 button:hover {
 p {
     font-size: 13px;
     margin-bottom: 8px;
+}
+
+p span:last-of-type {
+    font-weight: bold;
+    font-style: italic;
+    color: red;
+    margin-left: 8px;
 }
 
 ul {
