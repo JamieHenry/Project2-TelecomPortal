@@ -63,15 +63,11 @@ h2 form input:last-of-type:hover {
     background-image: url("../../assets/images/search-icon-hover.png");
 }
 
-h2 a {
+h2 span {
     font-size: 13px;
     margin-left: 40px;
     text-decoration: none;
     color: rgb(69, 117, 195);
-}
-
-h2 a:hover {
-    text-decoration: underline;
 }
 
 h2~div {
@@ -121,9 +117,13 @@ article > form aside {
     text-align: right;
 }
 
-article > form > button {
+article > form > div {
     display: inline-block;
-    margin-top: 16px;
+}
+
+article > form > div > button {
+    display: inline-block;
+    margin: 16px 0px 4px 0px;
     padding: 10px;
     background-color: rgb(69, 117, 195);
     border-radius: 6px;
@@ -133,8 +133,14 @@ article > form > button {
     transition: background-color .2s;
 }
 
-article > form > button:hover {
+article > form > div > button:hover {
     background-color: rgb(0, 0, 0);
+}
+
+article > form > div > button~span {
+    display: block;
+    font-size: 12px;
+    color: red;
 }
 
 app-sidebar {

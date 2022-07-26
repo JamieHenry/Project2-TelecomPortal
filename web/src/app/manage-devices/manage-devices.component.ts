@@ -30,7 +30,7 @@ export class ManageDevicesComponent implements OnInit {
   showAddNewDeviceModal: boolean = false;
   addLineError = '';
   addDeviceError = '';
-
+  
   currentUser!: User | null;
   currentNumbers: {
     activeNumber: ActiveNumber,
@@ -176,6 +176,10 @@ export class ManageDevicesComponent implements OnInit {
   cancelAddNewDevice(): void {
     this.addDeviceForm.reset();
     this.showAddNewDeviceModal = false;
+  }
+
+  clearAddDeviceError() {
+    this.addDeviceError = '';
   }
 
   get make() {

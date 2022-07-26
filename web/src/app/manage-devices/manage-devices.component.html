@@ -1,12 +1,13 @@
 <aside *ngIf="showAddNewDeviceModal">
     <header>
-        <img src="../../assets/images/apple-logo.png" *ngIf="'Apple' === 'Apple'">
-        <!-- <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">
-        <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
-        <img src="../../assets/images/other-logo.png" *ngIf="device.device.make !== 'Apple' 
-                                                        && device.device.make !== 'BlackBerry' 
-                                                        && device.device.make !== 'Samsung'"> -->
-        <h5><!--{{ device.device.model }}-->Device Model</h5>
+        <img src="../../assets/images/apple-logo.png" *ngIf="make === 'Apple'">
+        <img src="../../assets/images/blackberry-logo.png" *ngIf="make === 'BlackBerry'">
+        <img src="../../assets/images/samsung-logo.png" *ngIf="make === 'Samsung'">
+        <img src="../../assets/images/other-logo.png" *ngIf="make !== 'Apple' 
+                                                        && make !== 'BlackBerry' 
+                                                        && make !== 'Samsung'">
+        <h5>{{ model }}</h5>
+        <h6>{{ make }}</h6>
         <select #lines (change)="onAvailableLineSelected(lines.value)">
             <option value="">Select an active line...</option>
             <ng-container *ngFor="let line of availableLines, let i = index">
@@ -24,7 +25,8 @@
 <main>
     <h1>Manage Devices</h1>
     <article>
-        <h2 *ngIf="this.availableLines.length!==0">My Devices</h2>
+        <h2 *ngIf="this.currentNumbers.length">My Devices</h2>
+        
         <ng-container *ngFor="let number of currentNumbers">
             <app-current-device
                 [number]="number"
@@ -45,15 +47,16 @@
                 <input [(ngModel)]="searchCriteria" type="text" placeholder="Search Available Devices..." name="Search" #Search="ngModel">
                 <input type="submit" value="">
             </form>
-            <a [routerLink]="['/manageDevices']">Scroll for more options ▼</a>
+            <span>Scroll for more options ▼</span>
         </h2>
+
         <div>
-        <ng-container *ngFor="let device of filteredDevices">
-            <app-available-device
-                [device]="device"
-                [availableLines]="availableLines"
-                (changeEvent)="resetValues()"></app-available-device>
-        </ng-container>
+            <ng-container *ngFor="let device of filteredDevices">
+                <app-available-device
+                    [device]="device"
+                    [availableLines]="availableLines"
+                    (changeEvent)="resetValues()"></app-available-device>
+            </ng-container>
         </div>
         
         <h2>Add Device</h2>
@@ -62,7 +65,7 @@
 
             <section>
                 <label for="make">Make</label>
-                <input name="make" type="text" formControlName="make"  />
+                <input name="make" type="text" formControlName="make" (focus)="clearAddDeviceError()" />
                 <aside>
                     <span *ngIf="addDeviceForm.controls['make'] != null 
                                  && !addDeviceForm.controls['make'].valid 
@@ -75,7 +78,7 @@
             
             <section>
                 <label for="model">Model</label>
-                <input name="model" type="text" formControlName="model" />
+                <input name="model" type="text" formControlName="model" (focus)="clearAddDeviceError()" />
                 <aside>
                     <span *ngIf="addDeviceForm.controls['model'] != null 
                                  && !addDeviceForm.controls['model'].valid 
@@ -85,10 +88,10 @@
                     </span>
                 </aside>
             </section>
-            <button [disabled]="!addDeviceForm.valid" (click)="addNewDeviceModal()">Add New Device</button>
-            <aside>
-                <span style="color: red;">{{ addDeviceError }}</span>
-            </aside>
+            <div>
+                <button [disabled]="!addDeviceForm.valid" (click)="addNewDeviceModal()">Add New Device</button>
+                <span>{{ addDeviceError }}</span>
+            </div>
         </form>
     </article>
 
