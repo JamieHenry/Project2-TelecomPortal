@@ -16,8 +16,11 @@ export class DeviceService {
     return this.http.get<Device[]>(this.url, { observe: 'response' });
   }
 
-  findByModel(model: string): Observable<HttpResponse<Device>> {
-    return this.http.get<Device>(this.url + `model/${model}`, { observe: 'response' });
+  findByMakeAndModel(make:string, model: string): Observable<HttpResponse<Device>> {
+    return this.http.post<Device>(this.url + 'makemodel', {
+      make,
+      model
+    }, { observe: 'response' });
   }
 
   findById(id: number): Observable<HttpResponse<Device>> {

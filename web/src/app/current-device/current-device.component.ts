@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { ActiveNumber } from '../models/active-number.model';
+import { ActiveNumberService } from '../services/active-number.service';
 
 @Component({
   selector: 'app-current-device',
@@ -7,41 +10,66 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class CurrentDeviceComponent implements OnInit {
   @Input() number: any;
+  @Input() availableLines: ActiveNumber[] = [];
   @Output() changeEvent = new EventEmitter<string>();
 
-  currentLines: string[] = ["(123) 456-7890", "(456) 789-0123", "(890) 123-4567"];
+  showRemoveDeviceModal: boolean = false;
+  showChangeLineModal: boolean = false;
 
-  constructor() { }
+  changeLineSeleted = -1;
+  changeLineError = '';
+
+  constructor(private activeNumberService: ActiveNumberService) { }
 
   ngOnInit(): void {
   }
 
-  async removeDevice() {
+  onSelected(value: string) {
+    if (value === '') return;
+    this.changeLineSeleted = parseInt(value);
+  }
 
+  async removeDevice() {
+    this.number.activeNumber.hasDeviceAssigned = false;
+    await lastValueFrom(this.activeNumberService.save(this.number.activeNumber));
     this.changeEvent.emit('');
   }
 
-  changeLine(): void {
-
+  async changeLine() {
+    this.changeLineError = '';
+    if (this.changeLineSeleted === -1) {
+      this.changeLineError = 'Invalid selection'
+      return;
+    }
+    let selectedLine = this.availableLines[this.changeLineSeleted];
+    this.number.activeNumber.hasDeviceAssigned = false;
+    await lastValueFrom(this.activeNumberService.save(this.number.activeNumber));
+    selectedLine.hasDeviceAssigned = true;
+    selectedLine.deviceId = this.number.device.id;
+    await lastValueFrom(this.activeNumberService.save(selectedLine));
+    this.changeEvent.emit('');
   }
 
-  showChangeLineModal: boolean = false;
-
   changeLineModal(): void {
+    this.changeLineError = '';
+    if (this.availableLines.length === 0) {
+      this.changeLineError = 'No available lines';
+      return;
+    }
     this.showChangeLineModal = true;
   }
 
   cancelChangeLine(): void {
+    this.changeLineError = '';
     this.showChangeLineModal = false;
   }
-
-  showRemoveDeviceModal: boolean = false;
 
   removeDeviceModal(): void {
     this.showRemoveDeviceModal = true;
   }
 
   cancelRemoveDevice(): void {
+    this.changeLineError = '';
     this.showRemoveDeviceModal = false;
   }
 

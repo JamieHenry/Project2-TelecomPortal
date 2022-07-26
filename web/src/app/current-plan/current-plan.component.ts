@@ -29,7 +29,6 @@ export class CurrentPlanComponent implements OnInit {
               private activeNumberService: ActiveNumberService) { }
 
   ngOnInit(): void {
-    console.log(this.plan);
   }
 
   onSelected(value: string) {
@@ -88,8 +87,8 @@ export class CurrentPlanComponent implements OnInit {
 
   async changePlan() {
     this.changePlanError = '';
-    if (this.changeLineSelection === 0 || this.plan.plan.id) {
-      this.changePlanError = 'Required'
+    if (this.changeLineSelection === 0 || this.changeLineSelection === this.plan.plan.id) {
+      this.changePlanError = 'Invalid Plan Selection'
     }
     
     const planResponse = await lastValueFrom(this.planService.findById(this.changeLineSelection));

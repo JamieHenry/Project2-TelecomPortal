@@ -106,7 +106,7 @@ export class ManagePlansComponent implements OnInit {
     this.isStale = true;
   }
 
-  resetIsStale() {
+  ngAfterViewInit() {
     this.isStale = false;
   }
 
