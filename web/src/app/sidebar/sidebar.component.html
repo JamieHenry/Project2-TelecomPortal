@@ -1,10 +1,5 @@
 <aside>
-    <h3>My Bill</h3>
-    <select>
-        <option value="current">Current Billing Cycle</option>
-        <option value="051322-061222">May 13 - June 12, 2022</option>
-        <option value="041322-051222">April 13 - May 12, 2022</option>
-    </select>
+    <h3>My Bill<a [routerLink]="['/billBreakdown']">View Breakdown</a></h3>
     <table>
         <tr>
             <th>ITEM</th>

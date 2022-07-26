@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ManageDevicesComponent } from './manage-devices/manage-devices.component';
 import { ManagePlansComponent } from './manage-plans/manage-plans.component';
+import { BillBreakdownComponent } from './bill-breakdown/bill-breakdown.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,9 @@ const routes: Routes = [
   {
     path: 'manageDevices', component: ManageDevicesComponent
   },
+  {
+    path: 'billBreakdown', component: BillBreakdownComponent
+  }
 ];
 
 @NgModule({
