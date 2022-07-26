@@ -23,7 +23,7 @@
 <main>
     <h1>Manage Devices</h1>
     <article>
-        <h2 *ngIf="this.currentDevices.length!==0">My Devices</h2>
+        <h2 *ngIf="this.availableLines.length!==0">My Devices</h2>
         <ng-container *ngFor="let number of currentNumbers">
             <app-current-device
                 [number]="number"

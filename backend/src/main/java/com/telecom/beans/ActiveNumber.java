@@ -15,6 +15,8 @@ public class ActiveNumber {
 	@Column
 	private String phoneNumber;
 	@Column
+	private boolean hasDeviceAssigned;
+	@Column
 	private int userId;
 	@Column
 	private int deviceId;
@@ -23,15 +25,16 @@ public class ActiveNumber {
 	
 	public ActiveNumber() { }
 
-	public ActiveNumber(int id, String phoneNumber, int userId, int deviceId, int activePlanId) {
-		super();
+	public ActiveNumber(int id, String phoneNumber, boolean hasDeviceAssigned, int userId, int deviceId,
+			int activePlanId) {
 		this.id = id;
 		this.phoneNumber = phoneNumber;
+		this.hasDeviceAssigned = hasDeviceAssigned;
 		this.userId = userId;
 		this.deviceId = deviceId;
 		this.activePlanId = activePlanId;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -46,6 +49,14 @@ public class ActiveNumber {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public boolean isHasDeviceAssigned() {
+		return hasDeviceAssigned;
+	}
+
+	public void setHasDeviceAssigned(boolean hasDeviceAssigned) {
+		this.hasDeviceAssigned = hasDeviceAssigned;
 	}
 
 	public int getUserId() {
@@ -74,7 +85,7 @@ public class ActiveNumber {
 
 	@Override
 	public String toString() {
-		return "ActiveNumber [activePlanId=" + activePlanId + ", deviceId=" + deviceId + ", id=" + id + ", phoneNumber="
-				+ phoneNumber + ", userId=" + userId + "]";
+		return "ActiveNumber [activePlanId=" + activePlanId + ", deviceId=" + deviceId + ", hasDeviceAssigned="
+				+ hasDeviceAssigned + ", id=" + id + ", phoneNumber=" + phoneNumber + ", userId=" + userId + "]";
 	}
 }

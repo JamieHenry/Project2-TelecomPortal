@@ -24,6 +24,7 @@ export class ManagePlansComponent implements OnInit {
   currentPlans: {
     plan: Plan,
     activePlanId: number,
+    userId: number,
     descriptors: string[],
     lines: {
       activeNumberId: number,
@@ -75,6 +76,7 @@ export class ManagePlansComponent implements OnInit {
       this.currentPlans.push({
         'plan': planResponse.body!,
         'activePlanId': activePlan.id,
+        'userId': this.currentUser.id,
         'descriptors': activePlanDescriptors,
         'lines': activePlanLines
       });
