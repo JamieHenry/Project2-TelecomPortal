@@ -24,7 +24,7 @@ export class FeeService {
     return this.http.post<Fee>(this.url, fee, { observe: 'response' });
   }
 
-  delete(id: number): Observable<HttpResponse<Fee>> {
-    return this.http.delete<Fee>(this.url + `${id}`, { observe: 'response' });
+  delete(id: number): Observable<HttpResponse<void>> {
+    return this.http.delete<void>(this.url + `${id}`, { observe: 'response' });
   }
 }

@@ -1,12 +1,14 @@
+import { Fee } from "./fee.model";
+
 export class ActiveFee {
 
     id: number;
-    feeId: number;
-    planId: number;
+    fee: Fee;
 
-    constructor (id: number, feeId: number, planId: number) {
+    constructor(id: number,
+                fee: Fee) {
+
         this.id = id;
-        this.feeId = feeId;
-        this.planId = planId;
+        this.fee = fee;
     }
 }

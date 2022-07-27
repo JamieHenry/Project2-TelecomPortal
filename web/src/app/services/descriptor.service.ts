@@ -24,7 +24,7 @@ export class DescriptorService {
     return this.http.post<Descriptor>(this.url, descriptor, { observe: 'response' });
   }
 
-  delete(id: number): Observable<HttpResponse<Descriptor>> {
-    return this.http.delete<Descriptor>(this.url + `${id}`, { observe: 'response' });
+  delete(id: number): Observable<HttpResponse<void>> {
+    return this.http.delete<void>(this.url + `${id}`, { observe: 'response' });
   }
 }

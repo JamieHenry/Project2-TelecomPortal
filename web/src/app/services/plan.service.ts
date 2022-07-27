@@ -24,7 +24,7 @@ export class PlanService {
     return this.http.post<Plan>(this.url, plan, { observe: 'response' });
   }
 
-  delete(id: number): Observable<HttpResponse<Plan>> {
-    return this.http.delete<Plan>(this.url + `${id}`, { observe: 'response' });
+  delete(id: number): Observable<HttpResponse<void>> {
+    return this.http.delete<void>(this.url + `${id}`, { observe: 'response' });
   }
 }

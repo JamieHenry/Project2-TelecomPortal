@@ -1,11 +1,11 @@
 <section>
-    <img src="../../assets/images/apple-logo.png" *ngIf="device.make === 'Apple'">
-    <img src="../../assets/images/samsung-logo.png" *ngIf="device.make === 'Samsung'">
-    <img src="../../assets/images/blackberry-logo.png" *ngIf="device.make === 'BlackBerry'">
-    <img src="../../assets/images/other-logo.png" *ngIf="device.make !== 'Apple' 
-                                                      && device.make !== 'BlackBerry' 
-                                                      && device.make !== 'Samsung'">
-    <h3>{{ device.model }}</h3>
-    <h4>{{ device.phoneNumber }}</h4>
-    <p>Assigned to your {{ device.plan }} plan</p>
+    <img src="../../assets/images/apple-logo.png" *ngIf="device.activeNumber.device.make === 'Apple'">
+    <img src="../../assets/images/samsung-logo.png" *ngIf="device.activeNumber.device.make === 'Samsung'">
+    <img src="../../assets/images/blackberry-logo.png" *ngIf="device.activeNumber.device.make === 'BlackBerry'">
+    <img src="../../assets/images/other-logo.png" *ngIf="device.activeNumber.device.make !== 'Apple' 
+                                                      && device.activeNumber.device.make !== 'BlackBerry' 
+                                                      && device.activeNumber.device.make !== 'Samsung'">
+    <h3>{{ device.activeNumber.device.model }}</h3>
+    <h4>{{ device.activeNumber.phoneNumber }}</h4>
+    <p>Assigned to your {{ device.planName }} plan</p>
 </section>

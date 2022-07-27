@@ -1,12 +1,18 @@
+import { ActiveNumber } from "./active-number.model";
+import { Plan } from "./plan.model";
+
 export class ActivePlan {
 
     id: number;
-    userId: number;
-    planId: number;
+    plan: Plan;
+    activeNumbers: ActiveNumber[];
 
-    constructor (id: number, userId: number, planId: number) {
+    constructor(id: number,
+                plan: Plan,
+                activeNumbers: ActiveNumber[]) {
+
         this.id = id;
-        this.userId = userId;
-        this.planId = planId;
+        this.plan = plan;
+        this.activeNumbers = activeNumbers;
     }
 }

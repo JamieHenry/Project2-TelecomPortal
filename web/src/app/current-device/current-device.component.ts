@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { ActiveNumber } from '../models/active-number.model';
-import { ActiveNumberService } from '../services/active-number.service';
+import { DeviceService } from '../services/device.service';
 
 @Component({
   selector: 'app-current-device',
@@ -19,7 +19,7 @@ export class CurrentDeviceComponent implements OnInit {
   changeLineSelected = -1;
   changeLineError = '';
 
-  constructor(private activeNumberService: ActiveNumberService) { }
+  constructor(private deviceService: DeviceService) { }
 
   ngOnInit(): void {
   }
@@ -35,8 +35,7 @@ export class CurrentDeviceComponent implements OnInit {
   }
 
   async removeDevice() {
-    this.number.activeNumber.hasDeviceAssigned = false;
-    await lastValueFrom(this.activeNumberService.save(this.number.activeNumber));
+    await lastValueFrom(this.deviceService.removeLine(this.number.activeNumber.phoneNumber));
     this.changeEvent.emit('');
   }
 
@@ -46,12 +45,9 @@ export class CurrentDeviceComponent implements OnInit {
       this.changeLineError = 'Required';
       return;
     }
-    let selectedLine = this.availableLines[this.changeLineSelected];
-    this.number.activeNumber.hasDeviceAssigned = false;
-    await lastValueFrom(this.activeNumberService.save(this.number.activeNumber));
-    selectedLine.hasDeviceAssigned = true;
-    selectedLine.deviceId = this.number.device.id;
-    await lastValueFrom(this.activeNumberService.save(selectedLine));
+    let selectedLine = this.availableLines[this.changeLineSeleted];
+    await lastValueFrom(this.deviceService.removeLine(this.number.activeNumber.phoneNumber));
+    await lastValueFrom(this.deviceService.assignLine(this.number.activeNumber.device.id, selectedLine.phoneNumber));
     this.changeEvent.emit('');
   }
 

@@ -6,6 +6,7 @@
         <ng-container *ngFor="let plan of currentPlans">
             <app-current-plan 
                 [plan]="plan"
+                [userId]="currentUser!.id"
                 (changeEvent)="resetValues()"></app-current-plan>
         </ng-container>
         
@@ -13,6 +14,7 @@
         <ng-container *ngFor="let plan of allPlans">
             <app-available-plan 
                 [plan]="plan"
+                [userId]="currentUser!.id"
                 (changeEvent)="resetValues()"></app-available-plan>
         </ng-container>
     </article>

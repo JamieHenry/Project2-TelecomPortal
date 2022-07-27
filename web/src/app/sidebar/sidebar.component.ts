@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { Fee } from '../models/fee.model';
 import { User } from '../models/user.model';
-import { ActiveFeeService } from '../services/active-fee.service';
-import { ActivePlanService } from '../services/active-plan.service';
 import { AuthenticationService } from '../services/authentication.service';
-import { FeeService } from '../services/fee.service';
-import { PlanService } from '../services/plan.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,16 +19,11 @@ export class SidebarComponent implements OnInit, OnChanges {
     name: string,
     price: number
   }[] = [];
-  fees: {
-    name: string,
-    price: number
-  }[] = [];
+  fees: Fee[] = [];
+  totalFees: number = 0;
   total: number = 0;
 
-  constructor(private activeFeeService: ActiveFeeService,
-              private feeService: FeeService,
-              private planService: PlanService,
-              private activePlanService: ActivePlanService,
+  constructor(private userService: UserService,
               private authService: AuthenticationService) { }
 
   async ngOnInit() {
@@ -38,36 +31,34 @@ export class SidebarComponent implements OnInit, OnChanges {
       this.currentUser = currUser;
     });
 
-    const activePlanResponse = await lastValueFrom(this.activePlanService.findByUserId(this.currentUser!.id));
-    for (let activePlan of activePlanResponse.body!) {
-      const planResponse = await lastValueFrom(this.planService.findById(activePlan.planId));
-      this.total += planResponse.body!.price;
-      this.plans.push({
-        'name': planResponse.body!.name,
-        'price': planResponse.body!.price
-      });
+    if (!this.authService.isUserLoggedIn()) {
+      return;
+    }
 
-      const activeFeeResponse = await lastValueFrom(this.activeFeeService.findByPlanId(activePlan.planId));
-      for (let activeFee of activeFeeResponse.body!) {
-        const feeResposne = await lastValueFrom(this.feeService.findById(activeFee.feeId));
-        if (feeResposne.body!.isPercentage) {
-          const feePrice = (feeResposne.body!.amount / 100) * this.total;
-          this.fees.push({
-            'name': feeResposne.body!.description,
-            'price': feePrice
-          });
-        } else {
-          this.fees.push({
-            'name': feeResposne.body!.description,
-            'price': feeResposne.body!.amount
-          });
-        }
+    this.currentUser = (await lastValueFrom(this.userService.findById(this.currentUser!.id))).body;
+
+    for (let activePlan of this.currentUser!.activePlans) {
+      this.plans.push({
+        'name': activePlan.plan.name,
+        'price': activePlan.plan.price
+      });
+      this.total += activePlan.plan.price;
+      for (let activeFees of activePlan.plan.activeFees) {
+        this.fees.push(activeFees.fee);
       }
     }
 
     for (let fee of this.fees) {
-      this.total += fee.price;
+      let feePrice;
+      if (fee.isPercentage) {
+        feePrice = (fee.amount / 100) * this.total;
+      } else {
+        feePrice = fee.amount;
+      }
+      this.totalFees += feePrice;
     }
+
+    this.total += this.totalFees;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

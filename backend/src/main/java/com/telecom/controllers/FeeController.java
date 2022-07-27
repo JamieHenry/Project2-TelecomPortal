@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Tag(name = "Fee")
 @ApiResponses(value = {
 	@ApiResponse(responseCode = "200", description = "Successful"),
+    @ApiResponse(responseCode = "201", description = "Created"),
 	@ApiResponse(responseCode = "401", description = "Unauthorized")
 })
 @SecurityRequirement(name = "JWT Authentication")

@@ -1,10 +1,15 @@
 package com.telecom.beans;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Plan {
@@ -18,15 +23,25 @@ public class Plan {
 	private int numDevices;
 	@Column
 	private double price;
+	@OneToMany(mappedBy = "plan")
+	@JsonIgnore
+	private Set<ActivePlan> activePlans;
+	@OneToMany(mappedBy = "plan")
+	private Set<ActiveDescriptor> activeDescriptors;
+	@OneToMany(mappedBy = "plan")
+	private Set<ActiveFee> activeFees;
 	
 	public Plan() { }
 
-	public Plan(int id, String name, int numDevices, double price) {
-		super();
+	public Plan(int id, String name, int numDevices, double price, Set<ActivePlan> activePlans,
+			Set<ActiveDescriptor> activeDescriptors, Set<ActiveFee> activeFees) {
 		this.id = id;
 		this.name = name;
 		this.numDevices = numDevices;
 		this.price = price;
+		this.activePlans = activePlans;
+		this.activeDescriptors = activeDescriptors;
+		this.activeFees = activeFees;
 	}
 
 	public int getId() {
@@ -61,8 +76,63 @@ public class Plan {
 		this.price = price;
 	}
 
+	public Set<ActivePlan> getActivePlans() {
+		return activePlans;
+	}
+
+	public void setActivePlans(Set<ActivePlan> activePlans) {
+		this.activePlans = activePlans;
+	}
+
+	public Set<ActiveDescriptor> getActiveDescriptors() {
+		return activeDescriptors;
+	}
+
+	public void setActiveDescriptors(Set<ActiveDescriptor> activeDescriptors) {
+		this.activeDescriptors = activeDescriptors;
+	}
+
+	public Set<ActiveFee> getActiveFees() {
+		return activeFees;
+	}
+
+	public void setActiveFees(Set<ActiveFee> activeFees) {
+		this.activeFees = activeFees;
+	}
+
 	@Override
-	public String toString() {
-		return "Plan [id=" + id + ", name=" + name + ", numDevices=" + numDevices + ", price=" + price + "]";
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + numDevices;
+		long temp;
+		temp = Double.doubleToLongBits(price);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Plan other = (Plan) obj;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (numDevices != other.numDevices)
+			return false;
+		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
+			return false;
+		return true;
 	}
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { ActiveNumber } from '../models/active-number.model';
-import { ActiveNumberService } from '../services/active-number.service';
+import { DeviceService } from '../services/device.service';
 
 @Component({
   selector: 'app-available-device',
@@ -18,7 +18,7 @@ export class AvailableDeviceComponent implements OnInit {
   changeLineSelected = -1;
   addDeviceError = '';
 
-  constructor(private activeNumberService: ActiveNumberService) { }
+  constructor(private deviceService: DeviceService) { }
 
   ngOnInit(): void {
   }
@@ -52,10 +52,8 @@ export class AvailableDeviceComponent implements OnInit {
       this.addDeviceError = 'Required'
       return;
     }
-    let selectedLine = this.availableLines[this.changeLineSelected];
-    selectedLine.hasDeviceAssigned = true;
-    selectedLine.deviceId = this.device.device.id;
-    await lastValueFrom(this.activeNumberService.save(selectedLine));
+    let selectedLine = this.availableLines[this.changeLineSeleted];
+    await lastValueFrom(this.deviceService.assignLine(this.device.device.id, selectedLine.phoneNumber));
     this.showAddAvailableDeviceModal = false;
     this.changeEvent.emit('');
   }
