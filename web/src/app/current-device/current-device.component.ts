@@ -45,7 +45,7 @@ export class CurrentDeviceComponent implements OnInit {
       this.changeLineError = 'Required';
       return;
     }
-    let selectedLine = this.availableLines[this.changeLineSeleted];
+    let selectedLine = this.availableLines[this.changeLineSelected];
     await lastValueFrom(this.deviceService.removeLine(this.number.activeNumber.phoneNumber));
     await lastValueFrom(this.deviceService.assignLine(this.number.activeNumber.device.id, selectedLine.phoneNumber));
     this.changeEvent.emit('');

@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
     planName: string
   }[] = [];
   currentPlans: ActivePlan[] = [];
+  unAssignedLines: ActiveNumber[] = [];
 
   constructor(private authService: AuthenticationService,
               private userService: UserService,
@@ -46,6 +47,8 @@ export class DashboardComponent implements OnInit {
             activeNumber,
             'planName': activePlan.plan.name
           });
+        } else {
+          this.unAssignedLines.push(activeNumber);
         }
       }
     }

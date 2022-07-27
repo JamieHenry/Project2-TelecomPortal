@@ -52,7 +52,7 @@ export class AvailableDeviceComponent implements OnInit {
       this.addDeviceError = 'Required'
       return;
     }
-    let selectedLine = this.availableLines[this.changeLineSeleted];
+    let selectedLine = this.availableLines[this.changeLineSelected];
     await lastValueFrom(this.deviceService.assignLine(this.device.device.id, selectedLine.phoneNumber));
     this.showAddAvailableDeviceModal = false;
     this.changeEvent.emit('');
