@@ -10,5 +10,5 @@ import com.telecom.beans.Device;
 @Repository
 public interface DeviceRepository extends JpaRepository<Device, Integer> {
 
-    Optional<Device> findByMakeAndModel(String make, String model);
+    Optional<Device> findByMakeAndModelIgnoreCase(String make, String model);
 }
