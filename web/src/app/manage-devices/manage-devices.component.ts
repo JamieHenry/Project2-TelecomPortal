@@ -1,17 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { ActiveNumber } from '../models/active-number.model';
 import { Device } from '../models/device.model';
 import { User } from '../models/user.model';
-import { ActiveDeviceDescriptorService } from '../services/active-device-descriptor.service';
-import { ActiveNumberService } from '../services/active-number.service';
-import { ActivePlanService } from '../services/active-plan.service';
 import { AuthenticationService } from '../services/authentication.service';
-import { DescriptorService } from '../services/descriptor.service';
 import { DeviceService } from '../services/device.service';
-import { PlanService } from '../services/plan.service';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-manage-devices',
@@ -34,18 +30,15 @@ export class ManageDevicesComponent implements OnInit {
   currentUser!: User | null;
   currentNumbers: {
     activeNumber: ActiveNumber,
-    device: Device,
     planName: string
   }[] = [];
   allDevices: {
     device: Device,
-    userId: number,
-    descriptors: string[]
+    userId: number
   }[] = [];
   filteredDevices: {
     device: Device,
-    userId: number,
-    descriptors: string[]
+    userId: number
   }[] = [];
   currMakes: string[] = [];
   availableLines: ActiveNumber[] = [];
@@ -53,58 +46,48 @@ export class ManageDevicesComponent implements OnInit {
   searchCriteria: string = '';
   
   constructor(private fb: UntypedFormBuilder, 
-              private descriptorService: DescriptorService,
-              private activeDeviceDescriptorService: ActiveDeviceDescriptorService,
-              private planService: PlanService,
-              private activePlanService: ActivePlanService,
               private deviceService: DeviceService,
-              private activeNumberService: ActiveNumberService,
-              private router: Router,
-              private authService: AuthenticationService) { }
+              private authService: AuthenticationService,
+              private userService: UserService,
+              private router: Router) { }
 
   async ngOnInit() {
     this.authService.currentUser.subscribe(currUser => {
       this.currentUser = currUser;
     });
-
-    if (this.currentUser === null) {
+    
+    if (!this.authService.isUserLoggedIn()) {
       this.navigate('/');
       return;
     }
 
-    // active numbers
-    const activeNumbersResponse = await lastValueFrom(this.activeNumberService.findByUserId(this.currentUser!.id));
-    for (let activeNumber of activeNumbersResponse.body!) {
-      if (!activeNumber.hasDeviceAssigned) {
-        this.availableLines.push(activeNumber);
-        continue;
+    this.currentUser = (await lastValueFrom(this.userService.findById(this.currentUser!.id))).body;
+
+    for (let activePlan of this.currentUser!.activePlans) {
+      for (let activeNumber of activePlan.activeNumbers) {
+        if (activeNumber.hasDeviceAssigned) {
+          this.currentNumbers.push({
+            activeNumber,
+            'planName': activePlan.plan.name
+          });
+        } else {
+          this.availableLines.push(activeNumber);
+        }
       }
-      const deviceResponse = await lastValueFrom(this.deviceService.findById(activeNumber.deviceId));
-      const activePlanResponse = await lastValueFrom(this.activePlanService.findById(activeNumber.activePlanId));
-      const planResponse = await lastValueFrom(this.planService.findById(activePlanResponse.body!.planId));
-      this.currentNumbers.push({
-        'activeNumber': activeNumber,
-        'device': deviceResponse.body!,
-        'planName': planResponse.body!.name
+    }
+
+    const deviceResponse = await lastValueFrom(this.deviceService.findAll());
+
+    for(let device of deviceResponse.body!) {
+      if (!this.currMakes.includes(device.make)) {
+        this.currMakes.push(device.make);
+      }
+      this.allDevices.push({
+        device,
+        userId: this.currentUser!.id
       });
     }
 
-    // all devices
-    const deviceResponse = await lastValueFrom(this.deviceService.findAll());
-    for (let device of deviceResponse.body!) {
-      if (!this.currMakes.includes(device.make)) this.currMakes.push(device.make);
-      const activeNumberDescriptors = [];
-      const deviceDescriptorResponse = await lastValueFrom(this.activeDeviceDescriptorService.findByDeviceId(device.id));
-      for (let deviceDescriptor of deviceDescriptorResponse.body!) {
-        const descriptorResponse = await lastValueFrom(this.descriptorService.findById(deviceDescriptor.descriptorId));
-        activeNumberDescriptors.push(descriptorResponse.body!.description);
-      }
-      this.allDevices.push({
-        'device': device,
-        'userId': this.currentUser.id,
-        'descriptors': activeNumberDescriptors
-      });
-    }
     this.filteredDevices = this.allDevices;
   }
 
@@ -165,10 +148,8 @@ export class ManageDevicesComponent implements OnInit {
       this.addLineError = 'Invalid line selected';
       return;
     }
-    const deviceResponse = await lastValueFrom(this.deviceService.save(new Device(0, this.make, this.model)));
-    this.selectedAvailableLine!.hasDeviceAssigned = true;
-    this.selectedAvailableLine!.deviceId = deviceResponse.body!.id;
-    await lastValueFrom(this.activeNumberService.save(this.selectedAvailableLine!));
+    const deviceResponse = await lastValueFrom(this.deviceService.save(new Device(0, this.make, this.model, [])));
+    await lastValueFrom(this.deviceService.assignLine(deviceResponse.body!.id, this.selectedAvailableLine.phoneNumber));
     this.cancelAddNewDevice();
     this.resetValues();
   }

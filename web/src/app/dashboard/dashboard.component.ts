@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
-import { Plan } from '../models/plan.model';
+import { ActiveNumber } from '../models/active-number.model';
+import { ActivePlan } from '../models/active-plan.model';
 import { User } from '../models/user.model';
-import { ActiveDescriptorService } from '../services/active-descriptor.service';
-import { ActiveNumberService } from '../services/active-number.service';
-import { ActivePlanService } from '../services/active-plan.service';
 import { AuthenticationService } from '../services/authentication.service';
-import { DescriptorService } from '../services/descriptor.service';
-import { DeviceService } from '../services/device.service';
-import { PlanService } from '../services/plan.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,24 +16,13 @@ export class DashboardComponent implements OnInit {
   
   currentUser!: User | null;
   currentDevices: {
-    make: string,
-    model: string,
-    phoneNumber: string,
-    plan: string
+    activeNumber: ActiveNumber,
+    planName: string
   }[] = [];
-  currentPlans: {
-    plan: Plan,
-    descriptors: string[],
-    currLines: number
-  }[] = [];
+  currentPlans: ActivePlan[] = [];
 
-  constructor(private descriptorService: DescriptorService,
-              private planService: PlanService,
-              private deviceService: DeviceService,
-              private activeDescriptorService: ActiveDescriptorService,
-              private activeNumberService: ActiveNumberService,
-              private activePlanService: ActivePlanService,
-              private authService: AuthenticationService,
+  constructor(private authService: AuthenticationService,
+              private userService: UserService,
               private router: Router) { }
 
   async ngOnInit() {
@@ -45,45 +30,23 @@ export class DashboardComponent implements OnInit {
       this.currentUser = currUser;
     });
     
-    if (this.currentUser === null) {
+    if (!this.authService.isUserLoggedIn()) {
       this.navigate('/');
       return;
     }
 
-    // plans
-    const activePlansResponse = await lastValueFrom(this.activePlanService.findByUserId(this.currentUser!.id));
-    for (let activePlan of activePlansResponse.body!) {
-      const activePlanDescriptors = [];
-      const planResponse = await lastValueFrom(this.planService.findById(activePlan.planId));
-      const activeDescriptorResponse = await lastValueFrom(this.activeDescriptorService.findByPlanId(activePlan.planId));
-      const activeNumberResponse = await lastValueFrom(this.activeNumberService.findByActivePlanId(activePlan.id));
-      for (let activeDescriptor of activeDescriptorResponse.body!) {
-        const descriptorResponse = await lastValueFrom(this.descriptorService.findById(activeDescriptor.descriptorId));
-        activePlanDescriptors.push(descriptorResponse.body!.description);
-      }
+    this.currentUser = (await lastValueFrom(this.userService.findById(this.currentUser!.id))).body;
 
-      this.currentPlans.push({
-        'plan': planResponse.body!,
-        'descriptors': activePlanDescriptors,
-        'currLines': activeNumberResponse.body!.length
-      });
-    }
+    this.currentPlans = this.currentUser!.activePlans;
 
-    // numbers
-    const activeNumbersResponse = await lastValueFrom(this.activeNumberService.findByUserId(this.currentUser!.id));
-    for (let activeNumber of activeNumbersResponse.body!) {
-      if (!activeNumber.hasDeviceAssigned) continue;
-      const deviceResponse = await lastValueFrom(this.deviceService.findById(activeNumber.deviceId));
-      const activePlanResponse = await lastValueFrom(this.activePlanService.findById(activeNumber.activePlanId));
-      const planResponse = await lastValueFrom(this.planService.findById(activePlanResponse.body!.planId));
-      
-      if (deviceResponse.body !== null) {
-        this.currentDevices.push({
-          'make': deviceResponse.body!.make,
-          'model': deviceResponse.body!.model,
-          'phoneNumber': activeNumber.phoneNumber,
-          'plan': planResponse.body!.name
-        });
+    for (let activePlan of this.currentPlans) {
+      for (let activeNumber of activePlan.activeNumbers) {
+        if (activeNumber.hasDeviceAssigned) {
+          this.currentDevices.push({
+            activeNumber,
+            'planName': activePlan.plan.name
+          });
+        }
       }
     }
   }

@@ -1,10 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { generate, lastValueFrom } from 'rxjs';
-import { ActiveNumber } from '../models/active-number.model';
-import { ActivePlan } from '../models/active-plan.model';
-import { ActiveNumberService } from '../services/active-number.service';
-import { ActivePlanService } from '../services/active-plan.service';
+import { lastValueFrom } from 'rxjs';
+import { DeviceService } from '../services/device.service';
 import { PlanService } from '../services/plan.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-current-plan',
@@ -13,6 +11,7 @@ import { PlanService } from '../services/plan.service';
 })
 export class CurrentPlanComponent implements OnInit {
   @Input() plan: any;
+  @Input() userId!: number;
   @Output() changeEvent = new EventEmitter<string>();
 
   showDeleteLineModal: boolean = false;
@@ -23,20 +22,18 @@ export class CurrentPlanComponent implements OnInit {
   changePlanError = '';
   addLineError = '';
   
-  constructor(private activeNumberResponse: ActiveNumberService,
-              private planService: PlanService,
-              private activePlanService: ActivePlanService,
-              private activeNumberService: ActiveNumberService) { }
+  constructor(private planService: PlanService,
+              private userService: UserService,
+              private deviceService: DeviceService) { }
 
   ngOnInit(): void {
   }
 
   onSelected(value: string) {
+    this.changePlanError = '';
     this.changeLineSelection = parseInt(value);
     if (this.changeLineSelection === 0) {
       this.changePlanError = 'Required';
-    } else if (this.changeLineSelection !==0) {
-      this.changePlanError = '';
     }
   }
 
@@ -50,13 +47,13 @@ export class CurrentPlanComponent implements OnInit {
   }
 
   async deleteLine(activeNumberId: number) {
-    await lastValueFrom(this.activeNumberService.delete(activeNumberId));
+    await lastValueFrom(this.userService.removeLine(activeNumberId));
     this.changeEvent.emit('');
   }
 
   async addLine() {
     this.addLineError = '';
-    if (this.plan.lines.length === this.plan.plan.numDevices) {
+    if (this.plan.activeNumbers.length === this.plan.plan.numDevices) {
       this.addLineError = '(Line limit reached!)'
       return;
     }
@@ -65,13 +62,13 @@ export class CurrentPlanComponent implements OnInit {
     let activeNumberResponse
     do {
       phoneNumber = `(${this.getRandomInt(100, 999)}) ${this.getRandomInt(100, 999)}-${this.getRandomInt(1000, 9999)}`;
-      activeNumberResponse = await lastValueFrom(this.activeNumberResponse.findByPhoneNumber(phoneNumber));
+      activeNumberResponse = await lastValueFrom(this.deviceService.findByPhoneNumber(phoneNumber));
     } while (activeNumberResponse.body !== null);
-    activeNumberResponse = await lastValueFrom(this.activeNumberService.save(new ActiveNumber(0, phoneNumber, false, this.plan.userId, 1, this.plan.activePlanId)));
+    await lastValueFrom(this.userService.addLine(this.userId, this.plan.id, phoneNumber));
     this.changeEvent.emit('');
   }
 
-  getRandomInt(min:number, max: number) {
+  getRandomInt(min: number, max: number) {
     return Math.floor((Math.random() * (max - min)) + min);
   }
 
@@ -92,14 +89,14 @@ export class CurrentPlanComponent implements OnInit {
     }
     
     const planResponse = await lastValueFrom(this.planService.findById(this.changeLineSelection));
-    const numDeviceDiff = this.plan.lines.length - planResponse.body!.numDevices;
+    const numDeviceDiff = this.plan.activeNumbers.length - planResponse.body!.numDevices;
     if (numDeviceDiff > 0) {
       for (let i = 0; i < numDeviceDiff; i++) {
-        const poppedLine = this.plan.lines.pop();
-        await lastValueFrom(this.activeNumberService.delete(poppedLine.activeNumberId));
+        const poppedLine = this.plan.activeNumbers.pop();
+        await lastValueFrom(this.userService.removeLine(poppedLine.id));
       }
     }
-    await lastValueFrom(this.activePlanService.save(new ActivePlan(this.plan.activePlanId, this.plan.userId, planResponse.body!.id)));
+    await lastValueFrom(this.userService.assignPlan(this.plan.id, this.changeLineSelection));
     this.changeEvent.emit('');
   }
 
@@ -114,10 +111,10 @@ export class CurrentPlanComponent implements OnInit {
   }
 
   async cancelPlan() {
-    for (let line of this.plan.lines) {
-      await lastValueFrom(this.activeNumberResponse.delete(line.activeNumberId));
+    for (let line of this.plan.activeNumbers) {
+      await lastValueFrom(this.userService.removeLine(line.id));
     }
-    await lastValueFrom(this.activePlanService.delete(this.plan.activePlanId));
+    await lastValueFrom(this.userService.removePlan(this.plan.id));
     this.changeEvent.emit('');
   }
 }

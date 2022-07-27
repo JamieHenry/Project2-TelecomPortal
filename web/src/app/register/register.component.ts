@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
-import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 
 export function emailValidator(): ValidatorFn {
@@ -38,16 +37,20 @@ export class RegisterComponent implements OnInit {
 
   async register() {
     this.error = '';
-    let user: User = new User(0, this.email!.toLowerCase(), this.firstName!, this.lastName!, this.password!);
-    
-    let userResponse = await lastValueFrom(this.userService.findByEmail(user.email))
+   
+    let userResponse = await lastValueFrom(this.userService.findByEmail(this.email.toLowerCase()))
     
     if (userResponse.body !== null) {
       this.error = 'Email already in use'
       return;
     }
 
-    userResponse = await lastValueFrom(this.userService.register(user));
+    await lastValueFrom(this.userService.register({
+      'email': this.email.toLowerCase(),
+      'password': this.password,
+      'firstName': this.firstName,
+      'lastName': this.lastName
+    }));
 
     let route = this.router.config.find(r => r.path === 'login');
     if (route) this.router.navigateByUrl('/login');

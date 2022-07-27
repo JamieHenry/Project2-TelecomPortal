@@ -11,12 +11,10 @@
                 <td>${{ plan.price.toFixed(2) }}</td>
             </tr>
         </ng-container>
-        <ng-container *ngFor="let fee of fees">
-            <tr>
-                <td>{{ fee.name }}</td>
-                <td>${{ fee.price.toFixed(2) }}</td>
-            </tr>
-        </ng-container>
+        <tr>
+            <td>Fees</td>
+            <td>${{ totalFees.toFixed(2) }}</td>
+        </tr>
         <tr>
             <td>TOTAL DUE:</td>
             <td>${{ total.toFixed(2) }}</td>

@@ -1,12 +1,14 @@
+import { Descriptor } from "./descriptor.model";
+
 export class ActiveDescriptor {
 
     id: number;
-    planId: number;
-    descriptorId: number;
+    descriptor: Descriptor;
 
-    constructor (id: number, planId: number, descriptorId: number) {
+    constructor(id: number,
+                descriptor: Descriptor) {
+
         this.id = id;
-        this.planId = planId;
-        this.descriptorId = descriptorId;
+        this.descriptor = descriptor;
     }
 }

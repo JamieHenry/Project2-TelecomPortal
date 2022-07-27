@@ -15,12 +15,12 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public User register(User user) {
-		return repository.save(user);
-	}
-	
 	public Optional<User> login(String email, String password) {
 		return repository.findByEmailAndPassword(email, password);
+	}
+
+	public User save(User user) {
+		return repository.save(user);
 	}
 
 	public Optional<User> findByEmail(String email) {

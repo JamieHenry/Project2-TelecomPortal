@@ -30,6 +30,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Plan")
 @ApiResponses(value = {
 	@ApiResponse(responseCode = "200", description = "Successful"),
+    @ApiResponse(responseCode = "201", description = "Created"),
 	@ApiResponse(responseCode = "401", description = "Unauthorized")
 })
 @SecurityRequirement(name = "JWT Authentication")

@@ -1,12 +1,14 @@
+import { Descriptor } from "./descriptor.model";
+
 export class ActiveDeviceDescriptor {
 
     id: number;
-    deviceId: number;
-    descriptorId: number;
+    descriptor: Descriptor;
 
-    constructor (id: number, deviceId: number, descriptorId: number) {
+    constructor(id: number,
+                descriptor: Descriptor) {
+
         this.id = id;
-        this.deviceId = deviceId;
-        this.descriptorId = descriptorId;
+        this.descriptor = descriptor;
     }
 }

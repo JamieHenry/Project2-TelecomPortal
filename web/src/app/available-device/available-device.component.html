@@ -32,14 +32,14 @@
     <h3>{{ device.device.model }}<button (click)="addAvailableDeviceModal()">Add</button></h3> 
     <span style="color: red;">{{ addDeviceError }}</span>
     <ul>
-        <ng-container *ngIf="device.descriptors.length === 0">
+        <ng-container *ngIf="device.device.activeDeviceDescriptors.length === 0">
             <li>Descriptor 1</li>
             <li>Descriptor 2</li>
             <li>Descriptor 3</li>
         </ng-container>
-        <ng-container *ngIf="device.descriptors.length !== 0">
-            <ng-container *ngFor="let descriptor of device.descriptors">
-                <li>{{ descriptor }}</li>
+        <ng-container *ngIf="device.device.activeDeviceDescriptors.length !== 0">
+            <ng-container *ngFor="let activeDeviceDescriptor of device.device.activeDeviceDescriptors">
+                <li>{{ activeDeviceDescriptor.descriptor.description }}</li>
             </ng-container>
          </ng-container>
     </ul>

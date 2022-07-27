@@ -1,29 +1,6 @@
 <main>
     <h1>My Bill</h1>
-    <article>
-        <table>
-            <tr>
-                <th>ITEM</th>
-                <th>COST</th>
-            </tr>
-            <ng-container *ngFor="let plan of plans">
-                <tr>
-                    <td>{{ plan.name }}</td>
-                    <td>${{ plan.price.toFixed(2) }}</td>
-                </tr>
-            </ng-container>
-            <ng-container *ngFor="let fee of fees">
-                <tr>
-                    <td>{{ fee.name }}</td>
-                    <td>${{ fee.price.toFixed(2) }}</td>
-                </tr>
-            </ng-container>
-            <tr>
-                <td>TOTAL DUE:</td>
-                <td>${{ total.toFixed(2) }}</td>
-            </tr>
-        </table>
-    </article>
+    
     <app-sidebar
         [isStale]="isStale"></app-sidebar>
 </main>

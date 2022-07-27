@@ -34,7 +34,9 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const user = new User(userResponse.body!.user.id, userResponse.body!.user.email, userResponse.body!.user.firstName, userResponse.body!.user.lastName, '');;
+    const user = userResponse.body!.user;
+
+    user.password = '';
 
     this.authService.setValues(user, userResponse.body!.accessToken);
 

@@ -1,33 +1,13 @@
+import { User } from "./user.model";
+
 export class AuthResponse {
 
-    user: {
-        id: number,
-        email: string,
-        firstName: string,
-        lastName: string,
-        password: string,
-        enabled: boolean,
-        username: string,
-        authorities: any,
-        accountNonLocked: boolean,
-        accountNonExpired: boolean,
-        credentialsNonExpired: boolean
-    };
+    user: User
     accessToken: string;
 
-    constructor(user: {
-        id: number,
-        email: string,
-        firstName: string,
-        lastName: string,
-        password: string,
-        enabled: boolean,
-        username: string,
-        authorities: any,
-        accountNonLocked: boolean,
-        accountNonExpired: boolean,
-        credentialsNonExpired: boolean
-    }, accessToken: string) {
+    constructor(user: User,
+                accessToken: string) {
+                    
         this.user = user;
         this.accessToken = accessToken;
     }

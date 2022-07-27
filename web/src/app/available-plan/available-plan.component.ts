@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { ActivePlan } from '../models/active-plan.model';
-import { ActivePlanService } from '../services/active-plan.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-available-plan',
@@ -10,11 +9,12 @@ import { ActivePlanService } from '../services/active-plan.service';
 })
 export class AvailablePlanComponent implements OnInit {
   @Input() plan: any;
+  @Input() userId!: number;
   @Output() changeEvent = new EventEmitter<string>();
 
   showActivePlanModal: boolean = false;
 
-  constructor(private activePlanService: ActivePlanService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
   }
@@ -28,7 +28,7 @@ export class AvailablePlanComponent implements OnInit {
   }
 
   async addActivePlan() {
-    await lastValueFrom(this.activePlanService.save(new ActivePlan(0, this.plan.userId, this.plan.plan.id)));
+    await lastValueFrom(this.userService.addPlan(this.userId, this.plan.id));
     this.changeEvent.emit('');
   }
 }
