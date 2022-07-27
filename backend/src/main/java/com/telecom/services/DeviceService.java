@@ -20,7 +20,7 @@ public class DeviceService {
 	}
 	
 	public Optional<Device> findByMakeAndModel(String make, String model) {
-        return repository.findByMakeAndModel(make, model);
+        return repository.findByMakeAndModelIgnoreCase(make, model);
     }
 	
 	public Optional<Device> findById(int id) {
