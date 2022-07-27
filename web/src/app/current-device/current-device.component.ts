@@ -16,7 +16,7 @@ export class CurrentDeviceComponent implements OnInit {
   showRemoveDeviceModal: boolean = false;
   showChangeLineModal: boolean = false;
 
-  changeLineSeleted = -1;
+  changeLineSelected = -1;
   changeLineError = '';
 
   constructor(private activeNumberService: ActiveNumberService) { }
@@ -25,8 +25,13 @@ export class CurrentDeviceComponent implements OnInit {
   }
 
   onSelected(value: string) {
-    if (value === '') return;
-    this.changeLineSeleted = parseInt(value);
+    if (value === "") {
+      this.changeLineError = 'Required';
+      return;
+    } else {
+      this.changeLineError = '';
+    }
+    this.changeLineSelected = parseInt(value);
   }
 
   async removeDevice() {
@@ -37,11 +42,11 @@ export class CurrentDeviceComponent implements OnInit {
 
   async changeLine() {
     this.changeLineError = '';
-    if (this.changeLineSeleted === -1) {
-      this.changeLineError = 'Invalid selection'
+    if (this.changeLineSelected === -1) {
+      this.changeLineError = 'Required';
       return;
     }
-    let selectedLine = this.availableLines[this.changeLineSeleted];
+    let selectedLine = this.availableLines[this.changeLineSelected];
     this.number.activeNumber.hasDeviceAssigned = false;
     await lastValueFrom(this.activeNumberService.save(this.number.activeNumber));
     selectedLine.hasDeviceAssigned = true;

@@ -88,7 +88,7 @@ export class CurrentPlanComponent implements OnInit {
   async changePlan() {
     this.changePlanError = '';
     if (this.changeLineSelection === 0 || this.changeLineSelection === this.plan.plan.id) {
-      this.changePlanError = 'Invalid Plan Selection'
+      this.changePlanError = 'Required'
     }
     
     const planResponse = await lastValueFrom(this.planService.findById(this.changeLineSelection));
