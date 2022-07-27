@@ -15,7 +15,7 @@ export class AvailableDeviceComponent implements OnInit {
 
   showAddAvailableDeviceModal: boolean = false;
 
-  changeLineSeleted = -1;
+  changeLineSelected = -1;
   addDeviceError = '';
 
   constructor(private deviceService: DeviceService) { }
@@ -24,8 +24,13 @@ export class AvailableDeviceComponent implements OnInit {
   }
 
   onSelected(value: string) {
-    if (value === '') return;
-    this.changeLineSeleted = parseInt(value);
+    if (value === "") {
+      this.addDeviceError = 'Required';
+      return;
+    } else {
+      this.addDeviceError = '';
+    }
+    this.changeLineSelected = parseInt(value);
   }
 
   addAvailableDeviceModal() {
@@ -43,8 +48,8 @@ export class AvailableDeviceComponent implements OnInit {
   }
 
   async addAvailableDevice() {
-    if (this.changeLineSeleted === -1) {
-      this.addDeviceError = 'Invalid selection'
+    if (this.changeLineSelected === -1) {
+      this.addDeviceError = 'Required'
       return;
     }
     let selectedLine = this.availableLines[this.changeLineSeleted];

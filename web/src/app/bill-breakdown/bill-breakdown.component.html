@@ -1,6 +1,67 @@
 <main>
-    <h1>My Bill</h1>
-    
+    <h1>Bill Details</h1>
+    <article>
+        <table>
+            <tr>
+                <th>ITEM</th>
+                <th>COST</th>
+            </tr>
+            <ng-container *ngFor="let plan of plans">
+                <tr>
+                    <td>{{ plan.name }}
+                        <ul>
+                            <li><span>Line 1 — </span><span>(867)-5309</span></li>
+                                <ul>
+                                    <li>911 Service Fee (per active line)</li>
+                                </ul>
+                            <li><span>Line 2 — </span><span>(867)-5309</span></li>
+                                <ul>
+                                    <li>911 Service Fee (per active line)</li>
+                                </ul>
+                            <li><span>Line 3 — </span><span>(867)-5309</span></li>
+                                <ul>
+                                    <li>911 Service Fee (per active line)</li>
+                                </ul>
+                            <li>Administrative Fee</li>
+                            <li>Federal Universal Service Charge (1.32%)</li>
+                            <li>Regulatory Cost Recovery Charge</li>
+                        </ul>
+                        <span>SUBTOTAL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -></span>
+                    </td>
+                    <td>${{ plan.price.toFixed(2) }}
+                        <ul>
+                            <li>&nbsp;</li>
+                                <ul>
+                                    <li>$1.50</li>
+                                </ul>
+                            <li>&nbsp;</li>
+                                <ul>
+                                    <li>$1.50</li>
+                                </ul>
+                            <li>&nbsp;</li>
+                                <ul>
+                                    <li>$1.50</li>
+                                </ul>
+                            <li>$1.99</li>
+                            <li>$1.32</li>
+                            <li>$1.50</li>
+                        </ul>
+                        <span>$109.30</span>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="plans.length !== 0">
+                <tr>
+                    <td>NJ State Wireless Tax (8.84%)</td>
+                    <td>${{ (total * .0884).toFixed(2) }}</td>
+                </tr>
+            </ng-container>
+            <tr>
+                <td>TOTAL DUE:</td>
+                <td>${{ (total * 1.0884).toFixed(2) }}</td>
+            </tr>
+        </table>
+    </article>
     <app-sidebar
         [isStale]="isStale"></app-sidebar>
 </main>

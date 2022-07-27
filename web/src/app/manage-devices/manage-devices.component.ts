@@ -117,7 +117,12 @@ export class ManageDevicesComponent implements OnInit {
   }
 
   onAvailableLineSelected(value: string) {
-    if (value === '') this.selectedAvailableLine = null;
+    if (value === "") {
+      this.selectedAvailableLine = null;
+      this.addLineError = 'Required';
+    } else {
+      this.addLineError = '';
+    }
     this.selectedAvailableLine = this.availableLines[parseInt(value)];
   }
 
@@ -145,7 +150,7 @@ export class ManageDevicesComponent implements OnInit {
   async addNewDevice() {
     this.addLineError = '';
     if (this.selectedAvailableLine === null || this.selectedAvailableLine === undefined) {
-      this.addLineError = 'Invalid line selected';
+      this.addLineError = 'Required';
       return;
     }
     const deviceResponse = await lastValueFrom(this.deviceService.save(new Device(0, this.make, this.model, [])));

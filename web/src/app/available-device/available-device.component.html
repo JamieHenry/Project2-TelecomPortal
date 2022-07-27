@@ -14,10 +14,10 @@
                 <option value="{{ i }}">{{ line.phoneNumber }}</option>
             </ng-container>
         </select>
+        <div>{{ addDeviceError }}</div>
         <p>Are you sure you want to add this device?</p>
         <button (click)="addAvailableDevice()">Add Device</button>
         <button (click)="cancelAddAvailableDevice()">Cancel</button>
-        <div style="color: red;">{{ addDeviceError }}</div>
     </header>
     <div (click)="cancelAddAvailableDevice()"></div>
 </aside>
@@ -30,7 +30,6 @@
                                                       && device.device.make !== 'BlackBerry' 
                                                       && device.device.make !== 'Samsung'">
     <h3>{{ device.device.model }}<button (click)="addAvailableDeviceModal()">Add</button></h3> 
-    <span style="color: red;">{{ addDeviceError }}</span>
     <ul>
         <ng-container *ngIf="device.device.activeDeviceDescriptors.length === 0">
             <li>Descriptor 1</li>
