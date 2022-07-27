@@ -12,7 +12,11 @@
           <app-device [device]="device"></app-device>
         </ng-container>
         <p *ngIf="this.currentPlans.length === 0">You can't add a device until you have a plan — click <a [routerLink]="['/managePlans']">Manage Plans</a> to add one!</p>
-        <p *ngIf="this.currentPlans.length !== 0 && this.currentDevices.length === 0">You don't have any devices — click <a [routerLink]="['/manageDevices']">Manage Devices</a> to add one!</p>
+        <p *ngIf="this.currentPlans.length !== 0 
+               && this.currentPlans[0].currLines === 0">You can't add a device until you have at least one line — click <a [routerLink]="['/managePlans']">Manage Plans</a> to add one!</p>
+        <p *ngIf="this.currentPlans.length !== 0 
+               && this.currentPlans[0].currLines !== 0
+               && this.currentDevices.length === 0">You don't have any devices — click <a [routerLink]="['/manageDevices']">Manage Devices</a> to add one!</p>
     </article>
     
     <app-sidebar></app-sidebar>

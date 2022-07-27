@@ -14,10 +14,12 @@
                 <option value="{{ i }}">{{ line.phoneNumber }}</option>
             </ng-container>
         </select>
+        <div>
+            {{ addLineError }}
+        </div>
         <p>Are you sure you want to add this device?</p>
         <button (click)="addNewDevice()">Add Device</button>
         <button (click)="cancelAddNewDevice()">Cancel</button>
-        <div style="color: red;">{{ addLineError }}</div>
     </header>
     <div (click)="cancelAddNewDevice()"></div>
 </aside>
