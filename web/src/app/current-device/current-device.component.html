@@ -23,12 +23,16 @@
 
 <aside *ngIf="showRemoveDeviceModal">
     <header>
-    <img src="../../assets/images/apple-logo.png" *ngIf="number.activeNumber.device.make === 'Apple'">
-    <img src="../../assets/images/blackberry-logo.png" *ngIf="number.activeNumber.device.make === 'BlackBerry'">
-    <img src="../../assets/images/samsung-logo.png" *ngIf="number.activeNumber.device.make === 'Samsung'">
-    <img src="../../assets/images/other-logo.png" *ngIf="number.activeNumber.device.make !== 'Apple' 
-                                                      && number.activeNumber.device.make !== 'BlackBerry' 
-                                                      && number.activeNumber.device.make !== 'Samsung'">
+        <img src="../../assets/images/apple-logo.png" *ngIf="number.activeNumber.device.make === 'Apple'">
+        <img src="../../assets/images/blackberry-logo.png" *ngIf="number.activeNumber.device.make === 'BlackBerry'">
+        <img src="../../assets/images/google-logo.png" *ngIf="number.activeNumber.device.make === 'Google'">
+        <img src="../../assets/images/nokia-logo.png" *ngIf="number.activeNumber.device.make === 'Nokia'">
+        <img src="../../assets/images/samsung-logo.png" *ngIf="number.activeNumber.device.make === 'Samsung'">
+        <img src="../../assets/images/other-logo.png" *ngIf="number.activeNumber.device.make !== 'Apple' 
+                                                          && number.activeNumber.device.make !== 'BlackBerry' 
+                                                          && number.activeNumber.device.make !== 'Google' 
+                                                          && number.activeNumber.device.make !== 'Nokia' 
+                                                          && number.activeNumber.device.make !== 'Samsung'">
         <h5>{{ number.activeNumber.device.model }}</h5>
         <h6>{{ number.activeNumber.phoneNumber }}</h6>
         <p>Are you sure you want to remove this device?</p>
@@ -41,10 +45,14 @@
 <section>
     <img src="../../assets/images/apple-logo.png" *ngIf="number.activeNumber.device.make === 'Apple'">
     <img src="../../assets/images/blackberry-logo.png" *ngIf="number.activeNumber.device.make === 'BlackBerry'">
+    <img src="../../assets/images/google-logo.png" *ngIf="number.activeNumber.device.make === 'Google'">
+    <img src="../../assets/images/nokia-logo.png" *ngIf="number.activeNumber.device.make === 'Nokia'">
     <img src="../../assets/images/samsung-logo.png" *ngIf="number.activeNumber.device.make === 'Samsung'">
     <img src="../../assets/images/other-logo.png" *ngIf="number.activeNumber.device.make !== 'Apple' 
-                                                      && number.activeNumber.device.make !== 'BlackBerry' 
-                                                      && number.activeNumber.device.make !== 'Samsung'">
+                                                        && number.activeNumber.device.make !== 'BlackBerry' 
+                                                        && number.activeNumber.device.make !== 'Google' 
+                                                        && number.activeNumber.device.make !== 'Nokia' 
+                                                        && number.activeNumber.device.make !== 'Samsung'">
     <h3>{{ number.activeNumber.device.model }}</h3>
     <h4>{{ number.activeNumber.phoneNumber }}</h4>
     <p>Assigned to your {{ number.planName }} plan</p>

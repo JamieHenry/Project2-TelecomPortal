@@ -59,7 +59,7 @@ export class CurrentPlanComponent implements OnInit {
     }
 
     let phoneNumber;
-    let activeNumberResponse
+    let activeNumberResponse;
     do {
       phoneNumber = `(${this.getRandomInt(100, 999)}) ${this.getRandomInt(100, 999)}-${this.getRandomInt(1000, 9999)}`;
       activeNumberResponse = await lastValueFrom(this.deviceService.findByPhoneNumber(phoneNumber));

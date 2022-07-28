@@ -1,11 +1,15 @@
 <aside *ngIf="showAddAvailableDeviceModal">
     <header>
-    <img src="../../assets/images/apple-logo.png" *ngIf="device.device.make === 'Apple'">
-    <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">
-    <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
-    <img src="../../assets/images/other-logo.png" *ngIf="device.device.make !== 'Apple' 
-                                                      && device.device.make !== 'BlackBerry' 
-                                                      && device.device.make !== 'Samsung'">
+        <img src="../../assets/images/apple-logo.png" *ngIf="device.device.make === 'Apple'">
+        <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">
+        <img src="../../assets/images/google-logo.png" *ngIf="device.device.make === 'Google'">
+        <img src="../../assets/images/nokia-logo.png" *ngIf="device.device.make === 'Nokia'">
+        <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
+        <img src="../../assets/images/other-logo.png" *ngIf="device.device.make !== 'Apple' 
+                                                          && device.device.make !== 'BlackBerry' 
+                                                          && device.device.make !== 'Google' 
+                                                          && device.device.make !== 'Nokia' 
+                                                          && device.device.make !== 'Samsung'">
         <h5>{{ device.device.model }}</h5>
         <h6>{{ device.device.make }}</h6>
         <select #lines (change)="onSelected(lines.value)">
@@ -25,10 +29,14 @@
 <section>
     <img src="../../assets/images/apple-logo.png" *ngIf="device.device.make === 'Apple'">
     <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">
+    <img src="../../assets/images/google-logo.png" *ngIf="device.device.make === 'Google'">
+    <img src="../../assets/images/nokia-logo.png" *ngIf="device.device.make === 'Nokia'">
     <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
     <img src="../../assets/images/other-logo.png" *ngIf="device.device.make !== 'Apple' 
-                                                      && device.device.make !== 'BlackBerry' 
-                                                      && device.device.make !== 'Samsung'">
+                                                        && device.device.make !== 'BlackBerry' 
+                                                        && device.device.make !== 'Google' 
+                                                        && device.device.make !== 'Nokia' 
+                                                        && device.device.make !== 'Samsung'">
     <h3>{{ device.device.model }}<button (click)="addAvailableDeviceModal()">Add</button></h3> 
     <ul>
         <ng-container *ngIf="device.device.activeDeviceDescriptors.length === 0">
