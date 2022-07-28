@@ -88,4 +88,9 @@ public class ActiveFee {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ActiveFee [fee=" + fee + ", id=" + id + "]";
+	}
 }

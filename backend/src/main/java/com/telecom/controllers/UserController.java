@@ -87,7 +87,7 @@ public class UserController {
 	@GetMapping("/email/{email}")
 	@Operation(summary = "Find User by email", description = "Return User with matching email")
 	public ResponseEntity<Optional<User>> findByEmail(@PathVariable(value="email") String email) {
-		logger.info("Find User by email");
+		logger.info("Find User by email: " + email);
 		return new ResponseEntity<Optional<User>>(userService.findByEmail(email), HttpStatus.OK);
 	}
 
@@ -95,7 +95,7 @@ public class UserController {
 	@Operation(summary = "Find User by id", description = "Return User with matching id", security = 
 		@SecurityRequirement(name = "JWT Authentication"))
 	public ResponseEntity<Optional<User>> findById(@PathVariable(value="id") int id) {
-		logger.info("Find User by id");
+		logger.info("Find User by id: " + id);
 		return new ResponseEntity<Optional<User>>(userService.findById(id), HttpStatus.OK);
 	}
 

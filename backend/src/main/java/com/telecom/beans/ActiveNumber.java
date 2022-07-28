@@ -121,4 +121,10 @@ public class ActiveNumber {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ActiveNumber [device=" + device + ", hasDeviceAssigned=" + hasDeviceAssigned + ", id=" + id
+				+ ", phoneNumber=" + phoneNumber + "]";
+	}
 }

@@ -3,6 +3,7 @@ package com.telecom.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,30 +37,36 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @SecurityRequirement(name = "JWT Authentication")
 public class DescriptorController {
     
+    private static final Logger logger = Logger.getLogger(DescriptorController.class);
+
     @Autowired
     private DescriptorService service;
 
     @GetMapping("/id/{id}")
     @Operation(summary = "Find Descriptor by id", description = "Return Descriptor with matching id")
     public ResponseEntity<Optional<Descriptor>> findById(@PathVariable(value="id") int id) {
+        logger.info("Find Descriptor by id: " + id);
         return new ResponseEntity<Optional<Descriptor>>(service.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/")
     @Operation(summary = "Find all Descriptors", description = "Return all Descriptors")
     public ResponseEntity<List<Descriptor>> findAll() {
+        logger.info("Find all Descriptors");
         return new ResponseEntity<List<Descriptor>>(service.findAll(), HttpStatus.OK);
     }
 
     @PostMapping("/")
     @Operation(summary = "Save a new Descriptor", description = "Save and return a new Descriptor")
     public ResponseEntity<Descriptor> save(@RequestBody Descriptor descriptor) {
+        logger.info("Save new Descriptor: " + descriptor);
         return new ResponseEntity<Descriptor>(service.save(descriptor), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete Descriptor by id", description = "Delete Descriptor with matching id")
     public ResponseEntity<Void> deleteById(@PathVariable(value="id") int id) {
+        logger.info("Remove Descriptor with id: " + id);
         service.deleteById(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

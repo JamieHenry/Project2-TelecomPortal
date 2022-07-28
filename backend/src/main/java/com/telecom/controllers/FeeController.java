@@ -3,6 +3,7 @@ package com.telecom.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,30 +39,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 @SecurityRequirement(name = "JWT Authentication")
 public class FeeController {
     
+    private static final Logger logger = Logger.getLogger(FeeController.class);
+
     @Autowired
     private FeeService service;
 
     @GetMapping("/id/{id}")
     @Operation(summary = "Find Fee by id", description = "Return Fee with matching id")
     public ResponseEntity<Optional<Fee>> findById(@PathVariable(value="id") int id) {
+        logger.info("Find Fee by id: " + id);
         return new ResponseEntity<Optional<Fee>>(service.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/")
     @Operation(summary = "Find all Fees", description = "Return all Fees")
     public ResponseEntity<List<Fee>> findAll() {
+        logger.info("Find all Fees");
         return new ResponseEntity<List<Fee>>(service.findAll(), HttpStatus.OK);
     }
     
     @PostMapping("/")
     @Operation(summary = "Save a new Fee", description = "Save and return a new Fee")
     public ResponseEntity<Fee> save(@RequestBody Fee fee) {
+        logger.info("Save new Fee: " + fee);
         return new ResponseEntity<Fee>(service.save(fee), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete Fee by id", description = "Delete Fee with matching id")
     public ResponseEntity<Void> deleteById(@PathVariable(value="id") int id) {
+        logger.info("Remove Fee with id: " + id);
         service.deleteById(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

@@ -112,4 +112,9 @@ public class ActivePlan {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ActivePlan [activeNumbers=" + activeNumbers + ", id=" + id + "]";
+	}
 }

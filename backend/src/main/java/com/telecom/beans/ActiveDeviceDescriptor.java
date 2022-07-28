@@ -88,4 +88,9 @@ public class ActiveDeviceDescriptor {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ActiveDeviceDescriptor [descriptor=" + descriptor + ", id=" + id + "]";
+    }
 }
