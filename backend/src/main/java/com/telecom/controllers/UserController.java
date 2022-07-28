@@ -155,8 +155,8 @@ public class UserController {
 	public ResponseEntity<User> addLine(@RequestBody AddLineRequest addLineRequest) {
 		User user = userService.findById(addLineRequest.getUserId()).get();
 		ActivePlan activePlan = activePlanService.findById(addLineRequest.getActivePlanId()).get();
-		Device device = deviceService.findById(1).get();
-		activeNumberService.save(new ActiveNumber(0, addLineRequest.getPhoneNumber(), false, device, activePlan));
+		List<Device> devices = deviceService.findAll();
+		activeNumberService.save(new ActiveNumber(0, addLineRequest.getPhoneNumber(), false, devices.get(0), activePlan));
 		return new ResponseEntity<User>(userService.save(user), HttpStatus.CREATED);
 	}
 
