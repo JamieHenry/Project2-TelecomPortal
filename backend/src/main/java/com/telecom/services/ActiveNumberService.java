@@ -19,10 +19,6 @@ public class ActiveNumberService {
 		return repository.save(activeNumber);
 	}
 	
-	public List<ActiveNumber> findByUserId(int userId) {
-		return repository.findByUserId(userId);
-	}
-	
 	public List<ActiveNumber> findByActivePlanId(int activePlanId) {
 		return repository.findByActivePlanId(activePlanId);
 	}

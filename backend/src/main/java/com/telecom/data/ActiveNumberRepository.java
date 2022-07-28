@@ -11,8 +11,6 @@ import com.telecom.beans.ActiveNumber;
 @Repository
 public interface ActiveNumberRepository extends JpaRepository<ActiveNumber, Integer> {
 
-	List<ActiveNumber> findByUserId(int userId);
-
 	List<ActiveNumber> findByActivePlanId(int activePlanId);
 
     Optional<ActiveNumber> findByPhoneNumber(String phoneNumber);

@@ -21,8 +21,6 @@ public class ActiveNumber {
 	private String phoneNumber;
 	@Column
 	private boolean hasDeviceAssigned;
-	@Column
-	private int userId;
 	@OneToOne
 	@JoinColumn(name = "device_id")
 	private Device device;
@@ -33,12 +31,11 @@ public class ActiveNumber {
 	
 	public ActiveNumber() { }
 
-	public ActiveNumber(int id, String phoneNumber, boolean hasDeviceAssigned, int userId, Device device,
+	public ActiveNumber(int id, String phoneNumber, boolean hasDeviceAssigned, Device device,
 			ActivePlan activePlan) {
 		this.id = id;
 		this.phoneNumber = phoneNumber;
 		this.hasDeviceAssigned = hasDeviceAssigned;
-		this.userId = userId;
 		this.device = device;
 		this.activePlan = activePlan;
 	}
@@ -67,20 +64,12 @@ public class ActiveNumber {
 		this.hasDeviceAssigned = hasDeviceAssigned;
 	}
 
-	public int getUserId() {
-		return userId;
-	}
-
 	public Device getDevice() {
 		return device;
 	}
 
 	public void setDevice(Device device) {
 		this.device = device;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 
 	public ActivePlan getActivePlan() {
@@ -99,7 +88,6 @@ public class ActiveNumber {
 		result = prime * result + (hasDeviceAssigned ? 1231 : 1237);
 		result = prime * result + id;
 		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
-		result = prime * result + userId;
 		return result;
 	}
 
@@ -130,8 +118,6 @@ public class ActiveNumber {
 			if (other.phoneNumber != null)
 				return false;
 		} else if (!phoneNumber.equals(other.phoneNumber))
-			return false;
-		if (userId != other.userId)
 			return false;
 		return true;
 	}
