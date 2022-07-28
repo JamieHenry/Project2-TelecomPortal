@@ -1,3 +1,15 @@
+<aside *ngIf="showRegisterModal">
+    <header>
+        <img src="../../assets/images/jvw-logo.png">
+        <h5>Registration successful!</h5>
+        <h6>Thank you for riding the JamVan!</h6>
+        <p>Click below to log in now...</p>
+        <button [routerLink]="['/login']">Log In</button>
+        <button (click)="cancelRegisterModal(); newUserForm.reset()">Register Again</button>
+    </header>
+    <div (click)="cancelRegisterModal(); newUserForm.reset()"></div>
+</aside>
+
 <main>
     <h1>Register</h1>
 
