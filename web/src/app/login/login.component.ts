@@ -27,9 +27,10 @@ export class LoginComponent implements OnInit {
   async login() {
     this.error = '';
     
-    let userResponse = await lastValueFrom(this.userService.login(this.email.toLowerCase(), this.password));
-
-    if (userResponse.body === null) {
+    let userResponse;
+    try {
+      userResponse = await lastValueFrom(this.userService.login(this.email.toLowerCase(), this.password));
+    } catch (error) {
       this.error = 'Invalid email/password';
       return;
     }
