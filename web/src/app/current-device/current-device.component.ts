@@ -15,7 +15,8 @@ export class CurrentDeviceComponent implements OnInit {
 
   showRemoveDeviceModal: boolean = false;
   showChangeLineModal: boolean = false;
-
+  showNoAvailableLinesModal: boolean = false;
+  
   changeLineSelected = -1;
   changeLineError = '';
 
@@ -54,15 +55,20 @@ export class CurrentDeviceComponent implements OnInit {
   changeLineModal(): void {
     this.changeLineError = '';
     if (this.availableLines.length === 0) {
-      this.changeLineError = 'No available lines';
-      return;
+      this.showNoAvailableLinesModal = true;
+    } else {
+      this.showChangeLineModal = true;
     }
-    this.showChangeLineModal = true;
   }
 
   cancelChangeLine(): void {
     this.changeLineError = '';
     this.showChangeLineModal = false;
+  }
+
+  cancelNoAvailableLines(): void {
+    this.changeLineError = '';
+    this.showNoAvailableLinesModal = false;
   }
 
   removeDeviceModal(): void {

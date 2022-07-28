@@ -14,6 +14,7 @@ export class AvailableDeviceComponent implements OnInit {
   @Output() changeEvent = new EventEmitter<string>();
 
   showAddAvailableDeviceModal: boolean = false;
+  showNoAvailableLinesModal: boolean = false;
 
   changeLineSelected = -1;
   addDeviceError = '';
@@ -37,10 +38,14 @@ export class AvailableDeviceComponent implements OnInit {
   addAvailableDeviceModal() {
     this.addDeviceError = '';
     if (this.availableLines.length === 0) {
-      this.addDeviceError = 'No available lines';
-      return;
-    }
+      this.showNoAvailableLinesModal = true;
+    } else {
     this.showAddAvailableDeviceModal = true;
+    }
+  }
+
+  cancelNoAvailableLines() {
+    this.showNoAvailableLinesModal = false;
   }
 
   cancelAddAvailableDevice() {

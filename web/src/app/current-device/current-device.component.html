@@ -2,10 +2,14 @@
     <header>
         <img src="../../assets/images/apple-logo.png" *ngIf="number.activeNumber.device.make === 'Apple'">
         <img src="../../assets/images/blackberry-logo.png" *ngIf="number.activeNumber.device.make === 'BlackBerry'">
+        <img src="../../assets/images/google-logo.png" *ngIf="number.activeNumber.device.make === 'Google'">
+        <img src="../../assets/images/nokia-logo.png" *ngIf="number.activeNumber.device.make === 'Nokia'">
         <img src="../../assets/images/samsung-logo.png" *ngIf="number.activeNumber.device.make === 'Samsung'">
         <img src="../../assets/images/other-logo.png" *ngIf="number.activeNumber.device.make !== 'Apple' 
-                                                        && number.activeNumber.device.make !== 'BlackBerry' 
-                                                        && number.activeNumber.device.make !== 'Samsung'">
+                                                          && number.activeNumber.device.make !== 'BlackBerry' 
+                                                          && number.activeNumber.device.make !== 'Google' 
+                                                          && number.activeNumber.device.make !== 'Nokia' 
+                                                          && number.activeNumber.device.make !== 'Samsung'">
         <h5>{{ number.activeNumber.device.model }}</h5>
         <select #lines (change)="onSelected(lines.value)">
             <option value="">Select an active line...</option>
@@ -19,6 +23,27 @@
         <button (click)="cancelChangeLine()">Cancel</button>
     </header>
     <div (click)="cancelChangeLine()"></div>
+</aside>
+
+<aside *ngIf="showNoAvailableLinesModal">
+    <header>
+        <img src="../../assets/images/apple-logo.png" *ngIf="number.activeNumber.device.make === 'Apple'">
+        <img src="../../assets/images/blackberry-logo.png" *ngIf="number.activeNumber.device.make === 'BlackBerry'">
+        <img src="../../assets/images/google-logo.png" *ngIf="number.activeNumber.device.make === 'Google'">
+        <img src="../../assets/images/nokia-logo.png" *ngIf="number.activeNumber.device.make === 'Nokia'">
+        <img src="../../assets/images/samsung-logo.png" *ngIf="number.activeNumber.device.make === 'Samsung'">
+        <img src="../../assets/images/other-logo.png" *ngIf="number.activeNumber.device.make !== 'Apple' 
+                                                          && number.activeNumber.device.make !== 'BlackBerry' 
+                                                          && number.activeNumber.device.make !== 'Google' 
+                                                          && number.activeNumber.device.make !== 'Nokia' 
+                                                          && number.activeNumber.device.make !== 'Samsung'">
+        <h5>{{ number.activeNumber.device.model }}</h5>
+        <h6>{{ number.activeNumber.phoneNumber }}</h6>
+        <p>Add a line or free one up to change lines!</p>
+        <button [routerLink]="['/managePlans']">Manage Plans</button>
+        <button (click)="cancelNoAvailableLines()">Manage Devices</button>
+    </header>
+    <div (click)="cancelNoAvailableLines()"></div>
 </aside>
 
 <aside *ngIf="showRemoveDeviceModal">
