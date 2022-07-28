@@ -11,7 +11,6 @@ export class DeviceComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.device)
   }
 
 }
