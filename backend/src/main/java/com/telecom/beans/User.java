@@ -1,7 +1,7 @@
 package com.telecom.beans;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,11 +30,11 @@ public class User implements UserDetails {
 	@Column
 	private String password;
 	@OneToMany(mappedBy = "user")
-	private Set<ActivePlan> activePlans;
+	private List<ActivePlan> activePlans;
 	
 	public User() { }
 
-	public User(int id, String email, String firstName, String lastName, String password, Set<ActivePlan> activePlans) {
+	public User(int id, String email, String firstName, String lastName, String password, List<ActivePlan> activePlans) {
 		this.id = id;
 		this.email = email;
 		this.firstName = firstName;
@@ -83,11 +83,11 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-	public Set<ActivePlan> getActivePlans() {
+	public List<ActivePlan> getActivePlans() {
 		return activePlans;
 	}
 
-	public void setActivePlans(Set<ActivePlan> activePlans) {
+	public void setActivePlans(List<ActivePlan> activePlans) {
 		this.activePlans = activePlans;
 	}
 

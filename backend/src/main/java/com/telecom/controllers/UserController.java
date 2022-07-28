@@ -1,11 +1,12 @@
 package com.telecom.controllers;
 
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 })
 public class UserController {
 
+	private static final Logger logger = Logger.getLogger(UserController.class);
+
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	@Autowired
@@ -84,6 +87,7 @@ public class UserController {
 	@GetMapping("/email/{email}")
 	@Operation(summary = "Find User by email", description = "Return User with matching email")
 	public ResponseEntity<Optional<User>> findByEmail(@PathVariable(value="email") String email) {
+		logger.info("Find User by email");
 		return new ResponseEntity<Optional<User>>(userService.findByEmail(email), HttpStatus.OK);
 	}
 
@@ -91,6 +95,7 @@ public class UserController {
 	@Operation(summary = "Find User by id", description = "Return User with matching id", security = 
 		@SecurityRequirement(name = "JWT Authentication"))
 	public ResponseEntity<Optional<User>> findById(@PathVariable(value="id") int id) {
+		logger.info("Find User by id");
 		return new ResponseEntity<Optional<User>>(userService.findById(id), HttpStatus.OK);
 	}
 
@@ -98,28 +103,35 @@ public class UserController {
 	@Operation(summary = "Find all Users", description = "Return all Users", security = 
 		@SecurityRequirement(name = "JWT Authentication"))
 	public ResponseEntity<List<User>> findAll() {
+		logger.info("Find all Users");
 		return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
 	}
 
 	@PostMapping("/register")
 	@Operation(summary = "Add a new User", description = "Register a new User")
 	public ResponseEntity<User> register(@RequestBody RegisterRequest registerRequest) {
+		logger.info("Register a new User");
 		registerRequest.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-		User user = new User(0, registerRequest.getEmail(), registerRequest.getFirstName(), registerRequest.getLastName(), registerRequest.getPassword(), new HashSet<ActivePlan>());
+		logger.info("Register Request After Password Encoding: " + registerRequest);
+		User user = new User(0, registerRequest.getEmail(), registerRequest.getFirstName(), registerRequest.getLastName(), registerRequest.getPassword(), new LinkedList<ActivePlan>());
+		logger.info("Created User: " + user);
 		return new ResponseEntity<User>(userService.save(user), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/login")
 	@Operation(summary = "Login a User", description = "Login a User and get JWT Token")
-    public ResponseEntity<AuthResponse> login(@RequestBody @Valid AuthRequest authRequest) {
-        try {
+    public ResponseEntity<?> login(@RequestBody @Valid AuthRequest authRequest) {
+        logger.info("Login in a User");
+		try {
             Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                     authRequest.getEmail(), authRequest.getPassword())
             );
 
             User user = (User) authentication.getPrincipal();
+			logger.info("User from Principal: " + user);
             String accessToken = jwtUtil.generateAccessToken(user);
+			logger.info("Generated Token: " + accessToken);
             AuthResponse response = new AuthResponse(user, accessToken);
 
             return new ResponseEntity<AuthResponse>(response, HttpStatus.OK);
@@ -132,9 +144,13 @@ public class UserController {
 	@Operation(summary = "Add an Active Plan", description = "Add a Plan to the User's Active Plans", security = 
 		@SecurityRequirement(name = "JWT Authentication"))
 	public ResponseEntity<User> addPlan(@RequestBody AddPlanRequest addPlanRequest) {
+		logger.info("Add an Active Plan");
 		User user = userService.findById(addPlanRequest.getUserId()).get();
+		logger.info("User found from request: " + user);
 		Plan plan = planService.findById(addPlanRequest.getPlanId()).get();
-		ActivePlan activePlan = activePlanService.save(new ActivePlan(0, user, plan, new HashSet<ActiveNumber>()));
+		logger.info("Plan found from request: " + plan);
+		ActivePlan activePlan = activePlanService.save(new ActivePlan(0, user, plan, new LinkedList<ActiveNumber>()));
+		logger.info("Generated Active Plan: " + activePlan);
 		user.addActivePlan(activePlan);
 		return new ResponseEntity<User>(userService.save(user), HttpStatus.CREATED);
 	}
@@ -143,8 +159,11 @@ public class UserController {
 	@Operation(summary = "Assign a new Plan to an Active Plan", description = "Assign a new Plan to a specified Active Plan", security = 
 		@SecurityRequirement(name = "JWT Authentication"))
 	public ResponseEntity<ActivePlan> assignPlan(@RequestBody AssignPlanRequest assignPlanRequest) {
+		logger.info("Assign a new Plan to an Active Plan");
 		Plan plan = planService.findById(assignPlanRequest.getPlanId()).get();
+		logger.info("Plan found from request: " + plan);
 		ActivePlan activePlan = activePlanService.findById(assignPlanRequest.getActivePlanId()).get();
+		logger.info("Active Plan found from request: " + activePlan);
 		activePlan.setPlan(plan);
 		return new ResponseEntity<ActivePlan>(activePlanService.save(activePlan), HttpStatus.CREATED);
 	}
@@ -154,8 +173,11 @@ public class UserController {
 		@SecurityRequirement(name = "JWT Authentication"))
 	public ResponseEntity<User> addLine(@RequestBody AddLineRequest addLineRequest) {
 		User user = userService.findById(addLineRequest.getUserId()).get();
+		logger.info("User found from request: " + user);
 		ActivePlan activePlan = activePlanService.findById(addLineRequest.getActivePlanId()).get();
+		logger.info("Active Plan found from request: " + activePlan);
 		List<Device> devices = deviceService.findAll();
+		logger.info("Device getting assigned by default: " + devices.get(0));
 		activeNumberService.save(new ActiveNumber(0, addLineRequest.getPhoneNumber(), false, devices.get(0), activePlan));
 		return new ResponseEntity<User>(userService.save(user), HttpStatus.CREATED);
 	}
@@ -164,6 +186,7 @@ public class UserController {
 	@Operation(summary = "Delete an Active Number", description = "Delete a specified Active Number", security = 
 		@SecurityRequirement(name = "JWT Authentication"))
 	public ResponseEntity<Void> removeLine(@PathVariable(value = "activeNumberId") int activeNumberId) {
+		logger.info("Remove Active Number with id: " + activeNumberId);
 		activeNumberService.deleteById(activeNumberId);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
@@ -172,6 +195,7 @@ public class UserController {
 	@Operation(summary = "Delete an Active Plan", description = "Delete a specified Active Plan", security = 
 		@SecurityRequirement(name = "JWT Authentication"))
 	public ResponseEntity<Void> removePlan(@PathVariable(value = "activePlanId") int activePlanId) {
+		logger.info("Remove Active Plan with id: " + activePlanId);
 		activePlanService.deleteById(activePlanId);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
@@ -180,6 +204,7 @@ public class UserController {
 	@Operation(summary = "Delete User by id", description = "Delete User with matching id", security = 
 		@SecurityRequirement(name = "JWT Authentication"))
 	public ResponseEntity<Void> deleteById(@PathVariable(value="id") int id) {
+		logger.info("Remove User with id: " + id);
 		userService.deleteById(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}

@@ -1,6 +1,6 @@
 package com.telecom.beans;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,11 +20,11 @@ public class Device {
 	@Column
 	private String model;
 	@OneToMany(mappedBy = "device")
-	private Set<ActiveDeviceDescriptor> activeDeviceDescriptors;
+	private List<ActiveDeviceDescriptor> activeDeviceDescriptors;
 	
 	public Device() { }
 
-	public Device(int id, String make, String model, Set<ActiveDeviceDescriptor> activeDeviceDescriptors) {
+	public Device(int id, String make, String model, List<ActiveDeviceDescriptor> activeDeviceDescriptors) {
 		this.id = id;
 		this.make = make;
 		this.model = model;
@@ -55,11 +55,11 @@ public class Device {
 		this.model = model;
 	}
 
-	public Set<ActiveDeviceDescriptor> getActiveDeviceDescriptors() {
+	public List<ActiveDeviceDescriptor> getActiveDeviceDescriptors() {
 		return activeDeviceDescriptors;
 	}
 
-	public void setActiveDeviceDescriptors(Set<ActiveDeviceDescriptor> activeDeviceDescriptors) {
+	public void setActiveDeviceDescriptors(List<ActiveDeviceDescriptor> activeDeviceDescriptors) {
 		this.activeDeviceDescriptors = activeDeviceDescriptors;
 	}
 
