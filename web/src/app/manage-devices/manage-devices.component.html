@@ -1,11 +1,15 @@
 <aside *ngIf="showAddNewDeviceModal">
     <header>
-        <img src="../../assets/images/apple-logo.png" *ngIf="make === 'Apple'">
-        <img src="../../assets/images/blackberry-logo.png" *ngIf="make === 'BlackBerry'">
-        <img src="../../assets/images/samsung-logo.png" *ngIf="make === 'Samsung'">
-        <img src="../../assets/images/other-logo.png" *ngIf="make !== 'Apple' 
-                                                        && make !== 'BlackBerry' 
-                                                        && make !== 'Samsung'">
+        <img src="../../assets/images/apple-logo.png" *ngIf="make.toLowerCase() === 'apple'">
+        <img src="../../assets/images/blackberry-logo.png" *ngIf="make.toLowerCase() === 'blackberry'">
+        <img src="../../assets/images/google-logo.png" *ngIf="make.toLowerCase() === 'google'">
+        <img src="../../assets/images/nokia-logo.png" *ngIf="make.toLowerCase() === 'nokia'">
+        <img src="../../assets/images/samsung-logo.png" *ngIf="make.toLowerCase() === 'samsung'">
+        <img src="../../assets/images/other-logo.png" *ngIf="make.toLowerCase() !== 'apple' 
+                                                          && make.toLowerCase() !== 'blackberry' 
+                                                          && make.toLowerCase() !== 'google' 
+                                                          && make.toLowerCase() !== 'nokia' 
+                                                          && make.toLowerCase() !== 'samsung'">
         <h5>{{ model }}</h5>
         <h6>{{ make }}</h6>
         <select #lines (change)="onAvailableLineSelected(lines.value)">
@@ -22,6 +26,27 @@
         <button (click)="cancelAddNewDevice()">Cancel</button>
     </header>
     <div (click)="cancelAddNewDevice()"></div>
+</aside>
+
+<aside *ngIf="showNoAvailableLinesModal">
+    <header>
+        <img src="../../assets/images/apple-logo.png" *ngIf="make.toLowerCase() === 'apple'">
+        <img src="../../assets/images/blackberry-logo.png" *ngIf="make.toLowerCase() === 'blackberry'">
+        <img src="../../assets/images/google-logo.png" *ngIf="make.toLowerCase() === 'google'">
+        <img src="../../assets/images/nokia-logo.png" *ngIf="make.toLowerCase() === 'nokia'">
+        <img src="../../assets/images/samsung-logo.png" *ngIf="make.toLowerCase() === 'samsung'">
+        <img src="../../assets/images/other-logo.png" *ngIf="make.toLowerCase() !== 'apple' 
+                                                          && make.toLowerCase() !== 'blackberry' 
+                                                          && make.toLowerCase() !== 'google' 
+                                                          && make.toLowerCase() !== 'nokia' 
+                                                          && make.toLowerCase() !== 'samsung'">
+        <h5>{{ model }}</h5>
+        <h6>{{ make }}</h6>
+        <p>Add a line or free one up to add this device!</p>
+        <button [routerLink]="['/managePlans']">Manage Plans</button>
+        <button (click)="cancelNoAvailableLines()">Manage Devices</button>
+    </header>
+    <div (click)="cancelNoAvailableLines()"></div>
 </aside>
 
 <main>

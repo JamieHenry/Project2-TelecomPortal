@@ -24,6 +24,7 @@ export class ManageDevicesComponent implements OnInit {
 
   isStale: boolean = false;
   showAddNewDeviceModal: boolean = false;
+  showNoAvailableLinesModal: boolean = false;
   addLineError = '';
   addDeviceError = '';
   
@@ -137,11 +138,10 @@ export class ManageDevicesComponent implements OnInit {
       return;
     }
     if (this.availableLines.length === 0) {
-      this.addDeviceError = 'No available lines';
-      this.addDeviceForm.reset();
-      return;
+      this.showNoAvailableLinesModal = true;
+    } else {
+      this.showAddNewDeviceModal = true;
     }
-    this.showAddNewDeviceModal = true;
   }
 
   async addNewDevice() {
@@ -163,6 +163,10 @@ export class ManageDevicesComponent implements OnInit {
 
   clearAddDeviceError() {
     this.addDeviceError = '';
+  }
+
+  cancelNoAvailableLines() {
+    this.showNoAvailableLinesModal = false;
   }
 
   get make() {

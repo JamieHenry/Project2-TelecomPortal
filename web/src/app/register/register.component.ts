@@ -17,7 +17,7 @@ export function emailValidator(): ValidatorFn {
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css', '../../assets/stylesheets/modal.css']
 })
 export class RegisterComponent implements OnInit {
 
@@ -29,6 +29,8 @@ export class RegisterComponent implements OnInit {
     confirmPassword: ['']
   }, { validators: this.checkPasswords });
   error: String = '';
+
+  showRegisterModal: boolean = false;
 
   constructor(private fb: UntypedFormBuilder, private userService: UserService, private router: Router) { }
 
@@ -52,8 +54,10 @@ export class RegisterComponent implements OnInit {
       'lastName': this.lastName
     }));
 
-    let route = this.router.config.find(r => r.path === 'login');
-    if (route) this.router.navigateByUrl('/login');
+    this.registerModal();
+
+    // let route = this.router.config.find(r => r.path === 'login');
+    // if (route) this.router.navigateByUrl('/login');
   }
 
   get firstName() {
@@ -79,5 +83,13 @@ export class RegisterComponent implements OnInit {
     if (!pass || !confirmPass) return null;
 
     return pass === confirmPass ? null : { notSame: true };
+  }
+
+  registerModal() {
+    this.showRegisterModal = true;
+  }
+
+  cancelRegisterModal() {
+    this.showRegisterModal = false;
   }
 }

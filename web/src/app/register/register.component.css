@@ -1,3 +1,7 @@
+aside:first-child {
+    float: left;
+}
+
 h1 {
     text-align: center;
     margin-bottom: 14px;
@@ -29,7 +33,7 @@ input {
     color: darkslategray;
 }
 
-aside {
+form > aside {
     height: 20px;
     margin: 2px 6px 0px 0px;
     font-size: 12px;
