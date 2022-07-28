@@ -57,7 +57,7 @@ public class DeviceController {
     }
 
     @GetMapping("/phonenumber/{phoneNumber}")
-    @Operation(summary = "Find Device by make and model", description = "Return Device with matching phoneNumber")
+    @Operation(summary = "Find Active Number by phoneNumber", description = "Return Device with matching phoneNumber")
     public ResponseEntity<Optional<ActiveNumber>> findByPhoneNumber(@PathVariable(value="phoneNumber") String phoneNumber) {
         logger.info("Find Active Number by phoneNumber: " + phoneNumber);
         return new ResponseEntity<Optional<ActiveNumber>>(activeNumberService.findByPhoneNumber(phoneNumber), HttpStatus.OK);

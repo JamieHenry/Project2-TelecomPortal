@@ -89,6 +89,7 @@ export class ManageDevicesComponent implements OnInit {
     }
 
     this.filteredDevices = this.allDevices;
+    this.isStale = false;
   }
 
   searchDevices() {
@@ -106,10 +107,6 @@ export class ManageDevicesComponent implements OnInit {
     this.availableLines = [];
     this.ngOnInit();
     this.isStale = true;
-  }
-
-  ngAfterViewInit() {
-    this.isStale = false;
   }
 
   navigate(url: string): void {
