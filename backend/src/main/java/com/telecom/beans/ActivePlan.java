@@ -1,6 +1,6 @@
 package com.telecom.beans;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,11 +26,11 @@ public class ActivePlan {
 	@JoinColumn(name = "plan_id")
 	private Plan plan;
 	@OneToMany(mappedBy = "activePlan")
-	private Set<ActiveNumber> activeNumbers;
+	private List<ActiveNumber> activeNumbers;
 	
 	public ActivePlan() { }
 
-	public ActivePlan(int id, User user, Plan plan, Set<ActiveNumber> activeNumbers) {
+	public ActivePlan(int id, User user, Plan plan, List<ActiveNumber> activeNumbers) {
 		this.id = id;
 		this.user = user;
 		this.plan = plan;
@@ -61,11 +61,11 @@ public class ActivePlan {
 		this.plan = plan;
 	}
 
-	public Set<ActiveNumber> getActiveNumbers() {
+	public List<ActiveNumber> getActiveNumbers() {
 		return activeNumbers;
 	}
 
-	public void setActiveNumbers(Set<ActiveNumber> activeNumbers) {
+	public void setActiveNumbers(List<ActiveNumber> activeNumbers) {
 		this.activeNumbers = activeNumbers;
 	}
 

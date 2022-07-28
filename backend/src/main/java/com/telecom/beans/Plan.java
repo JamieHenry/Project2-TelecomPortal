@@ -1,6 +1,6 @@
 package com.telecom.beans;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,16 +25,16 @@ public class Plan {
 	private double price;
 	@OneToMany(mappedBy = "plan")
 	@JsonIgnore
-	private Set<ActivePlan> activePlans;
+	private List<ActivePlan> activePlans;
 	@OneToMany(mappedBy = "plan")
-	private Set<ActiveDescriptor> activeDescriptors;
+	private List<ActiveDescriptor> activeDescriptors;
 	@OneToMany(mappedBy = "plan")
-	private Set<ActiveFee> activeFees;
+	private List<ActiveFee> activeFees;
 	
 	public Plan() { }
 
-	public Plan(int id, String name, int numDevices, double price, Set<ActivePlan> activePlans,
-			Set<ActiveDescriptor> activeDescriptors, Set<ActiveFee> activeFees) {
+	public Plan(int id, String name, int numDevices, double price, List<ActivePlan> activePlans,
+			List<ActiveDescriptor> activeDescriptors, List<ActiveFee> activeFees) {
 		this.id = id;
 		this.name = name;
 		this.numDevices = numDevices;
@@ -76,27 +76,27 @@ public class Plan {
 		this.price = price;
 	}
 
-	public Set<ActivePlan> getActivePlans() {
+	public List<ActivePlan> getActivePlans() {
 		return activePlans;
 	}
 
-	public void setActivePlans(Set<ActivePlan> activePlans) {
+	public void setActivePlans(List<ActivePlan> activePlans) {
 		this.activePlans = activePlans;
 	}
 
-	public Set<ActiveDescriptor> getActiveDescriptors() {
+	public List<ActiveDescriptor> getActiveDescriptors() {
 		return activeDescriptors;
 	}
 
-	public void setActiveDescriptors(Set<ActiveDescriptor> activeDescriptors) {
+	public void setActiveDescriptors(List<ActiveDescriptor> activeDescriptors) {
 		this.activeDescriptors = activeDescriptors;
 	}
 
-	public Set<ActiveFee> getActiveFees() {
+	public List<ActiveFee> getActiveFees() {
 		return activeFees;
 	}
 
-	public void setActiveFees(Set<ActiveFee> activeFees) {
+	public void setActiveFees(List<ActiveFee> activeFees) {
 		this.activeFees = activeFees;
 	}
 
