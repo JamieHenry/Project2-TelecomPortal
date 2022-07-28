@@ -88,4 +88,9 @@ public class ActiveDescriptor {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ActiveDescriptor [descriptor=" + descriptor + ", id=" + id + "]";
+	}
 }

@@ -175,4 +175,10 @@ public class User implements UserDetails {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "User [activePlans=" + activePlans + ", email=" + email + ", firstName=" + firstName + ", id=" + id
+				+ ", lastName=" + lastName + ", password=" + password + "]";
+	}
 }

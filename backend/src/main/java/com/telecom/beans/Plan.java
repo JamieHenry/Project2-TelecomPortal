@@ -135,4 +135,10 @@ public class Plan {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Plan [activeDescriptors=" + activeDescriptors + ", activeFees=" + activeFees + ", id=" + id + ", name="
+				+ name + ", numDevices=" + numDevices + ", price=" + price + "]";
+	}
 }

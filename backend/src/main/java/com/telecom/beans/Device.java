@@ -96,4 +96,10 @@ public class Device {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Device [activeDeviceDescriptors=" + activeDeviceDescriptors + ", id=" + id + ", make=" + make
+				+ ", model=" + model + "]";
+	}
 }
