@@ -26,6 +26,27 @@
     <div (click)="cancelAddAvailableDevice()"></div>
 </aside>
 
+<aside *ngIf="showNoAvailableLinesModal">
+    <header>
+        <img src="../../assets/images/apple-logo.png" *ngIf="device.device.make === 'Apple'">
+        <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">
+        <img src="../../assets/images/google-logo.png" *ngIf="device.device.make === 'Google'">
+        <img src="../../assets/images/nokia-logo.png" *ngIf="device.device.make === 'Nokia'">
+        <img src="../../assets/images/samsung-logo.png" *ngIf="device.device.make === 'Samsung'">
+        <img src="../../assets/images/other-logo.png" *ngIf="device.device.make !== 'Apple' 
+                                                          && device.device.make !== 'BlackBerry' 
+                                                          && device.device.make !== 'Google' 
+                                                          && device.device.make !== 'Nokia' 
+                                                          && device.device.make !== 'Samsung'">
+        <h5>{{ device.device.model }}</h5>
+        <h6>{{ device.device.make }}</h6>
+        <p>Add a line or free one up to add this device!</p>
+        <button [routerLink]="['/managePlans']">Manage Plans</button>
+        <button (click)="cancelNoAvailableLines()">Manage Devices</button>
+    </header>
+    <div (click)="cancelNoAvailableLines()"></div>
+</aside>
+
 <section>
     <img src="../../assets/images/apple-logo.png" *ngIf="device.device.make === 'Apple'">
     <img src="../../assets/images/blackberry-logo.png" *ngIf="device.device.make === 'BlackBerry'">

@@ -53,6 +53,7 @@
         </h2>
 
         <div>
+            <p *ngIf="filteredDevices.length === 0">No available devices match that search criteria.</p>
             <ng-container *ngFor="let device of filteredDevices">
                 <app-available-device
                     [device]="device"
