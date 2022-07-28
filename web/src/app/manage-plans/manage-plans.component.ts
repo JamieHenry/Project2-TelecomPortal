@@ -41,6 +41,7 @@ export class ManagePlansComponent implements OnInit {
     this.currentPlans = this.currentUser!.activePlans;
 
     this.allPlans = (await lastValueFrom(this.planService.findAll())).body!;
+    this.isStale = false;
   }
 
   resetValues() {
@@ -48,10 +49,6 @@ export class ManagePlansComponent implements OnInit {
     this.allPlans = [];
     this.ngOnInit();
     this.isStale = true;
-  }
-
-  ngAfterViewInit() {
-    this.isStale = false;
   }
 
   navigate(url: string): void {

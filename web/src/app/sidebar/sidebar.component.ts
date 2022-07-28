@@ -65,6 +65,7 @@ export class SidebarComponent implements OnInit, OnChanges {
     if (changes['isStale'].currentValue === true) {
       this.plans = [];
       this.fees = [];
+      this.totalFees = 0;
       this.total = 0;
       this.ngOnInit();
     }
