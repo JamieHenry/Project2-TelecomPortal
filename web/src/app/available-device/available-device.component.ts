@@ -25,6 +25,7 @@ export class AvailableDeviceComponent implements OnInit {
 
   onSelected(value: string) {
     if (value === "") {
+      this.changeLineSelected = -1;
       this.addDeviceError = 'Required';
       return;
     } else {
