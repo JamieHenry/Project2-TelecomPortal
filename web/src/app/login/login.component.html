@@ -4,7 +4,7 @@
     <form id="login" [formGroup]="loginForm" (ngSubmit)="login()">
         
         <label for="email">E-Mail</label>
-        <input name="email" type="email" formControlName="email" maxlength="30" />
+        <input name="email" type="email" formControlName="email" maxlength="30" (focus)="error = ''" />
         <aside>
             <span *ngIf="loginForm.controls['email'] != null 
                          && !loginForm.controls['email'].valid 
@@ -15,7 +15,7 @@
         </aside>
 
         <label for="password">Password</label>
-        <input name="password" type="password" formControlName="password" maxlength="30" />
+        <input name="password" type="password" formControlName="password" maxlength="30" (focus)="error = ''" />
         <aside>
             <span *ngIf="loginForm.controls['password'] != null 
                          && !loginForm.controls['password'].valid 

@@ -16,7 +16,7 @@
     <form id="register" [formGroup]="newUserForm" (ngSubmit)="register()">
         
         <label for="firstName">First Name</label>
-        <input name="firstName" type="text" formControlName="firstName" maxlength="30" />
+        <input name="firstName" type="text" formControlName="firstName" maxlength="30" (focus)="error = ''" />
         <aside>
             <span *ngIf="newUserForm.controls['firstName'] != null 
                          && !newUserForm.controls['firstName'].valid 
@@ -27,7 +27,7 @@
         </aside>
 
         <label for="lastName">Last Name</label>
-        <input name="lastName" type="text" formControlName="lastName" maxlength="30" />
+        <input name="lastName" type="text" formControlName="lastName" maxlength="30" (focus)="error = ''" />
         <aside>
             <span *ngIf="newUserForm.controls['lastName'] != null 
                          && !newUserForm.controls['lastName'].valid 
@@ -38,19 +38,19 @@
         </aside>
 
         <label for="email">E-Mail</label>
-        <input name="email" type="email" formControlName="email" maxlength="30" />
+        <input name="email" type="email" formControlName="email" maxlength="30" (focus)="error = ''" />
         <aside>
             <div *ngIf="newUserForm.controls['email'] != null 
                         && !newUserForm.controls['email'].valid 
                         && (newUserForm.controls['email'].dirty 
                         || newUserForm.controls['email'].touched)">
                 <span [hidden]="!newUserForm.controls['email'].errors?.['required']">Required</span>
-                <span [hidden]="!newUserForm.controls['email'].errors?.['invalidEmail']">Invalid E-Mail</span>
+                <span [hidden]="!newUserForm.controls['email'].errors?.['invalidEmail']">Invalid e-mail</span>
             </div>
         </aside>
 
         <label for="password">Password</label>
-        <input name="password" type="password" formControlName="password" maxlength="30" />
+        <input name="password" type="password" formControlName="password" maxlength="30" (focus)="error = ''" />
         <aside>
             <div *ngIf="newUserForm.controls['password'] != null 
                         && !newUserForm.controls['password'].valid 
@@ -62,7 +62,7 @@
         </aside>
 
         <label for="confirmPassword">Confirm Password</label>
-        <input name="confirmPassword" type="password" formControlName="confirmPassword" maxlength="30" />
+        <input name="confirmPassword" type="password" formControlName="confirmPassword" maxlength="30" (focus)="error = ''" />
         <aside>
             <span [hidden]="!newUserForm.errors?.['notSame']">Passwords must match</span>
         </aside>

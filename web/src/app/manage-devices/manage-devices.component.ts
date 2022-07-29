@@ -170,10 +170,10 @@ export class ManageDevicesComponent implements OnInit {
   }
 
   get make() {
-    return this.addDeviceForm.value['make']!;
+    return this.addDeviceForm.value['make'].trim()!;
   }
 
   get model() {
-    return this.addDeviceForm.value['model']!;
+    return this.addDeviceForm.value['model'].trim()!;
   }
 }

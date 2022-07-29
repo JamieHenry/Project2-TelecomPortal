@@ -41,6 +41,12 @@ form > aside {
     text-align: right;
 }
 
+form > aside:last-of-type {
+    text-align: center;
+    margin: 2px 0px 0px 0px;
+    font-weight: bold;
+}
+
 input:last-of-type {
     width: 260px;
     margin-top: 20px;
