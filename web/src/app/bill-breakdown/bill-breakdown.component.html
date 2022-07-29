@@ -6,55 +6,59 @@
                 <th>ITEM</th>
                 <th>COST</th>
             </tr>
-            <tr>
-                <td>Plan Name
-                    <ul>
-                        <li><span>Line 1 — </span><span>(867)-5309</span></li>
-                            <ul>
-                                <li>911 Service Fee (per active line)</li>
-                            </ul>
-                        <li><span>Line 2 — </span><span>(867)-5309</span></li>
-                            <ul>
-                                <li>911 Service Fee (per active line)</li>
-                            </ul>
-                        <li><span>Line 3 — </span><span>(867)-5309</span></li>
-                            <ul>
-                                <li>911 Service Fee (per active line)</li>
-                            </ul>
-                        <li>Administrative Fee</li>
-                        <li>Federal Universal Service Charge (1.32%)</li>
-                        <li>Regulatory Cost Recovery Charge</li>
-                    </ul>
-                    <span>SUBTOTAL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -></span>
-                </td>
-                <td>Plan Price
-                    <ul>
-                        <li>&nbsp;</li>
-                            <ul>
-                                <li>$1.50</li>
-                            </ul>
-                        <li>&nbsp;</li>
-                            <ul>
-                                <li>$1.50</li>
-                            </ul>
-                        <li>&nbsp;</li>
-                            <ul>
-                                <li>$1.50</li>
-                            </ul>
-                        <li>$1.99</li>
-                        <li>$1.32</li>
-                        <li>$1.50</li>
-                    </ul>
-                    <span>$109.30</span>
-                </td>
-            </tr>
-            <tr>
-                <td>NJ State Wireless Tax (8.84%)</td>
-                <td>${{ (100 * .0884).toFixed(2) }}</td>
-            </tr>
+            <ng-container *ngFor="let plan of plans">
+                <tr>
+                    <td>{{ plan.name }}
+                        <ul>
+                            <ng-container *ngFor="let activeLine of plan.activeLines, let i = index">
+                                <li><span>Line {{ i + 1 }} — </span><span>{{ activeLine }}</span></li>
+                                <ng-container *ngFor="let lineFee of lineFees">
+                                    <ul>
+                                        <li>{{ lineFee.description }} (per active line)</li>
+                                    </ul>
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngFor="let planFee of plan.planFees">
+                                <li>{{ planFee.description }}</li>
+                            </ng-container>
+                        </ul>
+                        <span>SUBTOTAL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -></span>
+                    </td>
+                    <td>${{ plan.price }}
+                        <ul>
+                            <ng-container *ngFor="let activeLine of plan.activeLines, let i = index">
+                                <ng-container *ngFor="let lineFee of lineFees">
+                                    <li>&nbsp;</li>
+                                    <ul>
+                                        <li>${{ lineFee.amount.toFixed(2) }}</li>
+                                    </ul>
+                                </ng-container>
+                            </ng-container>
+                            <ng-container>
+                                <ng-container *ngFor="let planFee of plan.planFees">
+                                    <li>${{ planFee.amount.toFixed(2) }}</li>
+                                </ng-container>
+                            </ng-container>
+                        </ul>
+                        <span>${{ plan.subtotal.toFixed(2) }}</span>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-container *ngFor="let globalFee of globalFees">
+                <tr>
+                    <ng-container *ngIf="globalFee.percentage">
+                        <td>{{ globalFee.description }} ({{ globalFee.amount }}%)</td>
+                        <td>${{ (totalAmount * (globalFee.amount / 100)).toFixed(2) }}</td>
+                    </ng-container>
+                    <ng-container *ngIf="!globalFee.percentage">
+                        <td>{{ globalFee.description }}</td>
+                        <td>${{ globalFee.amount.toFixed(2) }}</td>
+                    </ng-container>
+                </tr>
+            </ng-container>
             <tr>
                 <td>TOTAL DUE:</td>
-                <td>${{ (100 * 1.0884).toFixed(2) }}</td>
+                <td>${{ totalAmountWithGlobalFees.toFixed(2) }}</td>
             </tr>
         </table>
     </article>

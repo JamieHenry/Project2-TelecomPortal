@@ -2,7 +2,7 @@ export class Fee {
 
     id: number;
     description: string;
-    isPercentage: boolean;
+    percentage: boolean;
     amount: number;
 
     constructor(id: number,
@@ -12,7 +12,7 @@ export class Fee {
                     
         this.id = id;
         this.description = description;
-        this.isPercentage = isPercentage;
+        this.percentage = isPercentage;
         this.amount = amount;
     }
 }
