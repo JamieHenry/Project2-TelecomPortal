@@ -65,6 +65,7 @@
             <form id="selectAvailableMake">
                 <select name="availableMake" #makes (change)="onDeviceFilterSelected(makes.value)">
                     <option value="">Select Make...</option>
+                    <option value="">-- All Makes --</option>
                     <ng-container *ngFor="let make of currMakes">
                         <option value="{{ make }}">{{ make }}</option>
                     </ng-container>
@@ -78,13 +79,13 @@
         </h2>
 
         <div>
-            <p *ngIf="filteredDevices.length === 0">No available devices match that search criteria.</p>
             <ng-container *ngFor="let device of filteredDevices">
                 <app-available-device
                     [device]="device"
                     [availableLines]="availableLines"
                     (changeEvent)="resetValues()"></app-available-device>
             </ng-container>
+            <p *ngIf="filteredDevices.length === 0 && hasSearched === true;">No available devices match that search criteria.</p>
         </div>
         
         <h2>Add Device</h2>

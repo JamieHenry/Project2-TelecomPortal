@@ -27,6 +27,7 @@ export class ManageDevicesComponent implements OnInit {
   showNoAvailableLinesModal: boolean = false;
   addLineError = '';
   addDeviceError = '';
+  hasSearched: boolean = false;
   
   currentUser!: User | null;
   currentNumbers: {
@@ -94,6 +95,7 @@ export class ManageDevicesComponent implements OnInit {
   }
 
   searchDevices() {
+    this.hasSearched = true;
     this.filteredDevices = this.allDevices;
     if (this.searchCriteria === '') return;
     this.filteredDevices = this.allDevices.filter(device => {
