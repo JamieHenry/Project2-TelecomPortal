@@ -143,16 +143,13 @@ public class UserController {
 	@PostMapping("/addplan")
 	@Operation(summary = "Add an Active Plan", description = "Add a Plan to the User's Active Plans", security = 
 		@SecurityRequirement(name = "JWT Authentication"))
-	public ResponseEntity<User> addPlan(@RequestBody AddPlanRequest addPlanRequest) {
+	public ResponseEntity<ActivePlan> addPlan(@RequestBody AddPlanRequest addPlanRequest) {
 		logger.info("Add an Active Plan");
 		User user = userService.findById(addPlanRequest.getUserId()).get();
 		logger.info("User found from request: " + user);
 		Plan plan = planService.findById(addPlanRequest.getPlanId()).get();
 		logger.info("Plan found from request: " + plan);
-		ActivePlan activePlan = activePlanService.save(new ActivePlan(0, user, plan, new LinkedList<ActiveNumber>()));
-		logger.info("Generated Active Plan: " + activePlan);
-		user.addActivePlan(activePlan);
-		return new ResponseEntity<User>(userService.save(user), HttpStatus.CREATED);
+		return new ResponseEntity<ActivePlan>(activePlanService.save(new ActivePlan(0, user, plan, new LinkedList<ActiveNumber>())), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/assignplan")
