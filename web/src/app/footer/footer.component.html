@@ -4,6 +4,7 @@
     <a [routerLink]="['/dashboard']">Dashboard</a>•
     <a [routerLink]="['/managePlans']">Manage Plans</a>•
     <a [routerLink]="['/manageDevices']">Manage Devices</a>•
+    <a [routerLink]="['/billBreakdown']">Bill Details</a>•
     <a *ngIf="currentUser === null" (click)="logout()" [routerLink]="['/login']">Sign In</a>
     <a *ngIf="currentUser !== null" (click)="logout()" [routerLink]="['/']">Sign Out</a>
     <h6>©2022 JamVan Wireless. All rights reserved.</h6>

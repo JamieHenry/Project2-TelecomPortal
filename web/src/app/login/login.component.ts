@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     try {
       userResponse = await lastValueFrom(this.userService.login(this.email.toLowerCase(), this.password));
     } catch (error) {
-      this.error = 'Invalid email/password';
+      this.error = 'Invalid e-mail and/or password';
       return;
     }
 

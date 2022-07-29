@@ -3,7 +3,7 @@
         <img src="../../assets/images/line.png" />
         <h5>{{ this.modalLine.phoneNumber }}</h5>
         <p>Are you sure you want to delete this line?<br>
-            <span>Linked device will be removed!</span>
+            <span>Any assigned device will be removed!</span>
         </p>
         <button (click)="deleteLine(this.modalLine.id)">Delete Line</button>
         <button (click)="cancelDeleteLine()">Cancel</button>
@@ -28,7 +28,7 @@
             {{ changePlanError }}
         </div>
         <p>Are you sure you want to change this plan?<br>
-            <span>Lines above limit will be deleted!</span>
+            <span>Lines over new plan's limit will be deleted!</span>
         </p>
         <button (click)="changePlan()">Change Plan</button>
         <button (click)="cancelChangePlan()">Cancel</button>
@@ -44,7 +44,7 @@
         <h5>{{ plan.plan.name }}</h5>
         <h6>${{ plan.plan.price }}/month</h6>
         <p>Are you sure you want to cancel this plan?<br>
-            <span>Lines and devices will be removed!</span></p>
+            <span>All lines and their devices will be deleted!</span></p>
         <button (click)="cancelPlan()">Yes</button>
         <button (click)="cancelCancelPlan()">No</button>
     </header>

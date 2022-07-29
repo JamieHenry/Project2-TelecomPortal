@@ -70,7 +70,7 @@
                     </ng-container>
                 </select>
             </form>
-            <form id="searchAvailableMake" (ngSubmit)="searchDevices(); searchForm.reset();" #searchForm>
+            <form id="searchAvailableMake" (ngSubmit)="makes.value = ''; searchDevices(); searchForm.reset()" #searchForm>
                 <input [(ngModel)]="searchCriteria" type="text" placeholder="Search Available Devices..." name="Search" #Search="ngModel">
                 <input type="submit" value="">
             </form>

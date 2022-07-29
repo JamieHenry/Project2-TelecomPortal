@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
     let userResponse = await lastValueFrom(this.userService.findByEmail(this.email.toLowerCase()))
     
     if (userResponse.body !== null) {
-      this.error = 'Email already in use'
+      this.error = 'E-mail already in use'
       return;
     }
 
