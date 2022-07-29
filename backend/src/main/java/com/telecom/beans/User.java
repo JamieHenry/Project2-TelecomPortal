@@ -91,10 +91,6 @@ public class User implements UserDetails {
 		this.activePlans = activePlans;
 	}
 
-	public void addActivePlan(ActivePlan activePlan) {
-		this.activePlans.add(activePlan);
-	}
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;

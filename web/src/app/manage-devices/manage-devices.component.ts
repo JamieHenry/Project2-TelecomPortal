@@ -8,6 +8,8 @@ import { AuthenticationService } from '../services/authentication.service';
 import { DeviceService } from '../services/device.service';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
+import { DescriptorService } from '../services/descriptor.service';
+import { Descriptor } from '../models/descriptor.model';
 
 @Component({
   selector: 'app-manage-devices',
@@ -47,7 +49,8 @@ export class ManageDevicesComponent implements OnInit {
   selectedAvailableLine: ActiveNumber | null = null;
   searchCriteria: string = '';
   
-  constructor(private fb: UntypedFormBuilder, 
+  constructor(private descriptorService: DescriptorService,
+              private fb: UntypedFormBuilder, 
               private deviceService: DeviceService,
               private authService: AuthenticationService,
               private userService: UserService,
@@ -153,9 +156,24 @@ export class ManageDevicesComponent implements OnInit {
       return;
     }
     const deviceResponse = await lastValueFrom(this.deviceService.save(new Device(0, this.make, this.model, [])));
+    const deviceDescriptorResponse = await lastValueFrom(this.descriptorService.findAll());
+    let newDeviceDescriptors: any[] = [];
+    do {
+      let randomDeviceDescriptor = deviceDescriptorResponse.body![this.getRandomInt(10, 29)];
+      if(!newDeviceDescriptors.includes(randomDeviceDescriptor)) {
+        newDeviceDescriptors.push(randomDeviceDescriptor);
+      }
+    } while (newDeviceDescriptors.length < 3);
+    for (let deviceDescriptor of newDeviceDescriptors) {
+      await lastValueFrom(this.descriptorService.saveDeviceDescriptor(deviceResponse.body!.id, deviceDescriptor.id));
+    }
     await lastValueFrom(this.deviceService.assignLine(deviceResponse.body!.id, this.selectedAvailableLine.phoneNumber));
     this.cancelAddNewDevice();
     this.resetValues();
+  }
+
+  getRandomInt(min: number, max: number) {
+    return Math.floor((Math.random() * (max - min)) + min);
   }
 
   cancelAddNewDevice(): void {
