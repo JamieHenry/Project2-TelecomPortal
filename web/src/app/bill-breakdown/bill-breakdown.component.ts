@@ -40,8 +40,9 @@ export class BillBreakdownComponent implements OnInit {
     this.authService.currentUser.subscribe(currUser => {
       this.currentUser = currUser;
     });
-
+    
     if (!this.authService.isUserLoggedIn()) {
+      this.navigate('/');
       return;
     }
 
