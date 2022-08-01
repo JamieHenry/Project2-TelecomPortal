@@ -23,11 +23,5 @@ You will be making a website so that users will be able to create and manage the
     - Spring Data JPA
     - MySQL
     - Azure DevOps
-<<<<<<< HEAD
-    
     
 What you use for authentication/ how you set it up is up to you, but you will lose points if your code presents a major security risk.
-=======
-
-What you use for authentication/ how you set it up is up to you, but you will lose points if your code presents a major security risk.
->>>>>>> 551fbcfc54103c416b01e53517bb3f604dd8cdfd
